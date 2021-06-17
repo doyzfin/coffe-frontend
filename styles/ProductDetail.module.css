@@ -4,12 +4,6 @@
   padding: 50px 100px;
 }
 
-.row,
-.colLeft,
-.colRight {
-  border: black solid 1px;
-}
-
 .container h2 {
   font-size: 20px;
   line-height: 24px;
