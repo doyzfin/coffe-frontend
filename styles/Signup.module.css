@@ -1,0 +1,8 @@
+.leftSide {
+  background-color: blue;
+}
+
+.removeRowMargin {
+  padding-left: 0px;
+  padding-right: 0px;
+}
