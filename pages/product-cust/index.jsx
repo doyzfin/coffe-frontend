@@ -103,7 +103,19 @@ export default function ProductCust() {
             </p>
             {dataCoupons.map((item, index) => {
               return (
-                <Card className={styles.cardCoupons} key={index}>
+                <Card
+                  className={
+                    item.name === "HAPPY MOTHERS DAYS"
+                      ? styles.cardCoupons
+                      : item.name ===
+                        "Get a cup of coffee for free on sunday morning"
+                      ? styles.cardCoupons2
+                      : item.name === "HAPPY HALLOWEEN!"
+                      ? styles.cardCoupons3
+                      : styles.cardCoupons
+                  }
+                  key={index}
+                >
                   <Row>
                     <Col xs={4}>
                       <Card.Img

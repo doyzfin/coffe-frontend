@@ -30,6 +30,18 @@
   border-radius: 20px;
   margin-bottom: 19px;
 }
+.cardCoupons2 {
+  padding: 18px 40px 18px 18px;
+  background: #f5c361;
+  border-radius: 20px;
+  margin-bottom: 19px;
+}
+.cardCoupons3 {
+  padding: 18px 40px 18px 18px;
+  background: #c59378;
+  border-radius: 20px;
+  margin-bottom: 19px;
+}
 .cardImgCoupons {
   width: 85px;
   height: 94px;
