@@ -16,11 +16,8 @@ export default function ProductDetail() {
     if (count === 0) {
       alert("Choose a size");
     } else {
-      if (cart === false) {
-        setCart(true);
-      } else {
-        setCart(false);
-      }
+      alert("Berhasil masuk ke cart");
+      window.location.reload();
     }
   };
 
@@ -65,6 +62,7 @@ export default function ProductDetail() {
 
   const handleSize = (stringSize) => {
     setCount(1);
+    setCart(true);
     if (stringSize == "R") {
       setSize("regular");
       setPrice(priceR);
