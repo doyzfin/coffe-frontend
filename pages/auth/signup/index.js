@@ -1,10 +1,11 @@
 import styles from "../../../styles/Signup.module.css";
+import Footer from "../../../components/module/footer";
 
 export default function signup() {
   return (
     <>
       <div className="container-fluid">
-        <div className="row position-relative">
+        <div className="row position-relative pb-5">
           <div className={`col-lg-6 col-md-6 col-sm-6 d-none d-sm-block g-0`}>
             <img src="/signup/signup_left_page.png" className="img-fluid"></img>
           </div>
@@ -76,6 +77,9 @@ export default function signup() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="mt-5">
+          <Footer />
         </div>
       </div>
     </>
