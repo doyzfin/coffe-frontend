@@ -1,0 +1,17 @@
+.cnt {
+  background-image: url("../public/bg_coffe.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.box {
+  background-color: white;
+  border-radius: 9px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 50px;
+  color: white;
+}
