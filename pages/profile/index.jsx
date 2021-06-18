@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import {Container, Row, Col, Form, Button} from "react-bootstrap"
 import styles from "../../styles/Profile.module.css";
-import noPP from "../../public/no-img.png"
 
 // export async function getServerSideProps(context) {
 //   const data = await authPage(context);
