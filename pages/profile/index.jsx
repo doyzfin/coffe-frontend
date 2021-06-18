@@ -25,12 +25,15 @@ import noPP from "../../public/no-img.png"
 // }
 
 export default function Profile(props) {
+
+  const [gender, setGender] = useState("")
   
   const selectGender = (event) => {
     console.log(event.target.value)
+    setGender(event.target.value)
   }
 
-  // console.log(userImage);
+  console.log('GENDER',gender);
   return (
     <Layout title="Profile">
       <Container className={styles.cnt} fluid>
@@ -80,13 +83,13 @@ export default function Profile(props) {
               </div>
               <Row>
                 <Col md={7}>
-                  <Form.Group className="mb-3" controlId="formGroupEmail">
+                  <Form.Group className="mb-3" controlId="formGroupEmail1">
                     <Form.Label className={styles.semi}>Email address:</Form.Label>
                     <Form.Control className={styles.input} type="email" placeholder="Enter email" />
                   </Form.Group>
                 </Col>
                 <Col md={5}>
-                  <Form.Group className="mb-3" controlId="formGroupText">
+                  <Form.Group className="mb-3" controlId="formGroupText2">
                     <Form.Label className={styles.semi}>Mobile number:</Form.Label>
                     <Form.Control className={styles.input} type="text" placeholder="Enter phone number" />
                   </Form.Group>
@@ -94,7 +97,7 @@ export default function Profile(props) {
               </Row>
               <Row>
                 <Col md={7}>
-                  <Form.Group className="mb-3" controlId="formGroupText">
+                  <Form.Group className="mb-3" controlId="formGroupText3">
                     <Form.Label className={styles.semi}>Delivery adress :</Form.Label>
                     <Form.Control className={styles.input} type="text" placeholder="Enter delivery addres" />
                   </Form.Group>
@@ -106,13 +109,13 @@ export default function Profile(props) {
               </div>
               <Row>
                 <Col md={7}>
-                  <Form.Group className="mb-3" controlId="formGroupText">
+                  <Form.Group className="mb-3" controlId="formGroupText4">
                     <Form.Label className={styles.semi}>Display name:</Form.Label>
                     <Form.Control className={styles.input} type="text" placeholder="Enter name" />
                   </Form.Group>
                 </Col>
                 <Col md={5}>
-                  <Form.Group className="mb-3" controlId="formGroupText">
+                  <Form.Group className="mb-3" controlId="formGroupText5">
                     <Form.Label className={styles.semi}>DD/MM/YY:</Form.Label>
                     <Form.Control className={styles.input} type="date"/>
                   </Form.Group>
@@ -120,7 +123,7 @@ export default function Profile(props) {
               </Row>
               <Row>
                 <Col md={7}>
-                  <Form.Group className="mb-3" controlId="formGroupText">
+                  <Form.Group className="mb-3" controlId="formGroupText6">
                     <Form.Label className={styles.semi}>First name :</Form.Label>
                     <Form.Control className={styles.input} type="text" placeholder="Enter first name" />
                   </Form.Group>
@@ -129,7 +132,7 @@ export default function Profile(props) {
               </Row>
               <Row>
                 <Col md={7}>
-                  <Form.Group className="mb-3" controlId="formGroupText">
+                  <Form.Group className="mb-3" controlId="formGroupText7">
                     <Form.Label className={styles.semi}>Last name :</Form.Label>
                     <Form.Control className={styles.input} type="text" placeholder="Enter last name" />
                   </Form.Group>
