@@ -1,6 +1,7 @@
 .col1 {
   padding: 29px 50px;
-  border-right: 0.5px solid #9f9f9f;
+  border-right: 0.5px solid #9f9f9f !important;
+  padding-bottom: 100px;
 }
 .col2 {
   padding: 29px 82px;
@@ -148,4 +149,7 @@
 }
 .nav {
   margin-bottom: 50px;
+}
+.mainContainer {
+  margin-bottom: 100px;
 }

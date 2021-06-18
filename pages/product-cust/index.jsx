@@ -2,6 +2,7 @@ import Layout from "../../components/Layout";
 import NavBar from "../../components/module/NavBar";
 import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
 import styles from "../../styles/ProductCust.module.css";
+import Footer from "../../components/module/footer";
 import { useState } from "react";
 
 export default function ProductCust() {
@@ -93,7 +94,7 @@ export default function ProductCust() {
   return (
     <Layout title="Product Cust">
       <NavBar />
-      <Container fluid>
+      <Container fluid className={styles.mainContainer}>
         <Row>
           <Col sm={4} className={styles.col1}>
             <h1 className={styles.title}>Promo Today</h1>
@@ -194,6 +195,7 @@ export default function ProductCust() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </Layout>
   );
 }
