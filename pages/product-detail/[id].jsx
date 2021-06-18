@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import styles from "../../styles/ProductDetail.module.css";
 
 export default function ProductDetail() {
