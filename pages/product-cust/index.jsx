@@ -27,6 +27,69 @@ export default function ProductCust() {
       note: "Do you like chicken wings? Get 1 free only if you buy pinky promise",
     },
   ]);
+  const [dataMenu, setDataMenu] = useState([
+    {
+      name: "Veggie tomato mix",
+      price: "IDR 34.000",
+      image: "/Mask Group (2).png",
+    },
+    {
+      name: "Hazelnut Latte",
+      price: "IDR 25.000",
+      image: "/Mask Group (3).png",
+    },
+    {
+      name: "Summer fried rice",
+      price: "IDR 32.000",
+      image: "/Mask Group (4).png",
+    },
+    {
+      name: "Creamy Ice Latte",
+      price: "IDR 27.000",
+      image: "/Mask Group (5).png",
+    },
+    {
+      name: "Drum Sticks",
+      price: "IDR 30.000",
+      image: "/Mask Group (7).png",
+    },
+    {
+      name: "Salty Rice",
+      price: "IDR 20.000",
+      image: "/Mask Group (6).png",
+    },
+    {
+      name: "Summer fried rice",
+      price: "IDR 32.000",
+      image: "/Mask Group (4).png",
+    },
+    {
+      name: "Creamy Ice Latte",
+      price: "IDR 27.000",
+      image: "/Mask Group (5).png",
+    },
+
+    {
+      name: "Veggie tomato mix",
+      price: "IDR 34.000",
+      image: "/Mask Group (2).png",
+    },
+    {
+      name: "Hazelnut Latte",
+      price: "IDR 25.000",
+      image: "/Mask Group (3).png",
+    },
+    {
+      name: "Summer fried rice",
+      price: "IDR 32.000",
+      image: "/Mask Group (4).png",
+    },
+    {
+      name: "Creamy Ice Latte",
+      price: "IDR 27.000",
+      image: "/Mask Group (5).png",
+    },
+  ]);
   return (
     <Layout title="Product Cust">
       <NavBar />
@@ -103,6 +166,18 @@ export default function ProductCust() {
                 </Nav.Link>
               </Nav.Item>
             </Nav>
+            <Row>
+              {dataMenu.map((item, index) => {
+                return (
+                  <Col sm={3} key={index}>
+                    <Card className={styles.cardMenu}>
+                      <img alt="" src={item.image} />
+                      <h1>{item.name}</h1>
+                    </Card>
+                  </Col>
+                );
+              })}
+            </Row>
           </Col>
         </Row>
       </Container>
