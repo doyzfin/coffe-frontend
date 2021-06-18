@@ -1,4 +1,4 @@
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
 import {Container, Row, Col, Form} from "react-bootstrap"
 import styles from "../../styles/Profile.module.css";
