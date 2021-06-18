@@ -1,3 +1,4 @@
+import NavBar from "components/module/NavBar";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Layout from "../../components/Layout";
@@ -93,7 +94,7 @@ export default function ProductDetail() {
 
   return (
     <Layout title="Product Detail">
-      {/* {Navbar} */}
+      <NavBar />
       <div className={styles.container}>
         <h2>
           Favorite & Promo <span>{">"} Cold Braw</span>
