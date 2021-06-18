@@ -1,6 +1,6 @@
-import Layout from "../../components/Layout";
+import Layout from "components/layout";
 import { useEffect, useState } from "react";
-import {Container, Row, Col, Form} from "react-bootstrap"
+import { Container, Row, Col, Form } from "react-bootstrap";
 import styles from "../../styles/Profile.module.css";
 
 // export async function getServerSideProps(context) {
@@ -29,7 +29,7 @@ export default function Profile(props) {
       <Container className={styles.cnt}>
         <Row>
           <Col>
-          <div className={styles.title}>User Profile</div>
+            <div className={styles.title}>User Profile</div>
           </Col>
         </Row>
         <Row className={styles.box}>
