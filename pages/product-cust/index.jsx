@@ -139,7 +139,7 @@ export default function ProductCust() {
             </p>
           </Col>
           <Col sm={8} className={styles.col2}>
-            <Nav as="ul">
+            <Nav as="ul" className={styles.nav}>
               <Nav.Item as="li">
                 <Nav.Link href="#" className={styles.link}>
                   Favorite Product
@@ -172,7 +172,8 @@ export default function ProductCust() {
                   <Col sm={3} key={index}>
                     <Card className={styles.cardMenu}>
                       <img alt="" src={item.image} />
-                      <h1>{item.name}</h1>
+                      <h1 className={styles.nameMenu}>{item.name}</h1>
+                      <p className={styles.price}>{item.price}</p>
                     </Card>
                   </Col>
                 );
