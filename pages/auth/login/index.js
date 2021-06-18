@@ -1,7 +1,7 @@
 import styles from "../../../styles/Signup.module.css";
 import Footer from "../../../components/module/Footer";
 
-export default function signup() {
+export default function login() {
   return (
     <>
       <div className="container-fluid">
@@ -16,11 +16,11 @@ export default function signup() {
                 <span className="fw-bold my-auto ms-2">Coffee Express</span>
               </div>
               <div className="d-flex my-auto">
-                <button className={styles.yellowExpressButton}>Login</button>
+                <button className={styles.yellowExpressButton}>Sign Up</button>
               </div>
             </div>
             <div className="row w-100 mt-4">
-              <h4 className="text-center fw-bold mt-4">Sign Up</h4>
+              <h4 className="text-center fw-bold mt-4">Login</h4>
               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                 <form className="mt-5 px-5">
                   <div className="my-4">
@@ -39,26 +39,23 @@ export default function signup() {
                       placeholder="Enter your password"
                     ></input>
                   </div>
-                  <div className="my-4">
-                    <span className="fw-bold">Phone Number</span>
-                    <input
-                      type="text"
-                      className={`form-control mt-2 ${styles.inputHeight}`}
-                      placeholder="Enter your phone number"
-                    ></input>
-                  </div>
+
+                  <span className="d-block fw-bold text-decoration-underline">
+                    Forgot Password?
+                  </span>
+
                   <div className="mt-5">
                     <button
                       className={`w-100 ${styles.yellowExpressButtonLarger}`}
                     >
-                      Sign Up
+                      Login
                     </button>
                   </div>
                   <div className="mt-3">
                     <button
                       className={`w-100 ${styles.whiteExpressButtonLarger}`}
                     >
-                      Sign Up with Google
+                      Login with Google
                     </button>
                   </div>
                 </form>
