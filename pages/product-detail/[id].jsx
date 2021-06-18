@@ -91,7 +91,7 @@ export default function ProductDetail() {
 
   return (
     <Layout title="Product Detail">
-      {/* {Navbar} */}
+      //navabr
       <div className={styles.container}>
         <h2>
           Favorite & Promo <span>{">"} Cold Braw</span>
