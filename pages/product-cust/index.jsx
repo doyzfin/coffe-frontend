@@ -92,7 +92,7 @@ export default function ProductCust() {
     },
   ]);
   return (
-    <Layout title="Product Cust">
+    <Layout title="Product Customer">
       <NavBar />
       <Container fluid className={styles.mainContainer}>
         <Row>
