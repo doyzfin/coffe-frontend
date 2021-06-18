@@ -1,0 +1,60 @@
+.leftSide {
+  background-color: blue;
+}
+
+.removeRowMargin {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.coffeeExpressLogo {
+  width: 10px;
+}
+
+.yellowExpressButton {
+  background-color: #ffba33;
+  width: 8rem;
+  border: 1px solid #ffba33;
+  border-radius: 30px;
+  height: 40px;
+}
+
+.memberCard {
+  position: absolute;
+  width: 50rem;
+  left: 50%;
+  right: 50%;
+  z-index: 2;
+  margin-top: 68rem;
+  transform: translate(-50%, -50%);
+}
+
+.yellowExpressButtonLarger {
+  background-color: #ffba33;
+  width: 8rem;
+  border: 1px solid #ffba33;
+  border-radius: 15px;
+  height: 48px;
+}
+
+.yellowCardButton {
+  background-color: #ffba33;
+  width: 12rem;
+  border: 1px solid #ffba33;
+  border-radius: 7px;
+  height: 40px;
+}
+
+.whiteExpressButtonLarger {
+  background-color: white;
+  width: 8rem;
+  border: 1px solid white;
+  border-radius: 15px;
+  height: 48px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.inputHeight {
+  height: 48px;
+  border-radius: 15px;
+}
