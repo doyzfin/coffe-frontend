@@ -1,0 +1,164 @@
+.titleProduct {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: #4f5665;
+  margin-top: 36px;
+  margin-bottom: 80px;
+}
+.page {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #6a4029;
+  margin-left: 5px;
+}
+.forImg {
+  background: rgba(186, 186, 186, 0.35);
+  padding: 108px 105px;
+  border: none;
+  border-radius: 100%;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  cursor: pointer;
+  margin-bottom: 38px;
+}
+.camera {
+  width: 90px;
+  height: 83px;
+  cursor: pointer;
+}
+.btnGalery {
+  width: 100%;
+  height: 88px;
+  margin-bottom: 35px;
+  background: #ffba33;
+  border-radius: 20px;
+  border: #ffba33;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  color: #6a4029;
+}
+.btnGalery:hover {
+  width: 100%;
+  height: 88px;
+  margin-bottom: 35px;
+  background: #ffbb80;
+  border-radius: 20px;
+  border: #ffbb44;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  color: #6a4029;
+}
+.btnSave {
+  width: 100%;
+  height: 88px;
+  margin-bottom: 35px;
+  background: #6a4029;
+  box-shadow: 0px 6px 20px rgba(106, 64, 41, 0.4);
+  border-radius: 20px;
+  border: #6a4029;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 138.84%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+}
+.btnSave:hover {
+  width: 100%;
+  height: 88px;
+  margin-bottom: 35px;
+  background: #6a5120;
+  box-shadow: 0px 6px 20px rgba(106, 64, 41, 0.4);
+  border-radius: 20px;
+  border: #6a5120;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 138.84%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+}
+.btnCancel {
+  width: 100%;
+  height: 88px;
+  margin-bottom: 80px;
+  background: rgba(186, 186, 186, 0.35);
+  border-radius: 20px;
+  border: rgba(186, 186, 186, 0.35);
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 138.84%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: #4f5665;
+}
+.btnCancel:hover {
+  width: 100%;
+  height: 88px;
+  margin-bottom: 80px;
+  background: rgba(140, 186, 170, 0.35);
+  border-radius: 20px;
+  border: rgba(140, 186, 170, 0.35);
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 138.84%;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: #4f5665;
+}
+.formInput {
+  padding-left: 100px;
+}
+.nameLabel {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  color: #6a4029;
+  margin-bottom: 20px;
+}
+.controlInput {
+  border: none;
+  border-bottom: 1px solid #4f5665;
+  border-radius: 0px;
+  margin-bottom: 54px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: #9f9f9f;
+}
+.controlInput::placeholder {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: #9f9f9f;
+}
+.controlInput:focus {
+  box-shadow: none;
+}
