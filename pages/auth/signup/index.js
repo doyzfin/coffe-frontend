@@ -1,5 +1,5 @@
 import styles from "../../../styles/Signup.module.css";
-import Footer from "../../../components/module/Footer";
+import Footer from "../../../components/module/footer";
 
 export default function signup() {
   return (

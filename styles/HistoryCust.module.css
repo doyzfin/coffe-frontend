@@ -1,3 +1,9 @@
+@media (max-width: 512px) {
+  .btnClose {
+    margin: 0 auto !important;
+  }
+}
+
 .mainContainer {
   background: url("/bg.png");
 }
@@ -117,7 +123,6 @@
 }
 .modal {
   margin: 0 auto !important;
-  border-radius: 30%;
 }
 .btnClose {
   background: #ffffff;

@@ -58,3 +58,10 @@
   height: 48px;
   border-radius: 15px;
 }
+.alert {
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 15px;
+}
