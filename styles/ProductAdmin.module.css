@@ -1,0 +1,217 @@
+.brownText {
+  color: #6a4029;
+}
+
+/* card color 
+background: #FFBA33;
+*/
+
+/* 
+height: 30px;
+width: 30px;
+left: 324px;
+top: 401px;
+border-radius: 0px;
+background: #0B132A;
+*/
+
+.col1 {
+  padding: 29px 50px;
+  border-right: 0.5px solid #9f9f9f !important;
+  padding-bottom: 100px;
+}
+.col2 {
+  padding: 29px 82px;
+}
+.title {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  color: #6a4029;
+  text-align: center;
+}
+.note {
+  margin-top: 16px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+}
+.cardCoupons {
+  padding: 18px 40px 18px 18px;
+  background: #88b788;
+  border-radius: 20px;
+  margin-bottom: 19px;
+}
+.cardCoupons2 {
+  padding: 18px 40px 18px 18px;
+  background: #f5c361;
+  border-radius: 20px;
+  margin-bottom: 19px;
+}
+.cardCoupons3 {
+  padding: 18px 40px 18px 18px;
+  background: #c59378;
+  border-radius: 20px;
+  margin-bottom: 19px;
+}
+.cardImgCoupons {
+  width: 85px;
+  height: 94px;
+}
+.nameCoupons {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
+}
+.noteCoupons {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
+}
+.btnApply {
+  background: #6a4029;
+  border-radius: 20px;
+  width: 100%;
+  height: 64px;
+  margin-top: 52px;
+  border: #6a4029;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 25px;
+  color: #ffffff;
+}
+.btnApply:hover {
+  background: #6a4145;
+  border-radius: 20px;
+  width: 100%;
+  height: 64px;
+  margin-top: 52px;
+  border: #6a4029;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 25px;
+  color: #ffffff;
+}
+.terms {
+  margin-top: 50px;
+  margin-bottom: 5px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  color: #4f5665;
+  text-align: left;
+}
+.listTerm {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #4f5665;
+  text-align: left;
+  padding-left: 0px !important;
+}
+.link {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: #9f9f9f;
+  margin-right: 20px;
+}
+.cardMenu {
+  cursor: pointer;
+  background: #ffffff;
+  box-shadow: 0px 30px 60px rgba(57, 57, 57, 0.1);
+  border-radius: 30px;
+  border: none;
+  margin-bottom: 30px;
+}
+.nameMenu {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 101.34%;
+  text-align: center;
+  color: #000000;
+}
+.price {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 25px;
+  text-align: center;
+  color: #6a4029;
+}
+
+.updateAndDelete {
+  position: absolute;
+  top: 103%;
+  right: -74%;
+}
+
+.updateButton {
+  background-color: #0b132a;
+  border-radius: 50%;
+}
+
+.updateButtonWidth {
+  padding: 6px 8px 6px 8px;
+}
+
+.deleteButton {
+  background-color: #6a4029;
+  border-radius: 50%;
+}
+
+.deleteButtonWidth {
+  padding: 6px 7px 6px 7px;
+}
+
+/* 
+.updateButton
+height: 30px;
+width: 30px;
+left: 324px;
+top: 401px;
+border-radius: 0px;
+background: #0B132A;
+*/
+
+/* 
+.deleteButton 
+height: 30px;
+width: 30px;
+left: 359px;
+top: 401px;
+border-radius: 0px;
+background: #6A4029;
+*/
+
+.nav {
+  margin-bottom: 50px;
+}
+.mainContainer {
+  margin-bottom: 100px;
+}

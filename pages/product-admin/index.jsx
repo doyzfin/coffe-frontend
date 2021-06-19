@@ -1,16 +1,16 @@
 import Layout from "../../components/Layout";
-import NavBar from "../../components/module/NavBar";
-import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
-import styles from "../../styles/ProductCust.module.css";
+import Navbar from "../../components/module/NavBar"; 
 import Footer from "../../components/module/footer";
+import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
+import styles from "../../styles/ProductAdmin.module.css"
 import { useState } from "react";
 
-export default function ProductCust() {
+export default function productadmin() {
   const [dataCoupons, setDataCoupons] = useState([
     {
       image: "/image 46.png",
       name: "HAPPY MOTHERS DAYS",
-      note: "Get one of our favorite menu for free!",
+      note: "Get one of our favorite menu for free!", 
     },
     {
       image: "/image 43.png",
@@ -92,12 +92,13 @@ export default function ProductCust() {
     },
   ]);
   return (
-    <Layout title="Product Customer">
-      <NavBar />
+  <>
+    <Layout title="Product Admin">
+      <Navbar />
       <Container fluid className={styles.mainContainer}>
         <Row>
           <Col sm={4} className={styles.col1}>
-            <h1 className={styles.title}>Promo Today</h1>
+          <h1 className={styles.title}>Promo Today</h1>
             <p className={styles.note}>
               Coupons will be updated every weeks.
               <br /> Check them out!{" "}
@@ -105,7 +106,7 @@ export default function ProductCust() {
             {dataCoupons.map((item, index) => {
               return (
                 <Card
-                  className={`position-relative ${
+                  className={`${
                     item.name === "HAPPY MOTHERS DAYS"
                       ? styles.cardCoupons
                       : item.name ===
@@ -117,7 +118,7 @@ export default function ProductCust() {
                   }`}
                   key={index}
                 >
-                  <Row>
+                  <Row className="position-relative">
                     <Col xs={4}>
                       <Card.Img
                         alt=""
@@ -134,6 +135,14 @@ export default function ProductCust() {
                         {item.note}
                       </Card.Text>
                     </Col>
+                    <span className={`d-flex ${styles.updateAndDelete}`}>
+                      <span className={`${styles.updateButton} me-2`}>
+                        <img src="/trash 13.png" className={styles.updateButtonWidth}></img>
+                      </span>
+                      <span className={`${styles.deleteButton} ms-2`}>
+                        <img src="/pencil vector.png" className={styles.deleteButtonWidth}></img>
+                      </span>
+                    </span>
                   </Row>
                 </Card>
               );
@@ -192,10 +201,11 @@ export default function ProductCust() {
                 );
               })}
             </Row>
-          </Col>
+          </Col> 
         </Row>
       </Container>
       <Footer />
     </Layout>
-  );
+  </>
+  )
 }
