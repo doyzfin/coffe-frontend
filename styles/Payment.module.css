@@ -1,3 +1,26 @@
+@media (max-width: 512px) {
+  .colDetails {
+    padding: 10px !important;
+    margin-top: 30px !important;
+  }
+  .Order {
+    text-align: center;
+  }
+  .priceOrder {
+    text-align: center;
+  }
+  .imgOrder {
+    margin-left: 90px !important;
+    margin-bottom: 20px !important;
+  }
+  .countTotal {
+    text-align: center;
+  }
+  .nominalTotal {
+    text-align: center !important;
+  }
+}
+
 .mainBackground {
   background: url("/bg2.png");
 }
@@ -145,4 +168,123 @@
   text-align: right;
   margin-top: 10px;
   cursor: pointer;
+}
+.cardAddress {
+  background: #ffffff;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 35px;
+}
+.address {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+  margin-bottom: 0px;
+}
+.addressDetails {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+  margin-bottom: 0px;
+}
+.phone {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+.method {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 37px;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.8);
+  margin-top: 40px;
+}
+.cardMethod {
+  background: #ffffff;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 34px 40px;
+}
+.radio {
+  margin-top: 12px;
+}
+.midtrans {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+  margin-top: 5px;
+}
+.cod {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+  margin-top: 5px;
+}
+.btnConfirm {
+  height: 84px;
+  width: 100%;
+  margin-top: 70px;
+  background: #6a4029;
+  box-shadow: 0px 10px 20px rgba(137, 85, 55, 0.4);
+  border-radius: 20px;
+  border: #6a4029;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  color: #ffffff;
+}
+.btnConfirm:hover {
+  height: 84px;
+  width: 100%;
+  margin-top: 70px;
+  background: rgb(83, 58, 68);
+  box-shadow: 0px 10px 20px rgba(137, 85, 55, 0.4);
+  border-radius: 20px;
+  border: #6a4029;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  color: #ffffff;
+}
+.recMidtrans {
+  position: relative;
+}
+.logoMidtrans {
+  position: absolute;
+  left: 78px;
+  top: 45px;
+}
+.recCod {
+  position: relative;
+}
+.logoCod {
+  position: absolute;
+  left: 73px;
+  top: 117px;
 }

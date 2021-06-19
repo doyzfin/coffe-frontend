@@ -1,7 +1,15 @@
 import Layout from "components/Layout";
 import NavBar from "components/module/NavBar";
 import Footer from "components/module/footer";
-import { Container, Row, Col, Card, Dropdown } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Dropdown,
+  Form,
+  Button,
+} from "react-bootstrap";
 import styles from "../../styles/Payment.module.css";
 import { useState } from "react";
 
@@ -110,8 +118,12 @@ export default function payment() {
                   <Col className={styles.nominal}>IDR 20.000</Col>
                 </Row>
                 <Row className={styles.rowCountTotal}>
-                  <Col className={styles.countTotal}>TOTAL</Col>
-                  <Col className={styles.nominalTotal}>IDR 130.000</Col>
+                  <Col className={styles.countTotal} sm={6}>
+                    TOTAL
+                  </Col>
+                  <Col className={styles.nominalTotal} sm={6}>
+                    IDR 130.000
+                  </Col>
                 </Row>
               </Card>
             </Col>
@@ -124,6 +136,80 @@ export default function payment() {
                   <p className={styles.edit}>Edit</p>
                 </Col>
               </Row>
+              <Card className={styles.cardAddress}>
+                <p className={styles.address}>
+                  <strong>Delivery</strong> to Iskandar Street
+                </p>
+                <hr />
+                <p className={styles.addressDetails}>
+                  Km 5 refinery road oppsite re <br />
+                  public road, effurun, Jakarta
+                </p>
+                <hr />
+                <p className={styles.phone}>+62 81348287878</p>
+              </Card>
+              <h1 className={styles.method}>Payment method</h1>
+              <Card className={styles.cardMethod}>
+                <Form>
+                  <Form.Group>
+                    <Form.Check>
+                      <Form.Check.Input
+                        type="radio"
+                        name="formHorizontalRadios"
+                        id="formHorizontalRadios1"
+                        className={styles.radio}
+                      />
+                      <Form.Check.Label>
+                        <Row>
+                          <Col>
+                            <img
+                              alt=""
+                              src="/Rectangle 13.png"
+                              className={styles.recMidtrans}
+                            />
+                            <img
+                              alt=""
+                              src="/Vector (7).png"
+                              className={styles.logoMidtrans}
+                            />
+                          </Col>
+                          <Col className={styles.midtrans}>Midtrans</Col>
+                        </Row>
+                      </Form.Check.Label>
+                    </Form.Check>
+                    <hr />
+                    <Form.Check>
+                      <Form.Check.Input
+                        type="radio"
+                        name="formHorizontalRadios"
+                        id="formHorizontalRadios2"
+                        className={styles.radio}
+                      />
+                      <Form.Check.Label>
+                        {" "}
+                        <Row>
+                          <Col xs={3}>
+                            <img
+                              alt=""
+                              src="/Rectangle 12.png"
+                              className={styles.recCod}
+                            />
+                            <img
+                              alt=""
+                              src="/fast-delivery 3.png"
+                              className={styles.logoCod}
+                            />
+                          </Col>
+                          <Col className={styles.cod} xs={9}>
+                            Cash on delivery
+                          </Col>
+                        </Row>
+                      </Form.Check.Label>
+                    </Form.Check>
+                  </Form.Group>
+                </Form>
+              </Card>
+              <Button className={styles.btnConfirm}>Confirm and Pay</Button>
             </Col>
           </Row>
         </Container>
