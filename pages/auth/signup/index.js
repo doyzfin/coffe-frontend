@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styles from "../../../styles/Signup.module.css";
 import Footer from "../../../components/module/footer";
+import axiosApiIntances from "utils/axios";
+import { Alert } from "react-bootstrap";
 
 export default function signup() {
   const [form, setForm] = useState({
@@ -8,6 +10,9 @@ export default function signup() {
     userPassword: "",
     userPhone: "",
   });
+  const [msgError, setMsgError] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const changeText = (event) => {
     event.preventDefault();
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -15,6 +20,27 @@ export default function signup() {
   const handleSignUp = (event) => {
     event.preventDefault();
     console.log(form);
+    if (
+      form.userEmail.length === 0 ||
+      form.userPassword.length === 0 ||
+      form.userPhone.length === 0
+    ) {
+      setIsError(true);
+      setIsSuccess(false);
+      setMsgError("Please Input field correctly !");
+    } else {
+      axiosApiIntances
+        .post("/auth/register", form)
+        .then((res) => {
+          setIsSuccess(true);
+          setIsError(false);
+        })
+        .catch((err) => {
+          setIsError(true);
+          setIsSuccess(false);
+          setMsgError(err.response.data.msg);
+        });
+    }
   };
   return (
     <>
@@ -36,6 +62,16 @@ export default function signup() {
             <div className="row w-100 mt-4">
               <h4 className="text-center fw-bold mt-4">Sign Up</h4>
               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                {isError && (
+                  <Alert variant="danger" className={styles.alert}>
+                    {msgError}
+                  </Alert>
+                )}
+                {isSuccess && (
+                  <Alert variant="success" className={styles.alert}>
+                    Register Succesful
+                  </Alert>
+                )}
                 <form className="mt-5 px-5">
                   <div className="my-4">
                     <span className="fw-bold">Email Address</span>
