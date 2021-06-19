@@ -12,6 +12,10 @@ module.exports = {
         source: "/signup",
         destination: "/auth/signup",
       },
+      {
+        source: "/admin-dashboard",
+        destination: "/profile/AdminDashboard",
+      },
     ];
   },
 };
