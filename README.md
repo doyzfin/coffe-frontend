@@ -1,28 +1,28 @@
 <h1 align='center'>Next JS - Coffee Express</h1>
   <p align="center">
-    <a href="link_deploy">View Demo</a>
+    <a href="#">View Demo</a>
     ·
-    <a href="https://github.com/arkbootcamp/week7-web6-intermediateFrontend">Report Bug</a>
+    <a href="https://github.com/doyzfin/coffe-frontend">Report Bug</a>
     ·
-    <a href="https://github.com/arkbootcamp/week7-web6-intermediateFrontend">Request Feature</a>
+    <a href="https://github.com/doyzfin/coffe-frontend">Request Feature</a>
   </p>
 
 ![Image Banner](https://raw.githubusercontent.com/arkbootcamp/week7-web6-intermediateFrontend/main/image_banner.jpg)
 
 ## About The Project
 
-#background_projek.
+when there is a pandemic, this application is here to make it easier for you to enjoy coffee and snacks like in a cafe
 
 ## Built With
 
-[![Vue](https://img.shields.io/badge/Vue-v2.6.11-green)](https://github.com/vuejs/vue)
+[![Next](https://img.shields.io/badge/next-11.0.0-green)](https://github.com/vercel/next.js/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-v4.5.x-blue)](https://github.com/bootstrap-vue/bootstrap-vue)
 
 ## Requirements
 
 1. <a href="https://nodejs.org/en/download/">Node Js</a>
 2. Node_modules `npm install` or `yarn install`
-3. Backend API #nama_projek [`here`](https://github.com/arkbootcamp/week4-web3-express)
+3. Backend API Coffee Express [`here`](https://github.com/arkbootcamp/week4-web3-express)
 
 ## Getting Started
 
