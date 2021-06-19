@@ -15,44 +15,40 @@ when there is a pandemic, this application is here to make it easier for you to 
 
 ## Built With
 
-[![Next](https://img.shields.io/badge/next-11.0.0-green)](https://github.com/vercel/next.js/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-v4.5.x-blue)](https://github.com/bootstrap-vue/bootstrap-vue)
+[![Next](https://img.shields.io/badge/next-v11.0.0-green)](https://github.com/vercel/next.js/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-v4.5.x-blue)](https://github.com/react-bootstrap/react-bootstrap)
 
 ## Requirements
 
 1. <a href="https://nodejs.org/en/download/">Node Js</a>
 2. Node_modules `npm install` or `yarn install`
-3. Backend API Coffee Express [`here`](https://github.com/arkbootcamp/week4-web3-express)
+3. Backend API Coffee Express [`here`](https://github.com/Timotius-Nugroho/cofee-backend)
 
 ## Getting Started
 
-1. Download this Project or you can type `git clone #link_git`
+1. Download this Project or you can type `git clone https://github.com/doyzfin/coffee-frontend.git`
 2. Open app's directory in CMD or Terminal
 3. Type `npm install` or `yarn install`
 4. Add .env file at root folder project
 
 ```sh
-VUE_APP_ENDPOINT = [Backend API]
+NEXT_APP_ENDPOINT = [Backend API]
 ```
 
-5. Type `npm run serve`
+5. Type `npm run dev`
 
 ## Acknowledgements
 
 - [Axios](https://www.npmjs.com/package/axios)
-- [Vuex](https://vuex.vuejs.org/)
+- [Next](https://nextjs.org/)
 
-## License - untuk project individu
-
-© [Bagus Tri Harjanto](https://github.com/bagusth15/)
-
-## Team - untuk project team
+## Team
 
 > All Members of Default Team
 
-|                                                <a href="#" target="_blank">**Full-Stack Developer & Team Leader**</a>                                                 |                                                       <a href="#" target="_blank">**Front-End Developer**</a>                                                        |                                                        <a href="#" target="_blank">**Back-End Developer**</a>                                                        |                                                       <a href="#" target="_blank">**Back-End Developer**</a>                                                        |                                                       <a href="#" target="_blank">**Back-End Developer**</a>                                                        |                                                       <a href="#" target="_blank">**Front-End Developer**</a>                                                       |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| [![Full-Stack Developer Image](https://avatars1.githubusercontent.com/u/36648956?s=460&u=231204fcec6ae5e59f7249acf062af41d00fbc1c&v=4)](https://github.com/Bagusth15) | [![Front-End Developer Image](https://avatars1.githubusercontent.com/u/36648956?s=460&u=231204fcec6ae5e59f7249acf062af41d00fbc1c&v=4)](https://github.com/Bagusth15) | [![Front-End Developer Image](https://avatars1.githubusercontent.com/u/36648956?s=460&u=231204fcec6ae5e59f7249acf062af41d00fbc1c&v=4)](https://github.com/Bagusth15) | [![Back-End Developer Image](https://avatars1.githubusercontent.com/u/36648956?s=460&u=231204fcec6ae5e59f7249acf062af41d00fbc1c&v=4)](https://github.com/Bagusth15) | [![Back-End Developer Image](https://avatars1.githubusercontent.com/u/36648956?s=460&u=231204fcec6ae5e59f7249acf062af41d00fbc1c&v=4)](https://github.com/Bagusth15) | [![Back-End Developer Image](https://avatars1.githubusercontent.com/u/36648956?s=460&u=231204fcec6ae5e59f7249acf062af41d00fbc1c&v=4)](https://github.com/Bagusth15) |
-|                                       <a href="https://github.com/Bagusth15" target="_blank">`https://github.com/Bagusth15`</a>                                       |                           <a href="https://github.com/link_github_frontend" target="_blank">`https://github.com/link_github_frontend`</a>                            |                           <a href="https://github.com/link_github_frontend" target="_blank">`https://github.com/link_github_frontend`</a>                            |                            <a href="https://github.com/link_github_backend" target="_blank">`https://github.com/link_github_backend`</a>                            |                            <a href="https://github.com/link_github_backend" target="_blank">`https://github.com/link_github_backend`</a>                            |                            <a href="https://github.com/link_github_backend" target="_blank">`https://github.com/link_github_backend`</a>                            |
+|                           <a href="#" target="_blank">**Full-Stack Developer & Team Leader**</a>                           |                                                      <a href="#" target="_blank">**Front-End Developer**</a>                                                      |                                 <a href="#" target="_blank">**Back-End Developer**</a>                                 |                               <a href="#" target="_blank">**Back-End Developer**</a>                               |                                                       <a href="#" target="_blank">**Back-End Developer**</a>                                                        |                                                       <a href="#" target="_blank">**Front-End Developer**</a>                                                       |
+| :------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [![Full-Stack Developer Image](https://avatars.githubusercontent.com/u/78992859?v=4)](https://github.com/Timotius-Nugroho) | [![Front-End Developer Image](https://avatars.githubusercontent.com/u/67232524?s=400&u=074ea4d9ba2705d2192a9cb5aca98ffc8824f1b8&v=4)](https://github.com/doyzfin) | [![Front-End Developer Image](https://avatars.githubusercontent.com/u/78518079?v=4)](https://github.com/elazsyahranie) | [![Back-End Developer Image](https://avatars.githubusercontent.com/u/72638066?v=4)](https://github.com/rifqiziyad) | [![Back-End Developer Image](https://avatars1.githubusercontent.com/u/36648956?s=460&u=231204fcec6ae5e59f7249acf062af41d00fbc1c&v=4)](https://github.com/Bagusth15) | [![Back-End Developer Image](https://avatars1.githubusercontent.com/u/36648956?s=460&u=231204fcec6ae5e59f7249acf062af41d00fbc1c&v=4)](https://github.com/Bagusth15) |
+|                 <a href="https://github.com/Bagusth15" target="_blank">`https://github.com/Bagusth15`</a>                  |                          <a href="https://github.com/link_github_frontend" target="_blank">`https://github.com/link_github_frontend`</a>                          |    <a href="https://github.com/link_github_frontend" target="_blank">`https://github.com/link_github_frontend`</a>     |   <a href="https://github.com/link_github_backend" target="_blank">`https://github.com/link_github_backend`</a>    |                            <a href="https://github.com/link_github_backend" target="_blank">`https://github.com/link_github_backend`</a>                            |                            <a href="https://github.com/link_github_backend" target="_blank">`https://github.com/link_github_backend`</a>                            |
 
 ---
