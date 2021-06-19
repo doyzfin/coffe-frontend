@@ -30,20 +30,26 @@ function Login(props) {
   };
   const handleLogin = (event) => {
     event.preventDefault();
-    axiosApiIntances
-      .post("/auth/login", form)
-      .then((res) => {
-        setIsSuccess(true);
-        setIsError(false);
-        Cookies.set("token", res.data.data.token);
-        Cookies.set("userId", res.data.data.user_id);
-        router.push("/product-cust");
-      })
-      .catch((err) => {
-        setIsError(true);
-        setIsSuccess(false);
-        setMsgError(err.response.data.msg);
-      });
+    if (form.userEmail.length === 0 || form.userPassword.length === 0) {
+      setIsError(true);
+      setIsSuccess(false);
+      setMsgError("Please Input field correctly !");
+    } else {
+      axiosApiIntances
+        .post("/auth/login", form)
+        .then((res) => {
+          setIsSuccess(true);
+          setIsError(false);
+          Cookies.set("token", res.data.data.token);
+          Cookies.set("userId", res.data.data.user_id);
+          router.push("/product-cust");
+        })
+        .catch((err) => {
+          setIsError(true);
+          setIsSuccess(false);
+          setMsgError(err.response.data.msg);
+        });
+    }
   };
   const handleSignUp = () => {
     router.push("/signup");
@@ -87,7 +93,7 @@ function Login(props) {
                       Success Login
                     </Alert>
                   )}
-                  <form className="mt-5 px-5">
+                  <form className="mt-5 px-5" onSubmit={handleLogin}>
                     <div className="my-4">
                       <span className="fw-bold">Email Address</span>
                       <input
