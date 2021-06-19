@@ -1,7 +1,21 @@
+import { useState } from "react";
 import styles from "../../../styles/Signup.module.css";
 import Footer from "../../../components/module/footer";
 
 export default function signup() {
+  const [form, setForm] = useState({
+    userEmail: "",
+    userPassword: "",
+    userPhone: "",
+  });
+  const changeText = (event) => {
+    event.preventDefault();
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    console.log(form);
+  };
   return (
     <>
       <div className="container-fluid">
@@ -27,6 +41,9 @@ export default function signup() {
                     <span className="fw-bold">Email Address</span>
                     <input
                       type="email"
+                      name="userEmail"
+                      value={form.userEmail}
+                      onChange={(event) => changeText(event)}
                       className={`form-control mt-2 ${styles.inputHeight}`}
                       placeholder="Enter your email address"
                     ></input>
@@ -35,6 +52,9 @@ export default function signup() {
                     <span className="fw-bold">Password</span>
                     <input
                       type="password"
+                      name="userPassword"
+                      value={form.userPassword}
+                      onChange={(event) => changeText(event)}
                       className={`form-control mt-2 ${styles.inputHeight}`}
                       placeholder="Enter your password"
                     ></input>
@@ -43,6 +63,9 @@ export default function signup() {
                     <span className="fw-bold">Phone Number</span>
                     <input
                       type="text"
+                      name="userPhone"
+                      value={form.userPhone}
+                      onChange={(event) => changeText(event)}
                       className={`form-control mt-2 ${styles.inputHeight}`}
                       placeholder="Enter your phone number"
                     ></input>
@@ -50,6 +73,8 @@ export default function signup() {
                   <div className="mt-5">
                     <button
                       className={`w-100 ${styles.yellowExpressButtonLarger}`}
+                      type="submit"
+                      onClick={(event) => handleSignUp(event)}
                     >
                       Sign Up
                     </button>
