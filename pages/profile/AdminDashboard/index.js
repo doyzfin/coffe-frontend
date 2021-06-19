@@ -1,6 +1,7 @@
 import AdminDashboardNavbar from "../../../components/module/AdminDashboardNavbar";
 import Layout from "../../../components/Layout";
 import styles from "../../../styles/Dashboard.module.css";
+import Footer from "../../../components/module/footer";
 
 export default function AdminDashboard() {
   return (
@@ -41,6 +42,20 @@ export default function AdminDashboard() {
                 <span className="text-center">Monthly</span>
               </div>
             </div>
+            <div className={`card ${styles.chartCard}`}>
+              <div className="p-3">
+                <h5 className="fw-bold">Monthly Report</h5>
+                <span className="d-block">Last 9 months</span>
+              </div>
+            </div>
+            <div className="pt-4">
+              <button className={`${styles.downloadButton} w-100`}>
+                <span className="fw-bold">Download Report</span>
+              </button>
+            </div>
+          </div>
+          <div className={`mt-5 ${styles.footerBorder}`}>
+            <Footer />
           </div>
         </div>
       </Layout>

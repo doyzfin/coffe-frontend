@@ -25,7 +25,7 @@ export default function AdminDasboardNavbar() {
                 <img src="/Vector.png" style={{ height: "30px" }}></img>
                 <img
                   src="/chat (1) 1.png"
-                  className="mx-3"
+                  className="mx-4"
                   style={{ height: "30px" }}
                 ></img>
                 <img

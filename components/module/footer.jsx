@@ -1,8 +1,11 @@
+import styles from "../../styles/Footer.module.css"
+
 export default function footer() {
   return(
     <>
+    <div className={styles.whiteBackground}>
     <div className="container">
-    <div className="row">
+    <div className="row pt-5">
       <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div className="d-flex justify-content-start mb-4" style={{ height: "33px"}}>
           <img src="/coffee1.png" className="img-fluid"></img>
@@ -36,6 +39,7 @@ export default function footer() {
         <span className="d-block my-3">Privacy Policy</span> 
         <span className="d-block my-3">Terms of Service</span>
       </div>
+    </div>
     </div>
     </div>
     </>
