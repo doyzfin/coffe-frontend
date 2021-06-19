@@ -9,8 +9,20 @@ import {
   Col,
 } from "react-bootstrap";
 import styles from "../../styles/NavBar.module.css";
+import { useState } from "react";
 
-export default function NavBar() {
+import { connect } from "react-redux";
+import { setKeywords } from "redux/actions/keywords";
+
+function NavBar(props) {
+  const [search, setSearch] = useState("");
+
+  const setKeywordsStore = (text) => {
+    setSearch(text);
+    props.setKeywords(text);
+  };
+
+  // console.log(props);
   return (
     <Container fluid className={styles.main}>
       <Container>
@@ -44,6 +56,9 @@ export default function NavBar() {
                 type="text"
                 placeholder="Search"
                 className={styles.formControl}
+                onChange={(event) => {
+                  setKeywordsStore(event.target.value);
+                }}
               />
             </Form>
             <img alt="" src="/chat.png" className={styles.notif} />
@@ -54,3 +69,6 @@ export default function NavBar() {
     </Container>
   );
 }
+
+const mapDispatchToProps = { setKeywords };
+export default connect(null, mapDispatchToProps)(NavBar);
