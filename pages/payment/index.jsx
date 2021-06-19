@@ -52,6 +52,11 @@ export default function payment() {
       note: "Do you like chicken wings? Get 1 free only if you buy pinky promise",
     },
   ]);
+
+  const getDropdownVal = (event) => {
+    console.log(event);
+  };
+
   return (
     <Layout title="Payment & Delivery">
       <NavBar />
@@ -89,7 +94,7 @@ export default function payment() {
                   );
                 })}
                 <hr />
-                <Dropdown>
+                <Dropdown onSelect={getDropdownVal}>
                   <Dropdown.Toggle className={styles.dropdown}>
                     Select Promo
                   </Dropdown.Toggle>
@@ -97,7 +102,7 @@ export default function payment() {
                   <Dropdown.Menu className={styles.dropdownMenu}>
                     {dataCoupons.map((item, index) => {
                       return (
-                        <Dropdown.Item href="#" key={index}>
+                        <Dropdown.Item href="#" key={index} eventKey={index}>
                           {item.name}
                         </Dropdown.Item>
                       );
