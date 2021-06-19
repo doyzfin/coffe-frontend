@@ -2,6 +2,7 @@ import Layout from "../../components/Layout";
 import NavBar from "../../components/module/NavBar";
 import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
 import styles from "../../styles/ProductCust.module.css";
+import Footer from "../../components/module/footer";
 import { useState } from "react";
 
 export default function ProductCust() {
@@ -91,9 +92,9 @@ export default function ProductCust() {
     },
   ]);
   return (
-    <Layout title="Product Cust">
+    <Layout title="Product Customer">
       <NavBar />
-      <Container fluid>
+      <Container fluid className={styles.mainContainer}>
         <Row>
           <Col sm={4} className={styles.col1}>
             <h1 className={styles.title}>Promo Today</h1>
@@ -103,7 +104,19 @@ export default function ProductCust() {
             </p>
             {dataCoupons.map((item, index) => {
               return (
-                <Card className={styles.cardCoupons} key={index}>
+                <Card
+                  className={
+                    item.name === "HAPPY MOTHERS DAYS"
+                      ? styles.cardCoupons
+                      : item.name ===
+                        "Get a cup of coffee for free on sunday morning"
+                      ? styles.cardCoupons2
+                      : item.name === "HAPPY HALLOWEEN!"
+                      ? styles.cardCoupons3
+                      : styles.cardCoupons
+                  }
+                  key={index}
+                >
                   <Row>
                     <Col xs={4}>
                       <Card.Img
@@ -182,6 +195,7 @@ export default function ProductCust() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </Layout>
   );
 }

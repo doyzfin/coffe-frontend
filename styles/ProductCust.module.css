@@ -1,6 +1,7 @@
 .col1 {
   padding: 29px 50px;
-  border-right: 0.5px solid #9f9f9f;
+  border-right: 0.5px solid #9f9f9f !important;
+  padding-bottom: 100px;
 }
 .col2 {
   padding: 29px 82px;
@@ -27,6 +28,18 @@
 .cardCoupons {
   padding: 18px 40px 18px 18px;
   background: #88b788;
+  border-radius: 20px;
+  margin-bottom: 19px;
+}
+.cardCoupons2 {
+  padding: 18px 40px 18px 18px;
+  background: #f5c361;
+  border-radius: 20px;
+  margin-bottom: 19px;
+}
+.cardCoupons3 {
+  padding: 18px 40px 18px 18px;
+  background: #c59378;
   border-radius: 20px;
   margin-bottom: 19px;
 }
@@ -136,4 +149,7 @@
 }
 .nav {
   margin-bottom: 50px;
+}
+.mainContainer {
+  margin-bottom: 100px;
 }

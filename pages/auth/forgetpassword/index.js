@@ -1,6 +1,6 @@
 import styles from "../../../styles/Signup.module.css";
 import forgetStyles from "../../../styles/Forgetpassword.module.css";
-import Footer from "../../../components/module/footer";
+import Footer from "../../../components/module/Footer";
 
 export default function forgetpassword() {
   return (
@@ -28,8 +28,10 @@ export default function forgetpassword() {
                 Click here if you didn't receive any link
               </span>
               <span className="text-center d-block fw-bold">in 2 minutes</span>
-              <div className="d-flex justify-content-center my-1">
-                <button>Resend Link</button>
+              <div className="d-flex justify-content-center my-2">
+                <button className={forgetStyles.resendLinkBrown}>
+                  Resend Link
+                </button>
               </div>
             </div>
           </div>
