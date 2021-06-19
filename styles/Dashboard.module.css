@@ -1,3 +1,25 @@
 .greyBackground {
   background-color: #f1f1f1;
 }
+
+.brownText {
+  color: #6a4029;
+}
+
+.bulletPeriod {
+  height: 20px;
+  border: 4px solid #666666;
+  border-radius: 50%;
+}
+
+/* height: 97px;
+width: 1142px;
+left: 150px;
+top: 1121px;
+border-radius: 20px; */
+
+/* background: #6A4029; */
+
+/* 
+grey bullet color code
+background: #9F9F9F; */
