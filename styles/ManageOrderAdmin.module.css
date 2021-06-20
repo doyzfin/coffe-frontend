@@ -14,6 +14,10 @@
   border-radius: 20px;
 }
 
+.brownText {
+  color: #895537;
+}
+
 .cardVectorBackground {
   background-color: #f47b0a;
   border-radius: 5px;
