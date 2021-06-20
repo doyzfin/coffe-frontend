@@ -3,8 +3,22 @@ import NavBar from "components/module/NavBar";
 import Footer from "components/module/footer";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import styles from "../../styles/NewProduct.module.css";
+import { useState } from "react";
 
 export default function newProduct() {
+  const [isClickSize, setIsClickSize] = useState(false);
+  const [isClickCoffee, setIsClickCoffee] = useState(false);
+
+  const handleClickSizeCoffee = () => {
+    setIsClickCoffee(true);
+    setIsClickSize(false);
+  };
+
+  const handleClickSizeFood = () => {
+    setIsClickSize(true);
+    setIsClickCoffee(false);
+  };
+
   return (
     <Layout title="Add Product">
       <NavBar />
@@ -80,24 +94,57 @@ export default function newProduct() {
                 </Form.Text>
               </Form.Group>
             </Form>
-            <Row>
+            <Row className={styles.rowCardCategory}>
               <Col>
-                <Card className={styles.coffee}>R</Card>
+                <Card
+                  className={isClickCoffee ? styles.click : styles.unClick}
+                  onClick={handleClickSizeCoffee}
+                >
+                  R
+                </Card>
               </Col>{" "}
               <Col>
-                <Card className={styles.coffee}>R</Card>
+                <Card
+                  className={isClickCoffee ? styles.click : styles.unClick}
+                  onClick={handleClickSizeCoffee}
+                >
+                  L
+                </Card>
               </Col>{" "}
               <Col>
-                <Card className={styles.coffee}>R</Card>
+                <Card
+                  className={isClickCoffee ? styles.click : styles.unClick}
+                  onClick={handleClickSizeCoffee}
+                >
+                  XL
+                </Card>
               </Col>{" "}
               <Col>
-                <Card className={styles.coffee}>R</Card>
+                <Card
+                  className={isClickSize ? styles.click : styles.unClick}
+                  onClick={handleClickSizeFood}
+                >
+                  250
+                  <br /> gr
+                </Card>
               </Col>{" "}
               <Col>
-                <Card className={styles.coffee}>R</Card>
+                <Card
+                  className={isClickSize ? styles.click : styles.unClick}
+                  onClick={handleClickSizeFood}
+                >
+                  300
+                  <br /> gr
+                </Card>
               </Col>{" "}
               <Col>
-                <Card className={styles.coffee}>R</Card>
+                <Card
+                  className={isClickSize ? styles.click : styles.unClick}
+                  onClick={handleClickSizeFood}
+                >
+                  500
+                  <br /> gr
+                </Card>
               </Col>
             </Row>
           </Col>
