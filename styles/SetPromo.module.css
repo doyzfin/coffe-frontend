@@ -1,0 +1,17 @@
+.picturePlace {
+  width: 50px;
+  height: 43px;
+}
+
+.picturePlaceBackground {
+  background-color: rgba(186, 186, 186, 0.35);
+  width: inherit;
+}
+
+.yellowishButton {
+  background-color: #ffba33;
+  border: 1px solid #ffba33;
+  height: 59px;
+  width: 100%;
+  border-radius: 10px;
+}
