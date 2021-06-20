@@ -32,7 +32,7 @@ when there is a pandemic, this application is here to make it easier for you to 
 4. Add .env file at root folder project
 
 ```sh
-NEXT_APP_ENDPOINT = [Backend API]
+NEXT_APP_ENDPOINT = http://localhost:3005/backend5/api/v1
 ```
 
 5. Type `npm run dev`
