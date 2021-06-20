@@ -19,7 +19,7 @@ export function authPage(context) {
 
     return resolve({
       token: allCookies.token,
-      user: allCookies.user,
+      userId: allCookies.userId,
     });
   });
 }

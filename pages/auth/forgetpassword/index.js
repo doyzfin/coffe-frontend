@@ -36,9 +36,7 @@ export default function forgetpassword() {
             </div>
           </div>
         </div>
-        <div className="mt-5">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     </>
   );

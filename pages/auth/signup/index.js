@@ -1,7 +1,58 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import styles from "../../../styles/Signup.module.css";
 import Footer from "../../../components/module/footer";
+import axiosApiIntances from "utils/axios";
+import { Alert } from "react-bootstrap";
 
 export default function signup() {
+  const router = useRouter();
+
+  const [form, setForm] = useState({
+    userEmail: "",
+    userPassword: "",
+    userPhone: "",
+  });
+  const [msgError, setMsgError] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const changeText = (event) => {
+    event.preventDefault();
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    console.log(form);
+    if (
+      form.userEmail.length === 0 ||
+      form.userPassword.length === 0 ||
+      form.userPhone.length === 0
+    ) {
+      setIsError(true);
+      setIsSuccess(false);
+      setMsgError("Please Input field correctly !");
+    } else {
+      axiosApiIntances
+        .post("/auth/register", form)
+        .then((res) => {
+          setIsSuccess(true);
+          setIsError(false);
+          setTimeout(() => {
+            moveToLogin();
+          }, 3000);
+        })
+        .catch((err) => {
+          setIsError(true);
+          setIsSuccess(false);
+          setMsgError(err.response.data.msg);
+        });
+    }
+  };
+
+  const moveToLogin = () => {
+    router.push("login");
+  };
+
   return (
     <>
       <div className="container-fluid">
@@ -16,17 +67,37 @@ export default function signup() {
                 <span className="fw-bold my-auto ms-2">Coffee Express</span>
               </div>
               <div className="d-flex my-auto">
-                <button className={styles.yellowExpressButton}>Login</button>
+                <button
+                  className={styles.yellowExpressButton}
+                  onClick={() => {
+                    moveToLogin();
+                  }}
+                >
+                  Login
+                </button>
               </div>
             </div>
             <div className="row w-100 mt-4">
               <h4 className="text-center fw-bold mt-4">Sign Up</h4>
               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                {isError && (
+                  <Alert variant="danger" className={styles.alert}>
+                    {msgError}
+                  </Alert>
+                )}
+                {isSuccess && (
+                  <Alert variant="success" className={styles.alert}>
+                    Register Succesful please check your email for activation !
+                  </Alert>
+                )}
                 <form className="mt-5 px-5">
                   <div className="my-4">
                     <span className="fw-bold">Email Address</span>
                     <input
                       type="email"
+                      name="userEmail"
+                      value={form.userEmail}
+                      onChange={(event) => changeText(event)}
                       className={`form-control mt-2 ${styles.inputHeight}`}
                       placeholder="Enter your email address"
                     ></input>
@@ -35,6 +106,9 @@ export default function signup() {
                     <span className="fw-bold">Password</span>
                     <input
                       type="password"
+                      name="userPassword"
+                      value={form.userPassword}
+                      onChange={(event) => changeText(event)}
                       className={`form-control mt-2 ${styles.inputHeight}`}
                       placeholder="Enter your password"
                     ></input>
@@ -43,6 +117,9 @@ export default function signup() {
                     <span className="fw-bold">Phone Number</span>
                     <input
                       type="text"
+                      name="userPhone"
+                      value={form.userPhone}
+                      onChange={(event) => changeText(event)}
                       className={`form-control mt-2 ${styles.inputHeight}`}
                       placeholder="Enter your phone number"
                     ></input>
@@ -50,6 +127,8 @@ export default function signup() {
                   <div className="mt-5">
                     <button
                       className={`w-100 ${styles.yellowExpressButtonLarger}`}
+                      type="submit"
+                      onClick={(event) => handleSignUp(event)}
                     >
                       Sign Up
                     </button>
