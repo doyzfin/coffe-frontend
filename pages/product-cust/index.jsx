@@ -105,7 +105,7 @@ export default function ProductCust() {
             {dataCoupons.map((item, index) => {
               return (
                 <Card
-                  className={
+                  className={`position-relative ${
                     item.name === "HAPPY MOTHERS DAYS"
                       ? styles.cardCoupons
                       : item.name ===
@@ -114,7 +114,7 @@ export default function ProductCust() {
                       : item.name === "HAPPY HALLOWEEN!"
                       ? styles.cardCoupons3
                       : styles.cardCoupons
-                  }
+                  }`}
                   key={index}
                 >
                   <Row>
