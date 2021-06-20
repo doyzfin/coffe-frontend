@@ -1,3 +1,20 @@
+.brownText {
+  color: #6a4029;
+}
+
+/* card color 
+background: #FFBA33;
+*/
+
+/* 
+height: 30px;
+width: 30px;
+left: 324px;
+top: 401px;
+border-radius: 0px;
+background: #0B132A;
+*/
+
 .col1 {
   padding: 29px 50px;
   border-right: 0.5px solid #9f9f9f !important;
@@ -128,6 +145,7 @@
   border-radius: 30px;
   border: none;
   margin-bottom: 30px;
+  position: relative;
 }
 .nameMenu {
   font-family: Poppins;
@@ -147,6 +165,75 @@
   text-align: center;
   color: #6a4029;
 }
+
+.updateAndDelete {
+  position: absolute;
+  top: 103%;
+  right: -74%;
+}
+
+.updateButton {
+  background-color: #0b132a;
+  border-radius: 50%;
+}
+
+.updateButton2 {
+  background-color: #0b132a;
+  border-radius: 50%;
+  top: 93%;
+  left: 7%;
+}
+
+.updateButtonWidth {
+  padding: 6px 8px 6px 8px;
+}
+
+.deleteButton {
+  background-color: #6a4029;
+  border-radius: 50%;
+}
+
+.deleteButton2 {
+  background-color: #6a4029;
+  border-radius: 50%;
+  top: 93%;
+  right: 7%;
+}
+
+.deleteButtonWidth {
+  padding: 6px 7px 6px 7px;
+}
+
+.deleteButtonWidth2 {
+  padding: 6px 8px 6px 8px;
+}
+
+.updateAndDelete2 {
+  width: 84%;
+  left: 8%;
+  top: 93%;
+}
+
+/* 
+.updateButton
+height: 30px;
+width: 30px;
+left: 324px;
+top: 401px;
+border-radius: 0px;
+background: #0B132A;
+*/
+
+/* 
+.deleteButton 
+height: 30px;
+width: 30px;
+left: 359px;
+top: 401px;
+border-radius: 0px;
+background: #6A4029;
+*/
+
 .nav {
   margin-bottom: 50px;
 }

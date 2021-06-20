@@ -3,8 +3,19 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import styles from "../../styles/ProductDetail.module.css";
+import NavBar from "components/module/NavBar";
+import Footer from "components/module/footer";
 
-export default function ProductDetail() {
+export async function getServerSideProps(context) {
+  // const data = await authPage(context);
+  const { id } = context.query;
+
+  return {
+    props: { id },
+  };
+}
+
+export default function ProductDetail(props) {
   const [count, setCount] = useState(0);
   const [size, setSize] = useState("");
   const [price, setPrice] = useState(0);
@@ -92,6 +103,8 @@ export default function ProductDetail() {
     }
   };
 
+  console.log(props.id);
+
   return (
     <Layout title="Product Detail">
       <NavBar />
@@ -175,6 +188,7 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+      <Footer />
     </Layout>
   );
 }
