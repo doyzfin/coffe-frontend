@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import styles from "../../styles/ProductDetail.module.css";
+import NavBar from "components/module/NavBar";
 
 export default function ProductDetail() {
   const [count, setCount] = useState(0);
@@ -91,7 +92,7 @@ export default function ProductDetail() {
 
   return (
     <Layout title="Product Detail">
-      //navabr
+      <NavBar />
       <div className={styles.container}>
         <h2>
           Favorite & Promo <span>{">"} Cold Braw</span>
