@@ -1,14 +1,30 @@
 import Layout from "components/Layout";
 import NavBar from "components/module/NavBar";
 import Footer from "components/module/footer";
-import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Form,
+  Alert,
+} from "react-bootstrap";
 import styles from "../../styles/NewProduct.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { postProduct } from "redux/actions/product";
+import Cookies from "js-cookie";
 
-export default function newProduct() {
+function newProduct(props) {
   const [isClickSize, setIsClickSize] = useState(false);
   const [isClickCoffee, setIsClickCoffee] = useState(false);
   const [isImage, setIsImage] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [msgError, setMsgError] = useState("");
+  const [msgSuccess, setMsgSuccess] = useState("");
+  const [token, setToken] = useState("");
   const [imageProduct, setImageProduct] = useState("");
   const [formProduct, setFormProduct] = useState({
     productName: "",
@@ -18,15 +34,20 @@ export default function newProduct() {
     productDesc: "",
     image: null,
   });
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, []);
 
   const handleClickSizeCoffee = () => {
     setIsClickCoffee(true);
     setIsClickSize(false);
+    setFormProduct({ ...formProduct, productSize: "A" });
   };
 
   const handleClickSizeFood = () => {
     setIsClickSize(true);
     setIsClickCoffee(false);
+    setFormProduct({ ...formProduct, productSize: "B" });
   };
   const inputOpenFileRef = React.createRef();
   const showOpenFileDlg = () => {
@@ -43,6 +64,8 @@ export default function newProduct() {
   };
   const handleCancel = () => {
     setIsImage(false);
+    isClickCoffee(false);
+    isClickSize(false);
     setFormProduct({
       productName: "",
       productPrice: "",
@@ -52,7 +75,35 @@ export default function newProduct() {
       image: null,
     });
   };
-  console.log(formProduct);
+  const handlePost = () => {
+    const formData = new FormData();
+    formData.append("productName", formProduct.productName);
+    formData.append("productPrice", formProduct.productPrice);
+    formData.append("productCategory", formProduct.productCategory);
+    formData.append("productSize", formProduct.productSize);
+    formData.append("productDesc", formProduct.productDesc);
+    formData.append("image", formProduct.image);
+    props
+      .postProduct(formData, token)
+      .then((res) => {
+        setIsSuccess(true);
+        setMsgSuccess(res.action.payload.data.msg);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
+        handleCancel();
+
+        console.log(res);
+      })
+      .catch((err) => {
+        setIsImage(false);
+        setIsError(true);
+        setMsgError(err.response.data.msg);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+      });
+  };
   return (
     <Layout title="Add Product">
       <NavBar />
@@ -68,6 +119,16 @@ export default function newProduct() {
               style={{ display: "none" }}
               onChange={(event) => handleImage(event)}
             />
+            {isError && (
+              <Alert variant="danger" className={styles.alert}>
+                {msgError}
+              </Alert>
+            )}
+            {isSuccess && (
+              <Alert variant="success" className={styles.alert}>
+                {msgSuccess}
+              </Alert>
+            )}
             <Card className={isImage ? styles.cardImgProduct : styles.forImg}>
               <img
                 alt=""
@@ -78,7 +139,9 @@ export default function newProduct() {
             <Button className={styles.btnGalery} onClick={showOpenFileDlg}>
               Choose from gallery
             </Button>
-            <Button className={styles.btnSave}>Save Product</Button>
+            <Button className={styles.btnSave} onClick={handlePost}>
+              Save Product
+            </Button>
             <Button className={styles.btnCancel} onClick={handleCancel}>
               Cancel
             </Button>
@@ -217,3 +280,10 @@ export default function newProduct() {
     </Layout>
   );
 }
+const mapStateToProps = (state) => ({
+  product: state.product,
+});
+
+const mapDispatchToProps = { postProduct };
+
+export default connect(mapStateToProps, mapDispatchToProps)(newProduct);
