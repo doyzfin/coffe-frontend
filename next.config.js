@@ -24,6 +24,10 @@ module.exports = {
         source: "/product-admin",
         destination: "/product-admin",
       },
+      {
+        source: "/admin-manage-order",
+        destination: "/manage-order-admin",
+      },
     ];
   },
 };

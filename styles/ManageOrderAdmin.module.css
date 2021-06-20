@@ -1,0 +1,11 @@
+.pageBackground {
+  background-image: url("/bg2.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.customerOrderStyle {
+  color: white;
+  text-shadow: 3px 3px #000000;
+}
