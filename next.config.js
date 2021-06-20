@@ -16,6 +16,14 @@ module.exports = {
         source: "/admin-dashboard",
         destination: "/profile/AdminDashboard",
       },
+      {
+        source: "/product-cust",
+        destination: "/product-cust",
+      },
+      {
+        source: "/product-admin",
+        destination: "/product-admin",
+      },
     ];
   },
 };
