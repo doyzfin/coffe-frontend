@@ -29,6 +29,10 @@ module.exports = {
         source: "/admin-manage-order",
         destination: "/manage-order-admin",
       },
+      {
+        source: "/set-promo",
+        destination: "/set-promo",
+      },
     ];
   },
 };
