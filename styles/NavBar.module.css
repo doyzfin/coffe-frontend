@@ -1,6 +1,6 @@
 .main {
   background: #ffffff;
-  border: 0.5px solid #9f9f9f;
+  border-bottom: 0.5px solid #9f9f9f;
   box-sizing: border-box;
   padding: 10px;
 }

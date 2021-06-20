@@ -42,6 +42,16 @@
   border-radius: 10px;
 }
 
+.redButton {
+  background-color: #a30000;
+  border: 1px solid #a30000;
+  color: white;
+  font-weight: bold;
+  height: 59px;
+  width: 100%;
+  border-radius: 10px;
+}
+
 .boldBrownText {
   color: #6a4029;
   font-weight: bold;
@@ -77,4 +87,16 @@
 
 .greyBackground {
   background-color: rgba(186, 186, 186, 0.35);
+}
+
+.leftPanel {
+  padding-left: 5rem;
+}
+
+@media (max-width: 991.98px) {
+  .leftPanel {
+    padding-left: 0px;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
 }

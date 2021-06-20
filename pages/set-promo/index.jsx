@@ -1,6 +1,6 @@
 import Navbar from "../../components/module/NavBar";
 import Layout from "../../components/Layout";
-import {Container, Row, Col, Card, Form} from "react-bootstrap";
+import {Container, Row, Col, Card, Grid, Form} from "react-bootstrap";
 import styles from "../../styles/SetPromo.module.css";
 import Footer from "../../components/module/greyFooter";
 
@@ -11,7 +11,7 @@ export default function setpromo() {
     <Navbar />
     <Container>
       <Row className="pt-5">
-        <Col lg={4} md={4} sm={4} xs={12}>
+        <Col lg={4} md={4} sm={12} smPush={12} xs={12} xsPush={12}>
           <span className="d-block">Product {`>`} <span className="fw-bold">Add Product</span></span> 
           <div className="pt-5">
             <div className="pt-3">
@@ -30,8 +30,8 @@ export default function setpromo() {
             <button className={styles.greyButton}>Cancel</button>
           </div>
         </Col>
-        <Col lg={7} md={7} sm={7} xs={12}> 
-          <div className="ms-5">
+        <Col lg={7} md={7} sm={12} xs={12} > 
+          <div className={styles.leftPanel}>
             <form>
               <div className="form-group">
                 <label className={styles.boldBrownText}>Name: </label> 

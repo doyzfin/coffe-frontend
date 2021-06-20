@@ -33,7 +33,7 @@ function NavBar(props) {
   return (
     <Container fluid className={styles.main}>
       <Container>
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg">
           <Navbar.Brand href="#" className={styles.brand}>
             <Row>
               <Col>
