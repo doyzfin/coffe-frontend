@@ -18,7 +18,7 @@ export default function manageOrderAdmin() {
                 <h4 className={`fw-bold ${styles.customerOrderStyle}`}>
                   customer order now.
                 </h4>
-                <Card>
+                <Card className={`mt-5 ${styles.bigCard}`}>
                   <div className="px-4">
                     <h3 className="fw-bold text-center mt-5 mb-2">
                       Delivery Order
@@ -54,8 +54,105 @@ export default function manageOrderAdmin() {
                       <span>SHIPPING</span>
                       <span>IDR 10.000</span>
                     </div>
+                    <div className="d-flex justify-content-between mt-5 mb-5">
+                      <h5 className="fw-bold text-center">TOTAL</h5>
+                      <h5 className="fw-bold text-center">IDR 150.000</h5>
+                    </div>
                   </div>
                 </Card>
+              </Col>
+              <Col lg={7} md={7} sm={7} xs={12} className="mt-5">
+                <div className="ms-5">
+                  <div className="ms-5">
+                    <div className="mt-5">
+                      <div className="mt-5">
+                        <div className="mt-5">
+                          <div className="mt-5">
+                            <h5
+                              className={`mt-5 fw-bold ${styles.customerOrderStyle}`}
+                            >
+                              Payment method
+                            </h5>
+                            <Card className={`mt-4 ${styles.bigCard}`}>
+                              <div className="p-4">
+                                <div className="d-flex h-100">
+                                  <input
+                                    type="radio"
+                                    id="card"
+                                    name="cardPayment"
+                                    value="card"
+                                    className="my-auto"
+                                  ></input>
+                                  <span
+                                    className={`${styles.cardVectorBackground} mx-2`}
+                                  >
+                                    <img
+                                      src="/card vector.png"
+                                      className={`${styles.cardVectorSize} my-2 mx-2`}
+                                    ></img>
+                                  </span>
+                                  <label for="card" className="my-auto">
+                                    Card
+                                  </label>
+                                </div>
+                                <hr />
+                                <div className="d-flex h-100">
+                                  <input
+                                    type="radio"
+                                    id="bankAccount"
+                                    name="bankAccountPayment"
+                                    value="bankAccount"
+                                    className="my-auto"
+                                  ></input>
+                                  <span
+                                    className={`${styles.bankAccountBackground} mx-2`}
+                                  >
+                                    <img
+                                      src="/bank-account.png"
+                                      className={`${styles.cardVectorSize} my-2 mx-2`}
+                                    ></img>
+                                  </span>
+                                  <label for="bankAccount" className="my-auto">
+                                    Bank Account
+                                  </label>
+                                </div>
+                                <hr />
+                                <div className="d-flex h-100">
+                                  <input
+                                    type="radio"
+                                    id="cashOnDelivery"
+                                    name="cashOnDeliveryPayment"
+                                    value="cashOnDelivery"
+                                    className="my-auto"
+                                  ></input>
+                                  <span
+                                    className={`${styles.fastDeliveryBackground} mx-2`}
+                                  >
+                                    <img
+                                      src="/fast-delivery 3.png"
+                                      className={`${styles.cardVectorSize} my-2 mx-2`}
+                                    ></img>
+                                  </span>
+                                  <label
+                                    for="cashOnDelivery"
+                                    className="my-auto"
+                                  >
+                                    Bank Account
+                                  </label>
+                                </div>
+                              </div>
+                            </Card>
+                            <div className="my-5">
+                              <button className={styles.brownDoneButton}>
+                                Mark as done
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </Col>
             </Row>
           </Container>

@@ -9,3 +9,37 @@
   color: white;
   text-shadow: 3px 3px #000000;
 }
+
+.bigCard {
+  border-radius: 20px;
+}
+
+.cardVectorBackground {
+  background-color: #f47b0a;
+  border-radius: 5px;
+}
+
+.cardVectorSize {
+  width: 16px;
+  height: 12px;
+}
+
+.bankAccountBackground {
+  background-color: #895537;
+  border-radius: 5px;
+}
+
+.fastDeliveryBackground {
+  background-color: #ffba33;
+  border-radius: 5px;
+}
+
+.brownDoneButton {
+  background-color: #895537;
+  border: 1px solid #895537;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  border-radius: 20px;
+  height: 84px;
+}
