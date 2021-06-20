@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import styles from "../../../styles/Signup.module.css";
 import Footer from "../../../components/module/footer";
 import axiosApiIntances from "utils/axios";
 import { Alert } from "react-bootstrap";
 
 export default function signup() {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     userEmail: "",
     userPassword: "",
@@ -34,6 +37,9 @@ export default function signup() {
         .then((res) => {
           setIsSuccess(true);
           setIsError(false);
+          setTimeout(() => {
+            moveToLogin();
+          }, 3000);
         })
         .catch((err) => {
           setIsError(true);
@@ -42,6 +48,11 @@ export default function signup() {
         });
     }
   };
+
+  const moveToLogin = () => {
+    router.push("login");
+  };
+
   return (
     <>
       <div className="container-fluid">
@@ -56,7 +67,14 @@ export default function signup() {
                 <span className="fw-bold my-auto ms-2">Coffee Express</span>
               </div>
               <div className="d-flex my-auto">
-                <button className={styles.yellowExpressButton}>Login</button>
+                <button
+                  className={styles.yellowExpressButton}
+                  onClick={() => {
+                    moveToLogin();
+                  }}
+                >
+                  Login
+                </button>
               </div>
             </div>
             <div className="row w-100 mt-4">
@@ -69,7 +87,7 @@ export default function signup() {
                 )}
                 {isSuccess && (
                   <Alert variant="success" className={styles.alert}>
-                    Register Succesful
+                    Register Succesful please check your email for activation !
                   </Alert>
                 )}
                 <form className="mt-5 px-5">
