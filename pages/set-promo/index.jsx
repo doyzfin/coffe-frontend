@@ -1,12 +1,14 @@
+import Navbar from "../../components/module/NavBar";
 import Layout from "../../components/Layout";
 import {Container, Row, Col, Card, Form} from "react-bootstrap";
 import styles from "../../styles/SetPromo.module.css";
-import Footer from "../../components/module/footer";
+import Footer from "../../components/module/greyFooter";
 
 export default function setpromo() {
  return(
    <>
    <Layout title="Set Promo">
+    <Navbar />
     <Container>
       <Row className="pt-5">
         <Col lg={4} md={4} sm={4} xs={12}>
@@ -60,9 +62,9 @@ export default function setpromo() {
                   <button className={`${styles.yellowBullet} ms-3`}><span className="fw-bold">XL</span></button>
                 
                   {/* Grey Button */}
-                  <button className={`${styles.greyBullet} ms-3`}><span className={`fw-bold ${styles.smallerFont}`}>250 gr</span></button> 
-                  <button className={`${styles.greyBullet} ms-3`}><span className={`fw-bold ${styles.smallerFont}`}>300</span></button>
-                  <button className={`${styles.greyBullet} ms-3`}><span className={`fw-bold ${styles.smallerFont}`}>500</span></button>
+                  <button className={`${styles.greyBullet} ms-3`}><span className={`fw-bold `}>250</span></button> 
+                  <button className={`${styles.greyBullet} ms-3`}><span className={`fw-bold `}>300</span></button>
+                  <button className={`${styles.greyBullet} ms-3`}><span className={`fw-bold `}>500</span></button>
                 </div>
               </div>
             </form>
@@ -70,7 +72,11 @@ export default function setpromo() {
         </Col> 
       </Row>
     </Container>
-    <Footer />
+    <div className={`${styles.greyBackground} mt-5`}>
+      <div className="pt-5">
+        <Footer />
+      </div>
+    </div>
    </Layout>
    </>
  ) 
