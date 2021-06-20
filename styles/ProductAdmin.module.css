@@ -145,6 +145,7 @@ background: #0B132A;
   border-radius: 30px;
   border: none;
   margin-bottom: 30px;
+  position: relative;
 }
 .nameMenu {
   font-family: Poppins;
@@ -176,6 +177,13 @@ background: #0B132A;
   border-radius: 50%;
 }
 
+.updateButton2 {
+  background-color: #0b132a;
+  border-radius: 50%;
+  top: 93%;
+  left: 7%;
+}
+
 .updateButtonWidth {
   padding: 6px 8px 6px 8px;
 }
@@ -185,8 +193,25 @@ background: #0B132A;
   border-radius: 50%;
 }
 
+.deleteButton2 {
+  background-color: #6a4029;
+  border-radius: 50%;
+  top: 93%;
+  right: 7%;
+}
+
 .deleteButtonWidth {
   padding: 6px 7px 6px 7px;
+}
+
+.deleteButtonWidth2 {
+  padding: 6px 8px 6px 8px;
+}
+
+.updateAndDelete2 {
+  width: 84%;
+  left: 8%;
+  top: 93%;
 }
 
 /* 

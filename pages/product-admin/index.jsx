@@ -192,10 +192,18 @@ export default function productadmin() {
               {dataMenu.map((item, index) => {
                 return (
                   <Col sm={3} key={index}>
-                    <Card className={styles.cardMenu}>
+                    <Card className={styles.cardMenu} >
                       <img alt="" src={item.image} />
                       <h1 className={styles.nameMenu}>{item.name}</h1>
                       <p className={styles.price}>{item.price}</p>
+                      <span className={`d-flex justify-content-between position-absolute ${styles.updateAndDelete2}`}>
+                      <span className={`${styles.updateButton2}`}>
+                        <img src="/trash 13.png" className={styles.updateButtonWidth}></img>
+                      </span> 
+                      <span className={`${styles.deleteButton2}`}>
+                        <img src="/pencil vector.png" className={styles.deleteButtonWidth2}></img>
+                      </span>
+                      </span>
                     </Card>
                   </Col>
                 );
