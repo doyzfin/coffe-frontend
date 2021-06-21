@@ -1,4 +1,51 @@
-.container {
+.header {
+  background-image: url("/nathan-dumlao-71u2fOofI-U-unsplash 2.png");
+  color: #ffffff;
+}
+
+.headerLeft {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
+.headerLineHeight {
+  line-height: 3rem;
+}
+
+.headerParagraphLineHeight {
+  line-height: 2rem;
+}
+
+.yellowButton {
+  background-color: #ffba33;
+  border: 1px solid #ffba33;
+  height: 49px;
+  width: 180px;
+  border-radius: 10px;
+}
+
+.headerCard {
+  color: black;
+}
+
+.yellowBulletBackground {
+  background-color: #ffba33;
+  border: 1px solid #ffba33;
+  border-radius: 50px;
+  height: 40px;
+  width: 40px;
+  position: relative;
+}
+
+.cardBulletImage {
+  left: 50%;
+  margin-left: -20%;
+  top: 50%;
+  margin-top: -30%;
+  position: absolute;
+}
+
+/* .container {
   min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;
@@ -118,4 +165,4 @@
     width: 100%;
     flex-direction: column;
   }
-}
+} */
