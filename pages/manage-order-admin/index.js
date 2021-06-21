@@ -1,5 +1,5 @@
 import Layout from "../../components/Layout";
-import Navbar from "../../components/module/NavBar";
+import Navbar from "../../components/module/AdminDashboardNavbar";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "../../styles/ManageOrderAdmin.module.css";
 import Footer from "../../components/module/footer";
