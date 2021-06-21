@@ -23,17 +23,20 @@ function NavBar(props) {
   const setKeywordsStore = (text) => {
     setSearch(text);
     props.setKeywords(text);
+    if (props.catchKey) {
+      props.catchKey(text);
+    }
   };
 
   const moveToProfile = () => {
     router.push("/profile");
   };
 
-  // console.log(props);
+  // console.log("NAV", props);
   return (
     <Container fluid className={styles.main}>
       <Container>
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg">
           <Navbar.Brand href="#" className={styles.brand}>
             <Row>
               <Col>
@@ -68,16 +71,20 @@ function NavBar(props) {
                 History
               </Nav.Link>
             </Nav>
-            <Form>
-              <Form.Control
-                type="text"
-                placeholder="Search"
-                className={styles.formControl}
-                onChange={(event) => {
-                  setKeywordsStore(event.target.value);
-                }}
-              />
-            </Form>
+            {props.catchKey ? (
+              <Form>
+                <Form.Control
+                  type="text"
+                  placeholder="Search"
+                  className={styles.formControl}
+                  onChange={(event) => {
+                    setKeywordsStore(event.target.value);
+                  }}
+                />
+              </Form>
+            ) : (
+              ""
+            )}
             <img alt="" src="/chat.png" className={styles.notif} />
             <img
               alt=""

@@ -14,6 +14,10 @@ module.exports = {
         destination: "/auth/signup",
       },
       {
+        source: "/forget-password",
+        destination: "/auth/forgetpassword",
+      },
+      {
         source: "/admin-dashboard",
         destination: "/profile/AdminDashboard",
       },
@@ -28,6 +32,10 @@ module.exports = {
       {
         source: "/admin-manage-order",
         destination: "/manage-order-admin",
+      },
+      {
+        source: "/set-promo",
+        destination: "/set-promo",
       },
     ];
   },

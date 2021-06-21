@@ -1,34 +1,164 @@
 import Layout from "components/Layout";
-import NavBar from "components/module/NavBar";
+import NavBar from "components/module/AdminDashboardNavbar";
 import Footer from "components/module/footer";
-import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Form,
+  Alert,
+} from "react-bootstrap";
 import styles from "../../styles/UpdateProduct.module.css";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { authPage } from "../../middleware/authorizationPage";
+import axiosApiIntances from "utils/axios";
+import { connect } from "react-redux";
+import {
+  updateProduct,
+  getProduct,
+  deleteProduct,
+} from "redux/actions/product";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
   const { id } = context.query;
+<<<<<<< HEAD
 
+=======
+  const product = await axiosApiIntances
+    .get(`/product/${id}`, {
+      headers: {
+        Authorization: `Bearer ${data.token || ""}`,
+      },
+    })
+    .then((res) => {
+      return res.data.data[0];
+    });
+>>>>>>> 01103c678ea39627806bf92e0c31a882cf849184
   return {
-    props: {},
+    props: { data: product },
   };
 }
 
-export default function newProduct() {
+function setProduct(props) {
+  const router = useRouter();
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [msgError, setMsgError] = useState("");
+  const [msgSuccess, setMsgSuccess] = useState("");
+  const [token, setToken] = useState("");
   const [isClickSize, setIsClickSize] = useState(false);
   const [isClickCoffee, setIsClickCoffee] = useState(false);
+  const [isImage, setIsImage] = useState(false);
+  const [imageProduct, setImageProduct] = useState("");
+  const [formProduct, setFormProduct] = useState({
+    productName: "",
+    productPrice: "",
+    productCategory: "",
+    productSize: "",
+    productDesc: "",
+    image: null,
+  });
 
+  useEffect(() => {
+    const id = props.data.product_id;
+    const token = Cookies.get("token");
+
+    setFormProduct({
+      productName: props.data.product_name,
+      productPrice: props.data.product_price,
+      productCategory: props.data.product_category,
+      productSize: props.data.product_size,
+      productDesc: props.data.product_desc,
+      image: props.data.product_image,
+    });
+    setToken(Cookies.get("token"));
+  }, []);
+  // const getData = (id, token) => {
+  //   props.getProduct(id, token);
+  // };
   const handleClickSizeCoffee = () => {
     setIsClickCoffee(true);
     setIsClickSize(false);
+    setFormProduct({ ...formProduct, productSize: "A" });
   };
 
   const handleClickSizeFood = () => {
     setIsClickSize(true);
     setIsClickCoffee(false);
+    setFormProduct({ ...formProduct, productSize: "B" });
   };
+  const inputOpenFileRef = React.createRef();
+  const showOpenFileDlg = () => {
+    inputOpenFileRef.current.click();
+  };
+  const handleImage = (event) => {
+    event.preventDefault();
+    setIsImage(true);
+    setImageProduct(URL.createObjectURL(event.target.files[0]));
+    setFormProduct({ ...formProduct, image: event.target.files[0] });
+  };
+  const changeText = (event) => {
+    setFormProduct({ ...formProduct, [event.target.name]: event.target.value });
+  };
+  const handleCancel = () => {
+    setIsImage(false);
+    // isClickCoffee(false);
+    // isClickSize(false);
+    setFormProduct({
+      productName: props.data.product_name,
+      productPrice: props.data.product_price,
+      productCategory: props.data.product_category,
+      productSize: props.data.product_size,
+      productDesc: props.data.product_desc,
+      image: props.data.product_image,
+    });
+  };
+  const updateData = (event) => {
+    event.preventDefault();
+    const id = props.data.product_id;
+    const formData = new FormData();
+    formData.append("productName", formProduct.productName);
+    formData.append("productPrice", formProduct.productPrice);
+    formData.append("productCategory", formProduct.productCategory);
+    formData.append("productSize", formProduct.productSize);
+    formData.append("productDesc", formProduct.productDesc);
+    formData.append("image", formProduct.image);
+    props
+      .updateProduct(id, formData, token)
+      .then((res) => {
+        setIsSuccess(true);
+        setMsgSuccess(res.action.payload.data.msg);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
+        window.location.reload();
+        handleCancel();
 
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        // setIsImage(false);
+        setIsError(true);
+        setMsgError(err.response.data.msg);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+      });
+  };
+  const handleDelete = () => {
+    const id = props.data.product_id;
+    props.deleteProduct(id, token).then((res) => {
+      router.push("/product-admin");
+    });
+  };
+  // console.log(props.data.product_id);
+  console.log(formProduct);
   return (
     <Layout title="Update Product">
       <NavBar />
@@ -38,22 +168,60 @@ export default function newProduct() {
         </p>
         <Row>
           <Col sm={5}>
+            <input
+              ref={inputOpenFileRef}
+              type="file"
+              style={{ display: "none" }}
+              onChange={(event) => handleImage(event)}
+            />
+            {isError && (
+              <Alert variant="danger" className={styles.alert}>
+                {msgError}
+              </Alert>
+            )}
+            {isSuccess && (
+              <Alert variant="success" className={styles.alert}>
+                Success Update Data
+              </Alert>
+            )}
             <Card className={styles.forImg}>
-              <img alt="" src="/camera.png" className={styles.camera} />
+              <img
+                alt=""
+                src={
+                  isImage
+                    ? imageProduct
+                    : `http://localhost:3005/backend5/api/${props.data.product_image}`
+                }
+                className={styles.camera}
+              />
             </Card>
-            <Button className={styles.btnGalery}>Choose from gallery</Button>
-            <Button className={styles.btnSave}>Update Product</Button>
-            <Button className={styles.btnDelete}>Delete Product</Button>
-            <Button className={styles.btnCancel}>Cancel</Button>
+            <Button className={styles.btnGalery} onClick={showOpenFileDlg}>
+              Choose from gallery
+            </Button>
+            <Button
+              className={styles.btnSave}
+              onClick={(event) => updateData(event)}
+            >
+              Update Product
+            </Button>
+            <Button className={styles.btnDelete} onClick={handleDelete}>
+              Delete Product
+            </Button>
+            <Button className={styles.btnCancel} onClick={handleCancel}>
+              Cancel
+            </Button>
           </Col>
           <Col sm={7} className={styles.formInput}>
             <Form>
               <Form.Group controlId="formEmail">
                 <Form.Label className={styles.nameLabel}>Name :</Form.Label>
                 <Form.Control
-                  type="email"
+                  type="text"
                   placeholder="Type product name min. 50 characters"
                   className={styles.controlInput}
+                  name="productName"
+                  value={formProduct.productName}
+                  onChange={(event) => changeText(event)}
                 />
               </Form.Group>
               <Row>
@@ -66,6 +234,9 @@ export default function newProduct() {
                       type="text"
                       placeholder="Type the price"
                       className={styles.controlInput}
+                      name="productPrice"
+                      value={formProduct.productPrice}
+                      onChange={(event) => changeText(event)}
                     />
                   </Form.Group>
                 </Col>
@@ -74,13 +245,19 @@ export default function newProduct() {
                     <Form.Label className={styles.nameLabel}>
                       Category :
                     </Form.Label>
-                    <Form.Control as="select" className={styles.controlInput}>
+                    <Form.Control
+                      as="select"
+                      className={styles.controlInput}
+                      name="productCategory"
+                      value={formProduct.productCategory}
+                      onChange={(event) => changeText(event)}
+                    >
                       <option value="">Select category</option>
-                      <option value="Favorite Product">Favorite Product</option>
-                      <option value="Coffee">Coffee</option>
-                      <option value="Non Coffee">Non Coffee</option>
-                      <option value="Foods">Foods</option>
-                      <option value="Add-on">Add-on</option>
+                      <option value="fav">Favorite Product</option>
+                      <option value="coffee">Coffee</option>
+                      <option value="noncoffee">Non Coffee</option>
+                      <option value="foods">Foods</option>
+                      <option value="addon">Add-on</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>
@@ -93,6 +270,9 @@ export default function newProduct() {
                   type="text"
                   placeholder="Describe your product min. 150 characters"
                   className={styles.controlInput}
+                  name="productDesc"
+                  value={formProduct.productDesc}
+                  onChange={(event) => changeText(event)}
                 />
               </Form.Group>
               <Form.Group controlId="formEmail">
@@ -165,3 +345,10 @@ export default function newProduct() {
     </Layout>
   );
 }
+const mapStateToProps = (state) => ({
+  product: state.product,
+});
+
+const mapDispatchToProps = { updateProduct, getProduct, deleteProduct };
+
+export default connect(mapStateToProps, mapDispatchToProps)(setProduct);
