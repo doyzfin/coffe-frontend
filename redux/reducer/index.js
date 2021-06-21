@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
-// import counter from "./counter";
-// import pin from "./pin";
-// import user from "./user";
+import auth from "./auth";
+import keywords from "./keywords";
 
-export default combineReducers({});
+export default combineReducers({
+  auth,
+  keywords,
+});
