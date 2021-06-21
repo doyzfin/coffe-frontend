@@ -23,13 +23,14 @@ function NavBar(props) {
   const setKeywordsStore = (text) => {
     setSearch(text);
     props.setKeywords(text);
+    props.catchKey(text);
   };
 
   const moveToProfile = () => {
     router.push("/profile");
   };
 
-  // console.log(props);
+  // console.log("NAV", props);
   return (
     <Container fluid className={styles.main}>
       <Container>

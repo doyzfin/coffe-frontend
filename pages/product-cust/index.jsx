@@ -4,11 +4,13 @@ import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
 import styles from "../../styles/ProductCust.module.css";
 import Footer from "../../components/module/footer";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 import { authPage } from "middleware/authorizationPage";
 
 import { connect } from "react-redux";
 import { getProduct } from "redux/actions/product";
+import { getPromo } from "redux/actions/promo";
 import ReactPaginate from "react-paginate";
 
 export async function getServerSideProps(context) {
@@ -20,41 +22,24 @@ export async function getServerSideProps(context) {
 }
 
 function ProductCust(props) {
+  const router = useRouter();
   const limit = 10;
   const [page, setPage] = useState(1);
   const [category, setCateggory] = useState("foods");
   const [search, setSearch] = useState("");
   const [pagination, setPagination] = useState({});
-  const [dataCoupons, setDataCoupons] = useState([
-    {
-      image: "/image 46.png",
-      name: "HAPPY MOTHERS DAYS",
-      note: "Get one of our favorite menu for free!",
-    },
-    {
-      image: "/image 43.png",
-      name: "Get a cup of coffee for free on sunday morning",
-      note: "Only at 7 to 9 AM",
-    },
-    {
-      image: "/image 46.png",
-      name: "HAPPY MOTHERS DAYS",
-      note: "Get one of our favorite menu for free!",
-    },
-    {
-      image: "/image 45.png",
-      name: "HAPPY HALLOWEEN!",
-      note: "Do you like chicken wings? Get 1 free only if you buy pinky promise",
-    },
-  ]);
+  const [dataCoupons, setDataCoupons] = useState([]);
   const [dataMenu, setDataMenu] = useState([]);
+
+  const [selectedCoupon, setSelectedCoupon] = useState({});
 
   useEffect(() => {
     setSearch(props.keywords);
+    setSelectedCoupon(JSON.parse(Cookie.get("Coupon")));
     props
       .getProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
-        console.log("RES", res.value.data.data);
+        // console.log("RES", res.value.data.data);
         setPagination(res.value.data.pagination);
         setDataMenu(
           res.value.data.data.map((item) => {
@@ -72,6 +57,30 @@ function ProductCust(props) {
       .catch((err) => {
         console.log(err.response.status);
       });
+
+    props
+      .getPromo(Cookie.get("token"), 1000, 1)
+      .then((res) => {
+        // console.log("RES PROMO", res.value.data.data);
+        setDataCoupons(
+          res.value.data.data.map((item) => {
+            return {
+              promoId: item.promo_id,
+              name: item.promo_name,
+              promoCode: item.promo_code,
+              maxDiscount: item.max_discount,
+              minTotalPrice: item.min_total_price,
+              note: item.promo_desc,
+              image: item.promo_image
+                ? `${process.env.IMAGE_URL}/${item.promo_image}`
+                : "/image 43.png",
+            };
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   }, []);
 
   useEffect(() => {
@@ -79,7 +88,7 @@ function ProductCust(props) {
     props
       .getProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
-        console.log("RES", res.value.data.data);
+        // console.log("RES", res.value.data.data);
         setPagination(res.value.data.pagination);
         setDataMenu(
           res.value.data.data.map((item) => {
@@ -108,10 +117,25 @@ function ProductCust(props) {
     setPage(selectedPage);
   };
 
-  console.log(category);
+  const handleSelectCoupon = () => {
+    Cookie.set("Coupon", selectedCoupon, {
+      expires: 1,
+      secure: true,
+    });
+  };
+
+  const moveToProductDetail = (id) => {
+    router.push(`/product-detail/${id}`);
+  };
+
+  const catchKeywords = (text) => {
+    setSearch(text);
+  };
+
+  console.log("main", search);
   return (
     <Layout title="Product Customer">
-      <NavBar />
+      <NavBar catchKey={catchKeywords} />
       <Container fluid className={styles.mainContainer}>
         <Row>
           <Col sm={4} className={styles.col1}>
@@ -134,6 +158,10 @@ function ProductCust(props) {
                       : styles.cardCoupons
                   }`}
                   key={index}
+                  onClick={() => {
+                    setSelectedCoupon(item);
+                  }}
+                  style={{ cursor: "pointer" }}
                 >
                   <Row>
                     <Col xs={4}>
@@ -156,7 +184,21 @@ function ProductCust(props) {
                 </Card>
               );
             })}
-            <Button className={styles.btnApply}>Apply Coupon</Button>
+            {selectedCoupon.name ? (
+              <div className="text-center">
+                Selected coupon : {selectedCoupon.name}
+              </div>
+            ) : (
+              ""
+            )}
+            <Button
+              className={styles.btnApply}
+              onClick={() => {
+                handleSelectCoupon();
+              }}
+            >
+              Apply Coupon
+            </Button>
             <p className={styles.terms}>Terms and Condition</p>
 
             <p className={styles.listTerm}>
@@ -232,7 +274,12 @@ function ProductCust(props) {
                 ? dataMenu.map((item, index) => {
                     return (
                       <Col sm={3} key={index}>
-                        <Card className={styles.cardMenu}>
+                        <Card
+                          className={styles.cardMenu}
+                          onClick={() => {
+                            moveToProductDetail(item.productId);
+                          }}
+                        >
                           <img alt="" src={item.image} />
                           <h1 className={styles.nameMenu}>{item.name}</h1>
                           <p className={styles.price}>{item.price}</p>
@@ -269,5 +316,5 @@ const mapStateToProps = (state) => ({
   keywords: state.keywords.keywords,
 });
 
-const mapDispatchToProps = { getProduct };
+const mapDispatchToProps = { getProduct, getPromo };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCust);

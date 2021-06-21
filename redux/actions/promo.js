@@ -1,15 +1,12 @@
 import axiosApiIntances from "../../utils/axios";
 
-export const getProduct = (token, search, limit, page, category) => {
+export const getPromo = (token, limit, page) => {
   return {
-    type: "GET_PRODUCT",
-    payload: axiosApiIntances.get(
-      `product?search=${search}&limit=${limit}&page=${page}&category=${category}`,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    ),
+    type: "GET_PROMO",
+    payload: axiosApiIntances.get(`promo?limit=${limit}&page=${page}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }),
   };
 };
