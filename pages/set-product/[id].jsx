@@ -1,5 +1,5 @@
 import Layout from "components/Layout";
-import NavBar from "components/module/NavBar";
+import NavBar from "components/module/AdminDashboardNavbar";
 import Footer from "components/module/footer";
 import {
   Container,
@@ -249,11 +249,11 @@ function setProduct(props) {
                       onChange={(event) => changeText(event)}
                     >
                       <option value="">Select category</option>
-                      <option value="Favorite Product">Favorite Product</option>
-                      <option value="Coffee">Coffee</option>
-                      <option value="Non Coffee">Non Coffee</option>
-                      <option value="Foods">Foods</option>
-                      <option value="Add-on">Add-on</option>
+                      <option value="fav">Favorite Product</option>
+                      <option value="coffee">Coffee</option>
+                      <option value="noncoffee">Non Coffee</option>
+                      <option value="foods">Foods</option>
+                      <option value="addon">Add-on</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>
