@@ -1,6 +1,7 @@
 .picturePlace {
-  width: 50px;
-  height: 43px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .picturePlaceBackground {
@@ -30,6 +31,7 @@
   width: 100%;
   border-radius: 10px;
   box-shadow: 0px 6px 20px 0px #000000;
+  margin-top: 20px;
 }
 
 .greyButton {
@@ -50,11 +52,17 @@
   height: 59px;
   width: 100%;
   border-radius: 10px;
+  margin-top: 20px;
 }
 
 .boldBrownText {
   color: #6a4029;
   font-weight: bold;
+}
+.boldBrownText1 {
+  color: #6a4029;
+  font-weight: bold;
+  margin-top: 20px;
 }
 
 .setPromoForm {
@@ -63,7 +71,20 @@
   border-radius: 0px;
   margin-top: 1rem;
 }
-
+.setPromoForm1 {
+  background: #ffffff;
+  border: 1px solid #9f9f9f;
+  box-sizing: border-box;
+  border-radius: 20px;
+  height: 50px;
+  margin-top: 20px;
+}
+.setPromoForm:focus {
+  box-shadow: none;
+}
+.setPromoForm1:focus {
+  box-shadow: none;
+}
 .yellowBullet {
   background-color: #ffba33;
   border: 1px solid #ffba33;
@@ -90,6 +111,7 @@
 }
 
 .leftPanel {
+  padding-top: 50px;
   padding-left: 5rem;
 }
 
