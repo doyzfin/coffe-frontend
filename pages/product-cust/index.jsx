@@ -3,9 +3,28 @@ import NavBar from "../../components/module/NavBar";
 import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
 import styles from "../../styles/ProductCust.module.css";
 import Footer from "../../components/module/footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Cookie from "js-cookie";
+import { authPage } from "middleware/authorizationPage";
 
-export default function ProductCust() {
+import { connect } from "react-redux";
+import { getProduct } from "redux/actions/product";
+import ReactPaginate from "react-paginate";
+
+export async function getServerSideProps(context) {
+  const data = await authPage(context);
+
+  return {
+    props: {},
+  };
+}
+
+function ProductCust(props) {
+  const limit = 10;
+  const [page, setPage] = useState(1);
+  const [category, setCateggory] = useState("foods");
+  const [search, setSearch] = useState("");
+  const [pagination, setPagination] = useState({});
   const [dataCoupons, setDataCoupons] = useState([
     {
       image: "/image 46.png",
@@ -28,69 +47,68 @@ export default function ProductCust() {
       note: "Do you like chicken wings? Get 1 free only if you buy pinky promise",
     },
   ]);
-  const [dataMenu, setDataMenu] = useState([
-    {
-      name: "Veggie tomato mix",
-      price: "IDR 34.000",
-      image: "/Mask Group (2).png",
-    },
-    {
-      name: "Hazelnut Latte",
-      price: "IDR 25.000",
-      image: "/Mask Group (3).png",
-    },
-    {
-      name: "Summer fried rice",
-      price: "IDR 32.000",
-      image: "/Mask Group (4).png",
-    },
-    {
-      name: "Creamy Ice Latte",
-      price: "IDR 27.000",
-      image: "/Mask Group (5).png",
-    },
-    {
-      name: "Drum Sticks",
-      price: "IDR 30.000",
-      image: "/Mask Group (7).png",
-    },
-    {
-      name: "Salty Rice",
-      price: "IDR 20.000",
-      image: "/Mask Group (6).png",
-    },
-    {
-      name: "Summer fried rice",
-      price: "IDR 32.000",
-      image: "/Mask Group (4).png",
-    },
-    {
-      name: "Creamy Ice Latte",
-      price: "IDR 27.000",
-      image: "/Mask Group (5).png",
-    },
+  const [dataMenu, setDataMenu] = useState([]);
 
-    {
-      name: "Veggie tomato mix",
-      price: "IDR 34.000",
-      image: "/Mask Group (2).png",
-    },
-    {
-      name: "Hazelnut Latte",
-      price: "IDR 25.000",
-      image: "/Mask Group (3).png",
-    },
-    {
-      name: "Summer fried rice",
-      price: "IDR 32.000",
-      image: "/Mask Group (4).png",
-    },
-    {
-      name: "Creamy Ice Latte",
-      price: "IDR 27.000",
-      image: "/Mask Group (5).png",
-    },
-  ]);
+  useEffect(() => {
+    setSearch(props.keywords);
+    props
+      .getProduct(Cookie.get("token"), search, limit, page, category)
+      .then((res) => {
+        console.log("RES", res.value.data.data);
+        setPagination(res.value.data.pagination);
+        setDataMenu(
+          res.value.data.data.map((item) => {
+            return {
+              productId: item.product_id,
+              name: item.product_name,
+              price: item.product_price,
+              image: item.product_image
+                ? `${process.env.IMAGE_URL}/${item.product_image}`
+                : "/Mask Group (2).png",
+            };
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err.response.status);
+      });
+  }, []);
+
+  useEffect(() => {
+    setSearch(props.keywords);
+    props
+      .getProduct(Cookie.get("token"), search, limit, page, category)
+      .then((res) => {
+        console.log("RES", res.value.data.data);
+        setPagination(res.value.data.pagination);
+        setDataMenu(
+          res.value.data.data.map((item) => {
+            return {
+              productId: item.product_id,
+              name: item.product_name,
+              price: item.product_price,
+              image: item.product_image
+                ? `${process.env.IMAGE_URL}/${item.product_image}`
+                : "/Mask Group (2).png",
+            };
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err.response.status);
+        if (err.response.status === 404) {
+          setDataMenu([]);
+          setPagination({});
+        }
+      });
+  }, [page, search, category]);
+
+  const handlePageClick = (event) => {
+    const selectedPage = event.selected + 1;
+    setPage(selectedPage);
+  };
+
+  console.log(category);
   return (
     <Layout title="Product Customer">
       <NavBar />
@@ -155,43 +173,90 @@ export default function ProductCust() {
             <Nav as="ul" className={styles.nav}>
               <Nav.Item as="li">
                 <Nav.Link href="#" className={styles.link}>
-                  Favorite Product
+                  <div
+                    onClick={() => {
+                      setCateggory("fav");
+                    }}
+                  >
+                    Favorite Product
+                  </div>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
                 <Nav.Link eventKey="link-1" className={styles.link}>
-                  Coffee
+                  <div
+                    onClick={() => {
+                      setCateggory("coffee");
+                    }}
+                  >
+                    Coffee
+                  </div>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
                 <Nav.Link eventKey="link-2" className={styles.link}>
-                  Non Coffee
+                  <div
+                    onClick={() => {
+                      setCateggory("noncoffee");
+                    }}
+                  >
+                    Non Coffee
+                  </div>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
                 <Nav.Link eventKey="link-2" className={styles.link}>
-                  Foods
+                  <div
+                    onClick={() => {
+                      setCateggory("foods");
+                    }}
+                  >
+                    Foods
+                  </div>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
                 <Nav.Link eventKey="link-2" className={styles.link}>
-                  Add-on
+                  <div
+                    onClick={() => {
+                      setCateggory("addon");
+                    }}
+                  >
+                    Add-on
+                  </div>
                 </Nav.Link>
               </Nav.Item>
             </Nav>
             <Row>
-              {dataMenu.map((item, index) => {
-                return (
-                  <Col sm={3} key={index}>
-                    <Card className={styles.cardMenu}>
-                      <img alt="" src={item.image} />
-                      <h1 className={styles.nameMenu}>{item.name}</h1>
-                      <p className={styles.price}>{item.price}</p>
-                    </Card>
-                  </Col>
-                );
-              })}
+              {dataMenu.length > 0
+                ? dataMenu.map((item, index) => {
+                    return (
+                      <Col sm={3} key={index}>
+                        <Card className={styles.cardMenu}>
+                          <img alt="" src={item.image} />
+                          <h1 className={styles.nameMenu}>{item.name}</h1>
+                          <p className={styles.price}>{item.price}</p>
+                        </Card>
+                      </Col>
+                    );
+                  })
+                : ""}
             </Row>
+            <div className="mt-3 d-flex justify-content-center">
+              <ReactPaginate
+                previousLabel={"prev"}
+                nextLabel={"next"}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={pagination.totalPage ? pagination.totalPage : 0}
+                marginPagesDisplayed={5}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={styles.pagination}
+                subContainerClassName={`${styles.pages} ${styles.pagination}`}
+                activeClassName={styles.active}
+              />
+            </div>
           </Col>
         </Row>
       </Container>
@@ -199,3 +264,10 @@ export default function ProductCust() {
     </Layout>
   );
 }
+
+const mapStateToProps = (state) => ({
+  keywords: state.keywords.keywords,
+});
+
+const mapDispatchToProps = { getProduct };
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCust);
