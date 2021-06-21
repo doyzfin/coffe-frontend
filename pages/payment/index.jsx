@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import styles from "../../styles/Payment.module.css";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 export default function payment() {
   const [dataOrder, setDataOrder] = useState([
@@ -56,6 +57,8 @@ export default function payment() {
   const getDropdownVal = (event) => {
     // console.log(event);
   };
+
+  console.log(Cookies.get("item"));
 
   return (
     <Layout title="Payment & Delivery">

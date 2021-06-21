@@ -41,14 +41,12 @@ export default function ProductDetail(props) {
   const priceL = (priceR * 50) / 100 + priceR;
   const priceXL = (priceL * 50) / 100 + priceL;
   const [productName, setProductName] = useState("");
+  const [order, setOrder] = useState([]);
 
   const handleCart = () => {
     if (count === 0) {
       alert("Choose a size");
     } else {
-      Cookies.set("productName", productName);
-      Cookies.set("size", size);
-      Cookies.set("count", count);
       alert("Berhasil masuk ke cart");
     }
   };
@@ -97,16 +95,19 @@ export default function ProductDetail(props) {
       setProductName(props.product[0].product_name);
       setSize("regular");
       setPrice(priceR);
+      setOrder([...order, { productName, size, price, count }]);
     }
     if (stringSize == "L") {
       setProductName(props.product[0].product_name);
       setSize("large");
       setPrice(priceL);
+      setOrder([...order, { productName, size, price, count }]);
     }
     if (stringSize == "XL") {
       setProductName(props.product[0].product_name);
       setSize("extra large");
       setPrice(priceXL);
+      setOrder([...order, { productName, size, price, count }]);
     }
   };
 
@@ -124,10 +125,10 @@ export default function ProductDetail(props) {
 
   const handleCheckout = () => {
     event.preventDefault();
-    Cookies.set("productName", productName);
-    Cookies.set("size", size);
-    Cookies.set("count", count);
-    router.push("/payment");
+    console.log(productName, size, price, count);
+    console.log(order);
+    // await Cookies.set("item", [order]);
+    // router.push("/payment");
   };
 
   return (
