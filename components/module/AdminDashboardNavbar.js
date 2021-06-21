@@ -1,42 +1,109 @@
-import styles from "../../styles/AdminDasHboardNavbar.module.css";
+import {
+  Container,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Form,
+  Button,
+  Row,
+  Col,
+} from "react-bootstrap";
+import styles from "../../styles/NavBar.module.css";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function AdminDasboardNavbar() {
+import { connect } from "react-redux";
+import { setKeywords } from "redux/actions/keywords";
+
+function NavBar(props) {
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  const setKeywordsStore = (text) => {
+    setSearch(text);
+    props.setKeywords(text);
+  };
+
+  const moveToProfile = () => {
+    router.push("/profile");
+  };
+
+  // console.log(props);
   return (
-    <>
-      <div className={styles.whiteBackground}>
-        <div className="container-fluid py-4" style={{ maxWidth: "1116px" }}>
-          <div className="row h-100 w-100">
-            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-              <div className="d-flex h-100">
-                <img src="/coffee 1.png" className="me-2 my-auto"></img>
-                <span className="fw-bold my-auto ms-2">Coffee Express</span>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center my-auto">
-              <div className="d-flex justify-content-around flex-wrap">
-                <span className="my-auto mx-1">Home</span>
-                <span className="my-auto mx-1">Product</span>
-                <span className="my-auto mx-1">Orders</span>
-                <span className="my-auto mx-1">Dashboard</span>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 my-auto">
-              <div className="d-flex justify-content-end flex-wrap">
-                <img src="/Vector.png" style={{ height: "30px" }}></img>
-                <img
-                  src="/chat (1) 1.png"
-                  className="mx-4"
-                  style={{ height: "30px" }}
-                ></img>
-                <img
-                  src="/image 39.png"
-                  style={{ height: "30px", borderRadius: "50%" }}
-                ></img>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    <Container fluid className={styles.main}>
+      <Container>
+        <Navbar expand="lg">
+          <Navbar.Brand href="#" className={styles.brand}>
+            <Row>
+              <Col>
+                <img alt="" src="/coffee 1.png" />
+              </Col>
+              <Col className={styles.colBrand}>Coffee Express</Col>
+            </Row>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className={styles.form}>
+              <Nav.Link
+                className={styles.navLink}
+                onClick={() => {
+                  router.push("/");
+                }}
+              >
+                Home
+              </Nav.Link>
+              <Nav.Link
+                className={styles.navLink}
+                onClick={() => {
+                  router.push("/product-admin");
+                }}
+              >
+                Product
+              </Nav.Link>
+              <Nav.Link
+                className={styles.navLink}
+                onClick={() => {
+                  router.push("/manage-order-admin");
+                }}
+              >
+                Orders
+              </Nav.Link>
+              <Nav.Link
+                className={styles.navLink}
+                onClick={() => {
+                  router.push("/admin-dashboard");
+                }}
+              >
+                Dashboard
+              </Nav.Link>
+            </Nav>
+            <Form>
+              <Form.Control
+                type="text"
+                placeholder="Search"
+                className={styles.formControl}
+                onChange={(event) => {
+                  setKeywordsStore(event.target.value);
+                }}
+              />
+            </Form>
+            <img alt="" src="/chat.png" className={styles.notif} />
+            <img
+              alt=""
+              src="/image 39.png"
+              className={styles.profile}
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                moveToProfile();
+              }}
+            />
+          </Navbar.Collapse>
+        </Navbar>
+      </Container>
+    </Container>
   );
 }
+
+const mapDispatchToProps = { setKeywords };
+export default connect(null, mapDispatchToProps)(NavBar);

@@ -1,5 +1,5 @@
 import Layout from "components/Layout";
-import NavBar from "components/module/NavBar";
+import NavBar from "components/module/AdminDashboardNavbar";
 import Footer from "components/module/footer";
 import {
   Container,
