@@ -9,7 +9,7 @@ import Cookie from "js-cookie";
 import { authPage } from "middleware/authorizationPage";
 
 import { connect } from "react-redux";
-import { getProduct } from "redux/actions/product";
+import { getAllProduct } from "redux/actions/product";
 import { getPromo } from "redux/actions/promo";
 import ReactPaginate from "react-paginate";
 
@@ -37,7 +37,7 @@ function ProductCust(props) {
     setSearch(props.keywords);
     setSelectedCoupon(JSON.parse(Cookie.get("Coupon")));
     props
-      .getProduct(Cookie.get("token"), search, limit, page, category)
+      .getAllProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
         // console.log("RES", res.value.data.data);
         setPagination(res.value.data.pagination);
@@ -86,7 +86,7 @@ function ProductCust(props) {
   useEffect(() => {
     setSearch(props.keywords);
     props
-      .getProduct(Cookie.get("token"), search, limit, page, category)
+      .getAllProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
         // console.log("RES", res.value.data.data);
         setPagination(res.value.data.pagination);
@@ -132,7 +132,7 @@ function ProductCust(props) {
     setSearch(text);
   };
 
-  console.log("main", search);
+  // console.log("main", search);
   return (
     <Layout title="Product Customer">
       <NavBar catchKey={catchKeywords} />
@@ -316,5 +316,5 @@ const mapStateToProps = (state) => ({
   keywords: state.keywords.keywords,
 });
 
-const mapDispatchToProps = { getProduct, getPromo };
+const mapDispatchToProps = { getAllProduct, getPromo };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCust);
