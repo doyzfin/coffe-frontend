@@ -3,8 +3,10 @@ import NavBar from "../../components/module/NavBar";
 import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
 import styles from "../../styles/ProductCust.module.css";
 import Footer from "../../components/module/footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosApiIntances from "utils/axios";
+import { authPage } from "middleware/authorizationPage";
+import Cookie from "js-cookie";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
