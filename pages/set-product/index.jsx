@@ -15,6 +15,16 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { postProduct } from "redux/actions/product";
 import Cookies from "js-cookie";
+import { authPage } from "middleware/authorizationPage";
+
+export async function getServerSideProps(context) {
+  const data = await authPage(context);
+  // console.log("data", data);
+
+  return {
+    props: {},
+  };
+}
 
 function newProduct(props) {
   const [isClickSize, setIsClickSize] = useState(false);
@@ -64,8 +74,8 @@ function newProduct(props) {
   };
   const handleCancel = () => {
     setIsImage(false);
-    isClickCoffee(false);
-    isClickSize(false);
+    // isClickCoffee(false);
+    // isClickSize(false);
     setFormProduct({
       productName: "",
       productPrice: "",
@@ -96,6 +106,7 @@ function newProduct(props) {
         console.log(res);
       })
       .catch((err) => {
+        console.log(err);
         setIsImage(false);
         setIsError(true);
         setMsgError(err.response.data.msg);
