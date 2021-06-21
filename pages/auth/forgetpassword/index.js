@@ -29,7 +29,7 @@ export default function forgetpassword() {
     if (form.userEmail.length === 0) {
       setIsError(true);
       setIsSuccess(false);
-      setMsgError("Please input the field !");
+      setMsgError("Please input the field!");
     } else {
       axiosApiIntances
         .post("auth/request-change-password", form)
@@ -38,13 +38,14 @@ export default function forgetpassword() {
           setIsError(false);
           console.log(form.userEmail);
           Cookie.set("userEmail", form.userEmail);
-          // setTimeout(() => {
-          //   moveToNewPassword();
-          // }, 3000);
+          setTimeout(() => {
+            moveToNewPassword();
+          }, 2000);
         })
         .catch((err) => {
           setIsError(true);
           setIsSuccess(false);
+          setMsgError("Email is not registered");
           console.log("This is " + err);
         });
     }
@@ -81,11 +82,22 @@ export default function forgetpassword() {
                   Send
                 </button>
               </form>
-              {isError && (
-                <Alert variant="danger" className={styles.alert}>
-                  {msgError}
-                </Alert>
-              )}
+              <div className="mt-4">
+                {isError && (
+                  <Alert
+                    variant="danger"
+                    className={`${forgetStyles.alert} mx-auto`}
+                  >
+                    Email not registered !
+                  </Alert>
+                )}
+                {/* <Alert
+                  variant="danger"
+                  className={`${forgetStyles.alert} mx-auto`}
+                >
+                  Email not registered !
+                </Alert> */}
+              </div>
               <div className={forgetStyles.lowerHeaderContent}>
                 <span className="text-center d-block fw-bold">
                   Click here if you didn't receive any link

@@ -7,11 +7,13 @@ import Footer from "../../../components/module/Footer";
 // import Cookies from "js-cookie";
 import axiosApiIntances from "utils/axios";
 import { Alert } from "react-bootstrap";
+import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 
 export default function forgetpassword() {
   const userEmailCookie = Cookie.get("userEmail");
   // console.log("And the email is " + userEmailCookie);
+  const router = useRouter();
 
   const [form, setForm] = useState({
     userEmail: userEmailCookie,
@@ -31,7 +33,10 @@ export default function forgetpassword() {
   const handleForgetPassword = (event) => {
     event.preventDefault();
     if (form.userPassword !== form.userPasswordConfirm) {
-      console.log("Password confirmation don't match");
+      setIsError(true);
+      setIsSuccess(false);
+      setMsgError("Passwords don't match !");
+      console.log("Passwords don't match !");
     } else {
       axiosApiIntances
         .post("auth/request-change-password", form)
@@ -39,6 +44,9 @@ export default function forgetpassword() {
           setIsSuccess(true);
           setIsError(false);
           console.log(res);
+          setTimeout(() => {
+            moveToLoginPage();
+          }, 2000);
         })
         .catch((err) => {
           console.log("This is " + err);
@@ -46,9 +54,13 @@ export default function forgetpassword() {
     }
   };
 
+  const moveToLoginPage = () => {
+    router.push("/login");
+  };
+
   return (
     <>
-      <Layout title="Forget Password">
+      <Layout title="New Password">
         <div className={`container-fluid`}>
           <div
             className={`row position-relative pb-5 ${newStyles.headerForgetPassword}`}
@@ -81,6 +93,40 @@ export default function forgetpassword() {
                   </div>
                 </div>
               </form>
+              {/* <div className="mt-4">
+                <Alert
+                  variant="danger"
+                  className={`${newStyles.alert} mx-auto`}
+                >
+                  Message error here
+                </Alert>
+                <Alert
+                  variant="success"
+                  className={`${newStyles.alert} mx-auto`}
+                >
+                  We have sent you an email to restart your password! Please
+                  check it out!
+                </Alert>
+              </div> */}
+              <div className="mt-4">
+                {isError && (
+                  <Alert
+                    variant="danger"
+                    className={`${newStyles.alert} mx-auto`}
+                  >
+                    {msgError}
+                  </Alert>
+                )}
+                {isSuccess && (
+                  <Alert
+                    variant="success"
+                    className={`${newStyles.alert} mx-auto`}
+                  >
+                    We have sent you an email to restart your password! Please
+                    check it out!
+                  </Alert>
+                )}
+              </div>
               <div className={newStyles.lowerHeaderContent}>
                 <span className="text-center d-block fw-bold">
                   Click here if you didn't receive any link
