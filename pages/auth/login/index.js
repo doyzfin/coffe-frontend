@@ -42,7 +42,7 @@ function Login(props) {
           setIsError(false);
           Cookies.set("token", res.data.data.token);
           Cookies.set("userId", res.data.data.user_id);
-          router.push("/product-admin");
+          router.push("/product-cust");
         })
         .catch((err) => {
           setIsError(true);

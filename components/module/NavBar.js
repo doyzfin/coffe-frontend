@@ -17,6 +17,9 @@ function NavBar(props) {
     props
       .getUser(Cookie.get("userId"), Cookie.get("token"))
       .then((res) => {
+        if (res.value.data.data[0].user_role !== "customer") {
+          window.location.href = "/product-admin";
+        }
         setUser(res.value.data.data[0]);
       })
       .catch((err) => {
@@ -115,7 +118,7 @@ function NavBar(props) {
             ) : (
               <img
                 alt=""
-                src="/image 39.png"
+                src="/no-img.png"
                 className={styles.profile}
                 style={{ cursor: "pointer" }}
                 onClick={() => {

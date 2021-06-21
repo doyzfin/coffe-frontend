@@ -116,7 +116,7 @@ function NavBar(props) {
             ) : (
               <img
                 alt=""
-                src="/image 39.png"
+                src="/no-img.png"
                 className={styles.profile}
                 style={{ cursor: "pointer" }}
                 onClick={() => {
