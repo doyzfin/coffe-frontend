@@ -35,7 +35,9 @@ function ProductCust(props) {
 
   useEffect(() => {
     setSearch(props.keywords);
-    setSelectedCoupon(JSON.parse(Cookie.get("Coupon")));
+    if (Cookie.get("coupon")) {
+      setSelectedCoupon(JSON.parse(Cookie.get("coupon")));
+    }
     props
       .getAllProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
@@ -118,7 +120,7 @@ function ProductCust(props) {
   };
 
   const handleSelectCoupon = () => {
-    Cookie.set("Coupon", selectedCoupon, {
+    Cookie.set("coupon", selectedCoupon, {
       expires: 1,
       secure: true,
     });
