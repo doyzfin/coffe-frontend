@@ -3,12 +3,25 @@ import Layout from "../../../components/Layout";
 import styles from "../../../styles/Signup.module.css";
 import newStyles from "../../../styles/NewPassword.module.css";
 import Footer from "../../../components/module/Footer";
+// import { useRouter } from "next/router";
+// import Cookies from "js-cookie";
+import axiosApiIntances from "utils/axios";
+import { Alert } from "react-bootstrap";
+import Cookie from "js-cookie";
 
 export default function forgetpassword() {
+  const userEmailCookie = Cookie.get("userEmail");
+  // console.log("And the email is " + userEmailCookie);
+
   const [form, setForm] = useState({
+    userEmail: userEmailCookie,
     userPassword: "",
     userPasswordConfirm: "",
   });
+
+  const [msgError, setMsgError] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const changeText = (event) => {
     event.preventDefault();
@@ -17,7 +30,20 @@ export default function forgetpassword() {
 
   const handleForgetPassword = (event) => {
     event.preventDefault();
-    console.log(form);
+    if (form.userPassword !== form.userPasswordConfirm) {
+      console.log("Password confirmation don't match");
+    } else {
+      axiosApiIntances
+        .post("auth/request-change-password", form)
+        .then((res) => {
+          setIsSuccess(true);
+          setIsError(false);
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log("This is " + err);
+        });
+    }
   };
 
   return (
@@ -31,13 +57,15 @@ export default function forgetpassword() {
               <form className={`mt-5`}>
                 <input
                   className={`form-control ${styles.inputHeight} ${newStyles.inputWidth} mx-1 mx-auto`}
-                  placeholder="Enter your email addres to get link"
+                  placeholder="Enter new password"
+                  type="password"
                   name="userPassword"
                   onChange={(event) => changeText(event)}
                 ></input>
                 <input
                   className={`form-control ${styles.inputHeight} ${newStyles.inputWidth} mt-3 mx-auto`}
-                  placeholder="Enter your email addres to get link"
+                  placeholder="Confirm new password"
+                  type="password"
                   name="userPasswordConfirm"
                   onChange={(event) => changeText(event)}
                 ></input>
