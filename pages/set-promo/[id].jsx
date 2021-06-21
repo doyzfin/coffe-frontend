@@ -4,8 +4,15 @@ import {Container, Row, Col, Card, Form} from "react-bootstrap";
 import styles from "../../styles/SetPromo.module.css";
 import Footer from "../../components/module/greyFooter";
 
-export default function updatepromo() {
- return(
+export async function getServerSideProps(context) {
+  const { id } = context.query; 
+  return {
+    props: { user: context.query }
+  }
+}
+export default function updatepromo(props) { 
+  console.log("This is " + props.user.id + "!")
+  return(
    <>
    <Layout title="Update Promo">
     <Navbar />
@@ -28,6 +35,9 @@ export default function updatepromo() {
           </div> 
           <div className="pt-4">
             <button className={styles.greyButton}>Cancel</button>
+          </div> 
+          <div className="pt-4">
+            <button className={styles.redButton}>Delete</button>
           </div>
         </Col>
         <Col lg={7} md={7} sm={7} xs={12}> 

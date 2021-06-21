@@ -14,6 +14,10 @@ module.exports = {
         destination: "/auth/signup",
       },
       {
+        source: "/forget-password",
+        destination: "/auth/forgetpassword",
+      },
+      {
         source: "/admin-dashboard",
         destination: "/profile/AdminDashboard",
       },
