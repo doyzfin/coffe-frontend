@@ -1,24 +1,31 @@
-import {
-  Container,
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  Button,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Container, Navbar, Nav, Form, Row, Col } from "react-bootstrap";
 import styles from "../../styles/NavBar.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import Cookie from "js-cookie";
 
 import { connect } from "react-redux";
 import { setKeywords } from "redux/actions/keywords";
+import { getUser } from "redux/actions/user";
 
 function NavBar(props) {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    props
+      .getUser(Cookie.get("userId"), Cookie.get("token"))
+      .then((res) => {
+        if (res.value.data.data[0].user_role !== "customer") {
+          window.location.href = "/product-admin";
+        }
+        setUser(res.value.data.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const setKeywordsStore = (text) => {
     setSearch(text);
@@ -32,7 +39,7 @@ function NavBar(props) {
     router.push("/profile");
   };
 
-  // console.log("NAV", props);
+  // console.log("NAV", user);
   return (
     <Container fluid className={styles.main}>
       <Container>
@@ -64,10 +71,22 @@ function NavBar(props) {
               >
                 Product
               </Nav.Link>
-              <Nav.Link href="#" className={styles.navLink}>
+              <Nav.Link
+                href="#"
+                className={styles.navLink}
+                onClick={() => {
+                  router.push("/payment");
+                }}
+              >
                 Your Chart
               </Nav.Link>
-              <Nav.Link href="#" className={styles.navLink}>
+              <Nav.Link
+                href="#"
+                className={styles.navLink}
+                onClick={() => {
+                  router.push("/history-cust");
+                }}
+              >
                 History
               </Nav.Link>
             </Nav>
@@ -86,15 +105,27 @@ function NavBar(props) {
               ""
             )}
             <img alt="" src="/chat.png" className={styles.notif} />
-            <img
-              alt=""
-              src="/image 39.png"
-              className={styles.profile}
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                moveToProfile();
-              }}
-            />
+            {user.user_image ? (
+              <img
+                alt=""
+                src={`${process.env.IMAGE_URL}/${user.user_image}`}
+                className={styles.profile}
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  moveToProfile();
+                }}
+              />
+            ) : (
+              <img
+                alt=""
+                src="/no-img.png"
+                className={styles.profile}
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  moveToProfile();
+                }}
+              />
+            )}
           </Navbar.Collapse>
         </Navbar>
       </Container>
@@ -102,5 +133,5 @@ function NavBar(props) {
   );
 }
 
-const mapDispatchToProps = { setKeywords };
+const mapDispatchToProps = { setKeywords, getUser };
 export default connect(null, mapDispatchToProps)(NavBar);
