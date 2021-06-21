@@ -4,8 +4,19 @@ import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
 import styles from "../../styles/ProductCust.module.css";
 import Footer from "../../components/module/footer";
 import { useState } from "react";
+import axiosApiIntances from "utils/axios";
+
+export async function getServerSideProps(context) {
+  const data = await authPage(context);
+  // console.log("data", data);
+
+  return {
+    props: {},
+  };
+}
 
 export default function ProductCust() {
+  const [token, setToken] = useState("");
   const [dataCoupons, setDataCoupons] = useState([
     {
       image: "/image 46.png",
@@ -91,6 +102,11 @@ export default function ProductCust() {
       image: "/Mask Group (5).png",
     },
   ]);
+
+  useEffect(() => {
+    setToken(Cookie.get("token"));
+  }, []);
+
   return (
     <Layout title="Product Customer">
       <NavBar />
