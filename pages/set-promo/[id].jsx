@@ -20,7 +20,7 @@ export default function updatepromo(props) {
           <Row className="pt-5">
             <Col lg={4} md={4} sm={12} smPush={12} xs={12} xsPush={12}>
               <span className="d-block">
-                Promo {`>`} <span className="fw-bold">Add Promo</span>
+                Promo {`>`} <span className="fw-bold">Update Promo</span>
               </span>
               <div className="pt-5">
                 <div className="pt-3">
