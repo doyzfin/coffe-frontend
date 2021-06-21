@@ -68,10 +68,22 @@ function NavBar(props) {
               >
                 Product
               </Nav.Link>
-              <Nav.Link href="#" className={styles.navLink}>
+              <Nav.Link
+                href="#"
+                className={styles.navLink}
+                onClick={() => {
+                  router.push("/payment");
+                }}
+              >
                 Your Chart
               </Nav.Link>
-              <Nav.Link href="#" className={styles.navLink}>
+              <Nav.Link
+                href="#"
+                className={styles.navLink}
+                onClick={() => {
+                  router.push("/history-cust");
+                }}
+              >
                 History
               </Nav.Link>
             </Nav>
