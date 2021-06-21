@@ -3,8 +3,39 @@ import Navbar from "../../components/module/AdminDashboardNavbar";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "../../styles/ManageOrderAdmin.module.css";
 import Footer from "../../components/module/footer";
+import axiosApiIntances from "utils/axios";
+import { authPage } from "middleware/authorizationPage";
 
-export default function manageOrderAdmin() {
+export async function getServerSideProps(context) {
+  const data = await authPage(context);
+  // console.log("data", data);
+  const res = await axiosApiIntances
+    .get("invoice/pending", {
+      headers: {
+        Authorization: `Bearer ${data.token || ""}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err.response;
+    });
+
+  return {
+    props: { data: res },
+  };
+}
+
+export default function manageOrderAdmin(props) {
+  const formatRupiah = (money) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(money);
+  };
+  console.log(props.data);
   return (
     <>
       <Layout title="Admin Order Manage">
@@ -19,52 +50,72 @@ export default function manageOrderAdmin() {
                 <h4 className={`fw-bold ${styles.customerOrderStyle}`}>
                   customer order now.
                 </h4>
-                <Card className={`mt-5 ${styles.bigCard}`}>
-                  <div className="px-4">
-                    <h3 className="fw-bold text-center mt-5 mb-2">
-                      Delivery Order
-                    </h3>
-                    <span className="d-block text-center">for Zulaikha</span>
-                    <div className="d-flex justify-content-between mt-5 mb-3">
-                      <img src="/image 36.png"></img>
-                      <div className="row px-4">
-                        <span>Hazelnut Latte</span>
-                        <span>x 1</span>
-                        <span>Regular</span>
+                {props.data.data.map((item, index) => {
+                  return (
+                    <Card className={`mt-5 ${styles.bigCard}`} key={index}>
+                      <div className="px-4">
+                        <h3 className="fw-bold text-center mt-5 mb-2">
+                          Delivery Order
+                        </h3>
+                        <span className="d-block text-center">
+                          for {item.user_name}
+                        </span>
+                        {item.list_order.map((item, index) => {
+                          if (item.size === "R") {
+                            item.size = "Reguler";
+                          } else if (item.size === "L") {
+                            item.size = "Large";
+                          } else if (item.size === "XL") {
+                            item.size = "Extra Large";
+                          }
+
+                          return (
+                            <div
+                              className="d-flex justify-content-between mt-5 mb-3"
+                              key={index}
+                            >
+                              <img src="/image 36.png"></img>
+                              <div className="row px-4">
+                                <span>{item.product_name}</span>
+                                <span>x {item.qty}</span>
+                                <span>{item.size}</span>
+                              </div>
+                              <span className="my-auto">
+                                IDR {formatRupiah(item.total_price)}
+                              </span>
+                            </div>
+                          );
+                        })}
+
+                        <hr />
+                        <div className="d-flex justify-content-between my-2">
+                          <span>SUBTOTAL</span>
+                          <span>IDR 120.000</span>
+                        </div>
+                        <div className="d-flex justify-content-between mt-2">
+                          <span>TAX & FEES</span>
+                          <span>IDR 20.000</span>
+                        </div>
+                        <div className="d-flex justify-content-between mt-2">
+                          <span>SHIPPING</span>
+                          <span>IDR 10.000</span>
+                        </div>
+                        <div className="d-flex justify-content-between mt-5 mb-5">
+                          <h5
+                            className={`fw-bold text-center ${styles.brownText}`}
+                          >
+                            TOTAL
+                          </h5>
+                          <h5
+                            className={`fw-bold text-center ${styles.brownText}`}
+                          >
+                            IDR 150.000
+                          </h5>
+                        </div>
                       </div>
-                      <span className="my-auto">IDR 24,0</span>
-                    </div>
-                    <div className="d-flex justify-content-between mb-4">
-                      <img src="/image 37.png"></img>
-                      <div className="row px-4">
-                        <span>Chicken Fire Wings</span>
-                        <span>x 2</span>
-                      </div>
-                      <span className="my-auto">IDR 30,0</span>
-                    </div>
-                    <hr />
-                    <div className="d-flex justify-content-between my-2">
-                      <span>SUBTOTAL</span>
-                      <span>IDR 120.000</span>
-                    </div>
-                    <div className="d-flex justify-content-between mt-2">
-                      <span>TAX & FEES</span>
-                      <span>IDR 20.000</span>
-                    </div>
-                    <div className="d-flex justify-content-between mt-2">
-                      <span>SHIPPING</span>
-                      <span>IDR 10.000</span>
-                    </div>
-                    <div className="d-flex justify-content-between mt-5 mb-5">
-                      <h5 className={`fw-bold text-center ${styles.brownText}`}>
-                        TOTAL
-                      </h5>
-                      <h5 className={`fw-bold text-center ${styles.brownText}`}>
-                        IDR 150.000
-                      </h5>
-                    </div>
-                  </div>
-                </Card>
+                    </Card>
+                  );
+                })}
               </Col>
               <Col lg={7} md={7} sm={7} xs={12} className="mt-5">
                 <div className="ms-5">

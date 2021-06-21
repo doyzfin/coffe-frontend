@@ -18,7 +18,7 @@ export default function updatepromo(props) {
         <Navbar />
         <Container>
           <Row className="pt-5">
-            <Col lg={4} md={4} sm={12} smPush={12} xs={12} xsPush={12}>
+            <Col lg={4} md={4} sm={12} xs={12}>
               <span className="d-block">
                 Promo {`>`} <span className="fw-bold">Update Promo</span>
               </span>
