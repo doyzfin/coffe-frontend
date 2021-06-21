@@ -23,7 +23,9 @@ function NavBar(props) {
   const setKeywordsStore = (text) => {
     setSearch(text);
     props.setKeywords(text);
-    props.catchKey(text);
+    if (props.catchKey) {
+      props.catchKey(text);
+    }
   };
 
   const moveToProfile = () => {
@@ -69,16 +71,20 @@ function NavBar(props) {
                 History
               </Nav.Link>
             </Nav>
-            <Form>
-              <Form.Control
-                type="text"
-                placeholder="Search"
-                className={styles.formControl}
-                onChange={(event) => {
-                  setKeywordsStore(event.target.value);
-                }}
-              />
-            </Form>
+            {props.catchKey ? (
+              <Form>
+                <Form.Control
+                  type="text"
+                  placeholder="Search"
+                  className={styles.formControl}
+                  onChange={(event) => {
+                    setKeywordsStore(event.target.value);
+                  }}
+                />
+              </Form>
+            ) : (
+              ""
+            )}
             <img alt="" src="/chat.png" className={styles.notif} />
             <img
               alt=""
