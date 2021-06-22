@@ -17,9 +17,9 @@ function NavBar(props) {
     props
       .getUser(Cookie.get("userId"), Cookie.get("token"))
       .then((res) => {
-        if (res.value.data.data[0].user_role !== "admin") {
-          window.location.href = "/product-cust";
-        }
+        // if (res.value.data.data[0].user_role !== "admin") {
+        //   window.location.href = "/product-cust";
+        // }
         setUser(res.value.data.data[0]);
       })
       .catch((err) => {

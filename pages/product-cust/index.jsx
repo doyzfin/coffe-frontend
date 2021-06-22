@@ -10,7 +10,7 @@ import { authPage } from "middleware/authorizationPage";
 
 import { connect } from "react-redux";
 import { getAllProduct } from "redux/actions/product";
-import { getPromo } from "redux/actions/promo";
+import { getAllPromo } from "redux/actions/promo";
 import ReactPaginate from "react-paginate";
 
 export async function getServerSideProps(context) {
@@ -50,7 +50,7 @@ function ProductCust(props) {
               price: item.product_price,
               image: item.product_image
                 ? `${process.env.IMAGE_URL}/${item.product_image}`
-                : "/Mask Group (2).png",
+                : "/makanan3.png",
             };
           })
         );
@@ -60,7 +60,7 @@ function ProductCust(props) {
       });
 
     props
-      .getPromo(Cookie.get("token"), 1000, 1)
+      .getAllPromo(Cookie.get("token"), 1000, 1)
       .then((res) => {
         // console.log("RES PROMO", res.value.data.data);
         setDataCoupons(
@@ -99,7 +99,7 @@ function ProductCust(props) {
               price: item.product_price,
               image: item.product_image
                 ? `${process.env.IMAGE_URL}/${item.product_image}`
-                : "/Mask Group (2).png",
+                : "/makanan3.png",
             };
           })
         );
@@ -111,6 +111,10 @@ function ProductCust(props) {
           setPagination({});
         }
       });
+
+    router.push(
+      `/product-cust?limit=${limit}&page=${page}&search=${search}&category=${category}`
+    );
   }, [page, search, category]);
 
   const handlePageClick = (event) => {
@@ -148,13 +152,12 @@ function ProductCust(props) {
             {dataCoupons.map((item, index) => {
               return (
                 <Card
-                  className={`position-relative ${
-                    item.name === "HAPPY MOTHERS DAYS"
+                  className={`${
+                    item.name === "MOTHER DAY"
                       ? styles.cardCoupons
-                      : item.name ===
-                        "Get a cup of coffee for free on sunday morning"
+                      : item.name === "INDEPENDENT DAY"
                       ? styles.cardCoupons2
-                      : item.name === "HAPPY HALLOWEEN!"
+                      : item.name === "BATIK DAY"
                       ? styles.cardCoupons3
                       : styles.cardCoupons
                   }`}
@@ -317,5 +320,5 @@ const mapStateToProps = (state) => ({
   keywords: state.keywords.keywords,
 });
 
-const mapDispatchToProps = { getAllProduct, getPromo };
+const mapDispatchToProps = { getAllProduct, getAllPromo };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCust);
