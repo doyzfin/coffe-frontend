@@ -8,8 +8,10 @@ import Cookies from "js-cookie";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
 import { useRouter } from "next/router";
+import product from "redux/reducer/product";
 
 export async function getServerSideProps(context) {
+  const { productId } = context.query;
   const data = await authPage(context);
   const user = await axiosApiIntances
     .get(`user/${data.userId}`, {
@@ -25,8 +27,21 @@ export async function getServerSideProps(context) {
       return {};
     });
 
+  const product = await axiosApiIntances
+    .get(`product/${productId}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
+    .then((res) => {
+      return res.data.data[0];
+    })
+    .catch((err) => {
+      return {};
+    });
+
   return {
-    props: { user },
+    props: { user, product },
   };
 }
 
@@ -37,11 +52,20 @@ export default function payment(props) {
   const [useCoupun, setUseCoupon] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [promoCode, setPromoCode] = useState("");
+  const [subTotal, setSubtotal] = useState(0);
 
   useEffect(() => {
-    setOrderItem(JSON.parse(localStorage.getItem("item")));
     setDataCoupons([JSON.parse(Cookies.get("coupon"))]);
+    setOrderItem(JSON.parse(Cookies.get("item")));
   }, []);
+
+  useEffect(() => {
+    let total = 0;
+    for (const key in orderItem) {
+      total += orderItem[key].value[2];
+    }
+    setSubtotal(total);
+  }, [orderItem]);
 
   const convertToRupiah = (amount) => {
     let number_string = amount.toString(),
@@ -67,48 +91,44 @@ export default function payment(props) {
   };
 
   const handleConfirm = () => {
-    let price;
-    let productId;
-    let size;
-    let qty;
-    let totalPrice;
-    orderItem.map((item) => {
-      price = item.price;
-      productId = item.productId;
-      size = item.size;
-      qty = item.count;
-      totalPrice = item.price;
-    });
-    const setData = {
-      userId: Cookies.get("userId"),
-      invoicePromoCode: promoCode,
-      invoiceSubtotal: price - useCoupun,
-      paymentMethod: paymentMethod,
-      orders: [
-        {
-          productId,
-          size,
-          qty,
-          totalPrice,
-        },
-      ],
-    };
-
-    axiosApiIntances
-      .post("/invoice/create", setData, {
-        headers: {
-          Authorization: "Bearer " + Cookies.get("token"),
-        },
-      })
-      .then((res) => {
-        Cookies.remove("coupon");
-        localStorage.removeItem("item");
-        alert("Pesanan berhasil");
-        router.push("/product-cust");
-      })
-      .catch((err) => {
-        alert(err.response.data.msg);
+    if (!paymentMethod) {
+      alert("Select Payment method");
+    } else {
+      const setData = {
+        userId: Cookies.get("userId"),
+        invoicePromoCode: dataCoupons[0].promoCode,
+        invoiceSubtotal:
+          useCoupun != undefined
+            ? subTotal <= useCoupun
+              ? 0
+              : subTotal - useCoupun
+            : subTotal,
+        paymentMethod,
+      };
+      setData.orders = orderItem.map((item) => {
+        return {
+          productId: props.product.product_id,
+          size: item.value[0],
+          qty: item.value[1],
+          totalPrice: item.value[2],
+        };
       });
+      axiosApiIntances
+        .post("/invoice/create", setData, {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        })
+        .then((res) => {
+          Cookies.remove("coupon");
+          localStorage.removeItem("item");
+          alert("Pesanan berhasil");
+          router.push("/product-cust");
+        })
+        .catch((err) => {
+          alert(err.response.data.msg);
+        });
+    }
   };
 
   return (
@@ -124,31 +144,36 @@ export default function payment(props) {
               </h1>
               <Card className={styles.invoice}>
                 <h1 className={styles.titleInvoice}>Order Summary</h1>
-                {orderItem.map((item, index) => {
-                  return (
-                    <Card className={styles.cardOrder} key={index}>
-                      <Row>
-                        <Col sm={3}>
-                          <img
-                            alt=""
-                            src={`http://localhost:3005/backend5/api/${item.productImage}`}
-                            className={styles.imgOrder}
-                          />
-                        </Col>
-                        <Col sm={5}>
-                          <p className={styles.Order}>{item.productName}</p>
-                          <p className={styles.Order}>x{item.count}</p>
-                          <p className={styles.Order}>{item.size}</p>
-                        </Col>
-                        <Col sm={4}>
-                          <p className={styles.priceOrder}>
-                            IDR{convertToRupiah(item.price)}
-                          </p>
-                        </Col>
-                      </Row>
-                    </Card>
-                  );
-                })}
+
+                <Card className={styles.cardOrder}>
+                  <Row>
+                    <Col sm={3}>
+                      <img
+                        alt=""
+                        src={`http://localhost:3005/backend5/api/${props.product.product_image}`}
+                        className={styles.imgOrder}
+                      />
+                    </Col>
+                    <Col sm={6}>
+                      <p className={styles.Order}>
+                        {props.product.product_name}
+                      </p>
+                      {orderItem.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            <p className={styles.Order}>
+                              x{item.value[1]} {item.value[0]}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </Col>
+                    <Col sm={4}>
+                      <p className={styles.priceOrder}>IDR{subTotal}</p>
+                    </Col>
+                  </Row>
+                </Card>
+
                 <hr />
 
                 {dataCoupons.map((item, index) => {
@@ -170,34 +195,27 @@ export default function payment(props) {
                 <Row className={styles.rowCount}>
                   <Col className={styles.countInvoice}>DISCOUNT</Col>
                   <Col className={styles.nominal}>
-                    IDR{" "}
-                    {useCoupun != undefined ? convertToRupiah(useCoupun) : 0}
+                    IDR {useCoupun != undefined ? useCoupun : 0}
                   </Col>
                 </Row>
                 <Row className={styles.rowCount}>
                   <Col className={styles.countInvoice}>SUBTOTAL</Col>
-                  {orderItem.map((item, index) => {
-                    return (
-                      <Col key={index} className={styles.nominal}>
-                        IDR {convertToRupiah(item.price)}
-                      </Col>
-                    );
-                  })}
+
+                  <Col className={styles.nominal}>IDR {subTotal}</Col>
                 </Row>
                 <Row className={styles.rowCountTotal}>
                   <Col className={styles.countTotal} sm={6}>
                     TOTAL
                   </Col>
-                  {orderItem.map((item, index) => {
-                    return (
-                      <Col key={index} className={styles.nominalTotal} sm={6}>
-                        IDR{" "}
-                        {useCoupun != undefined
-                          ? convertToRupiah(item.price - useCoupun)
-                          : convertToRupiah(item.price)}
-                      </Col>
-                    );
-                  })}
+
+                  <Col className={styles.nominalTotal} sm={6}>
+                    IDR{" "}
+                    {useCoupun != undefined
+                      ? subTotal <= useCoupun
+                        ? 0
+                        : subTotal - useCoupun
+                      : subTotal}
+                  </Col>
                 </Row>
               </Card>
             </Col>
