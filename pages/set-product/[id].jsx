@@ -26,9 +26,7 @@ import { useRouter } from "next/router";
 export async function getServerSideProps(context) {
   const data = await authPage(context);
   const { id } = context.query;
-<<<<<<< HEAD
 
-=======
   const product = await axiosApiIntances
     .get(`/product/${id}`, {
       headers: {
@@ -38,7 +36,6 @@ export async function getServerSideProps(context) {
     .then((res) => {
       return res.data.data[0];
     });
->>>>>>> 01103c678ea39627806bf92e0c31a882cf849184
   return {
     props: { data: product },
   };

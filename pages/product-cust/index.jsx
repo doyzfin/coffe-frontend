@@ -50,7 +50,7 @@ function ProductCust(props) {
               price: item.product_price,
               image: item.product_image
                 ? `${process.env.IMAGE_URL}/${item.product_image}`
-                : "/Mask Group (2).png",
+                : "/makanan3.png",
             };
           })
         );
@@ -99,7 +99,7 @@ function ProductCust(props) {
               price: item.product_price,
               image: item.product_image
                 ? `${process.env.IMAGE_URL}/${item.product_image}`
-                : "/Mask Group (2).png",
+                : "/makanan3.png",
             };
           })
         );

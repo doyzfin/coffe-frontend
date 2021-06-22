@@ -139,7 +139,7 @@ function historyCust(props) {
                         <Col xs={4}>
                           <img
                             alt=""
-                            src="/Mask Group (2).png"
+                            src="/makanan3.png"
                             className={styles.imgHistory}
                           />
                         </Col>
@@ -165,7 +165,7 @@ function historyCust(props) {
                             src={
                               item.product_image.length > 0
                                 ? `${process.env.IMAGE_URL}/${item.product_image}`
-                                : "/Mask Group (2).png"
+                                : "/makanan3.png"
                             }
                             className={styles.imgHistory}
                           />

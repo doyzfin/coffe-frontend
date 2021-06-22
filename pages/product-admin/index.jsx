@@ -47,7 +47,7 @@ function productAdmin(props) {
               price: item.product_price,
               image: item.product_image
                 ? `${process.env.IMAGE_URL}/${item.product_image}`
-                : "/Mask Group (2).png",
+                : "/makanan3.png",
             };
           })
         );
@@ -96,7 +96,7 @@ function productAdmin(props) {
               price: item.product_price,
               image: item.product_image
                 ? `${process.env.IMAGE_URL}/${item.product_image}`
-                : "/Mask Group (2).png",
+                : "/makanan3.png",
             };
           })
         );
@@ -194,7 +194,6 @@ function productAdmin(props) {
                   </Card>
                 );
               })}
-              <Button className={styles.btnApply}>Apply Coupon</Button>
               <p className={styles.terms}>Terms and Condition</p>
 
               <p className={styles.listTerm}>
