@@ -1,5 +1,5 @@
 import NavBar from "components/module/NavBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import styles from "../../styles/ProductDetail.module.css";
@@ -33,15 +33,18 @@ export async function getServerSideProps(context) {
 
 export default function ProductDetail(props) {
   const router = useRouter();
+  const [qty, setQty] = useState(0);
   const [count, setCount] = useState(0);
   const [size, setSize] = useState("");
   const [price, setPrice] = useState(0);
   const [cart, setCart] = useState(false);
+  const [subTotal, setSubTotal] = useState(0);
   const priceR = props.product[0].product_price;
   const priceL = (priceR * 50) / 100 + priceR;
   const priceXL = (priceL * 50) / 100 + priceL;
   const [productName, setProductName] = useState("");
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState({});
+  const [checkout, setCheckout] = useState([]);
 
   const handleCart = () => {
     if (count === 0) {
@@ -51,60 +54,121 @@ export default function ProductDetail(props) {
     }
   };
 
+  useEffect(() => {
+    setCheckout(
+      Object.keys(order).map((key) => ({
+        value: order[key],
+      }))
+    );
+  }, [price]);
+
   const countPlus = () => {
     if (size === "") {
       alert("Choose a size");
     } else {
-      setCount(count + 1);
+      setCount(parseInt(count) + 1);
+      setQty(qty + 1);
       if (size == "regular") {
-        setPrice(priceR + price);
+        setPrice(parseInt(priceR) + parseInt(price));
+        setSubTotal(priceR + subTotal);
+        setOrder(
+          Object.assign(order, {
+            sizeR: ["regular", count + 1, priceR + price],
+          })
+        );
       }
       if (size == "large") {
-        setPrice(priceL + price);
+        setPrice(parseInt(priceL) + parseInt(price));
+        setSubTotal(priceL + subTotal);
+        setOrder(
+          Object.assign(order, {
+            sizeL: ["large", count + 1, priceL + price],
+          })
+        );
       }
       if (size == "extra large") {
-        setPrice(priceXL + price);
+        setPrice(parseInt(priceXL) + parseInt(price));
+        setSubTotal(priceXL + subTotal);
+        setOrder(
+          Object.assign(order, {
+            sizeXL: ["extra large", count + 1, priceXL + price],
+          })
+        );
       }
     }
   };
 
   const countMinus = () => {
     if (count <= 0) {
+      setQty(0);
       setCount(0);
       setPrice(0);
-      setSize("");
+      setSize([""]);
       setCart(false);
     } else {
-      setCount(count - 1);
+      setCount(parseInt(count) - 1);
+      setQty(qty - 1);
       if (size == "regular") {
-        setPrice(price - priceR);
+        setPrice(parseInt(price) - parseInt(priceR));
+        setOrder(
+          Object.assign(order, {
+            sizeR: ["regular", count - 1, price - priceR],
+          })
+        );
       }
       if (size == "large") {
-        setPrice(price - priceL);
+        setPrice(parseInt(price) - parseInt(priceL));
+        setOrder(
+          Object.assign(order, {
+            sizeL: ["large", count - 1, price - priceL],
+          })
+        );
       }
       if (size == "extra large") {
-        setPrice(price - priceXL);
+        setPrice(parseInt(price) - parseInt(priceXL));
+        setOrder(
+          Object.assign(order, {
+            sizeXL: ["extra large", count - 1, price - priceXL],
+          })
+        );
       }
     }
   };
 
   const handleSize = (stringSize) => {
+    setQty(1);
     setCount(1);
     setCart(true);
+    setProductName(props.product[0].product_name);
     if (stringSize == "R") {
-      setProductName(props.product[0].product_name);
       setSize("regular");
       setPrice(priceR);
+      setSubTotal(priceR);
+      if (order.sizeR === undefined) {
+        setOrder(Object.assign(order, { sizeR: ["regular", 1, priceR] }));
+      } else {
+        return {};
+      }
     }
     if (stringSize == "L") {
-      setProductName(props.product[0].product_name);
       setSize("large");
       setPrice(priceL);
+      setSubTotal(priceL);
+      if (order.sizeL === undefined) {
+        setOrder(Object.assign(order, { sizeL: ["large", 1, priceL] }));
+      } else {
+        return {};
+      }
     }
     if (stringSize == "XL") {
-      setProductName(props.product[0].product_name);
       setSize("extra large");
       setPrice(priceXL);
+      setSubTotal(priceXL);
+      if (order.sizeXL === undefined) {
+        setOrder(Object.assign(order, { sizeXL: ["extra large", 1, priceXL] }));
+      } else {
+        return {};
+      }
     }
   };
 
@@ -122,21 +186,11 @@ export default function ProductDetail(props) {
 
   const handleCheckout = () => {
     event.preventDefault();
-    localStorage.setItem(
-      "item",
-      JSON.stringify([
-        ...order,
-        {
-          productName,
-          size,
-          price,
-          count,
-          productImage: props.product[0].product_image,
-          productId: props.product[0].product_id,
-        },
-      ])
-    );
-    router.push("/payment");
+    console.log(checkout);
+    Cookies.set("item", checkout);
+    Cookies.set("productId", props.product[0].product_id);
+
+    router.push(`/payment?productId=${props.product[0].product_id}`);
   };
   return (
     <Layout title="Product Detail">
@@ -163,25 +217,13 @@ export default function ProductDetail(props) {
               <h3>Choose a size</h3>
               <div className={styles.sizeFont}>
                 <Button variant="warning" onClick={() => handleSize("R")}>
-                  {props.product[0].product_category == "foods" ? (
-                    <h6>250gr</h6>
-                  ) : (
-                    "R"
-                  )}
+                  {props.product[0].product_size == "B" ? <h6>250gr</h6> : "R"}
                 </Button>
                 <Button variant="warning" onClick={() => handleSize("L")}>
-                  {props.product[0].product_category == "foods" ? (
-                    <h6>300gr</h6>
-                  ) : (
-                    "L"
-                  )}
+                  {props.product[0].product_size == "B" ? <h6>300gr</h6> : "L"}
                 </Button>
                 <Button variant="warning" onClick={() => handleSize("XL")}>
-                  {props.product[0].product_category == "foods" ? (
-                    <h6>500gr</h6>
-                  ) : (
-                    "XL"
-                  )}
+                  {props.product[0].product_size == "B" ? <h6>500gr</h6> : "XL"}
                 </Button>
               </div>
             </div>
@@ -205,23 +247,23 @@ export default function ProductDetail(props) {
                   className={styles.minus}
                   onClick={countMinus}
                   style={
-                    count === 0 && cart === true
+                    qty === 0 && cart === true
                       ? { backgroundColor: "red" }
                       : { backgroundColor: "white" }
                   }
                 >
-                  {count === 0 && cart === true ? (
+                  {qty === 0 && cart === true ? (
                     <img src="/icon-trash.png" alt="" />
                   ) : (
                     "-"
                   )}
                 </button>
-                <h4>{count}</h4>
+                <h4>{qty}</h4>
                 <button className={styles.plus} onClick={countPlus}>
                   +
                 </button>
               </div>
-              <h2>IDR{convertToRupiah(price)}</h2>
+              <h2>IDR{convertToRupiah(subTotal)}</h2>
             </div>
             <div
               style={
@@ -238,9 +280,15 @@ export default function ProductDetail(props) {
               />
               <div className={styles.order}>
                 <h5>{props.product[0].product_name}</h5>
-                <h6>
-                  x{count} ({size})
-                </h6>
+                {checkout.length > 0
+                  ? checkout.map((item, index) => {
+                      return (
+                        <h6 key={index}>
+                          x{item.value[1]} ({item.value[0]})
+                        </h6>
+                      );
+                    })
+                  : ""}
               </div>
               <h3>Checkout</h3>
               <Button variant="warning">
