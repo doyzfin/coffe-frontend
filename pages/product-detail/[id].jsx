@@ -95,19 +95,16 @@ export default function ProductDetail(props) {
       setProductName(props.product[0].product_name);
       setSize("regular");
       setPrice(priceR);
-      setOrder([...order, { productName, size, price, count }]);
     }
     if (stringSize == "L") {
       setProductName(props.product[0].product_name);
       setSize("large");
       setPrice(priceL);
-      setOrder([...order, { productName, size, price, count }]);
     }
     if (stringSize == "XL") {
       setProductName(props.product[0].product_name);
       setSize("extra large");
       setPrice(priceXL);
-      setOrder([...order, { productName, size, price, count }]);
     }
   };
 
@@ -125,12 +122,22 @@ export default function ProductDetail(props) {
 
   const handleCheckout = () => {
     event.preventDefault();
-    console.log(productName, size, price, count);
-    console.log(order);
-    // await Cookies.set("item", [order]);
-    // router.push("/payment");
+    localStorage.setItem(
+      "item",
+      JSON.stringify([
+        ...order,
+        {
+          productName,
+          size,
+          price,
+          count,
+          productImage: props.product[0].product_image,
+          productId: props.product[0].product_id,
+        },
+      ])
+    );
+    router.push("/payment");
   };
-
   return (
     <Layout title="Product Detail">
       <NavBar />
