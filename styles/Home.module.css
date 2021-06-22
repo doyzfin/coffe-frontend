@@ -45,6 +45,39 @@
   position: absolute;
 }
 
+.heartBulletSize {
+  height: 20px;
+  width: 20px;
+}
+
+.flexInsideCard {
+  width: 8rem;
+}
+
+.bulletDescription {
+  position: relative;
+}
+
+/* Experimental Row */
+.headerCardBackground {
+  left: 0;
+  right: 0;
+  top: 89%;
+  margin: auto;
+}
+
+.headerCardRow {
+  background-color: white;
+  color: black;
+  position: relative;
+  border-radius: 10px;
+}
+
+/* Second Row */
+.secondRow {
+  margin-top: 8rem;
+}
+
 /* .container {
   min-height: 100vh;
   padding: 0 0.5rem;

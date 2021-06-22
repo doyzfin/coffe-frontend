@@ -8,8 +8,8 @@ export default function Home() {
     <>
       <Layout title="Coffee Express">
         <Navbar />
-        <div className={stylesHome.header}>
-          <Container>
+        <div className={`${stylesHome.header}`}>
+          <Container className={`position-relative`}>
             <Row>
               <Col
                 lg={5}
@@ -30,31 +30,81 @@ export default function Home() {
                 </p>
                 <button className={stylesHome.yellowButton}>Get Started</button>
               </Col>
-              <Card className={stylesHome.headerCard}>
-                <div className="d-flex justify-content-around py-4">
-                  <Card className={`${stylesHome.yellowBulletBackground}`}>
-                    <img
-                      src="/vector_orang.png"
-                      className={stylesHome.cardBulletImage}
-                    ></img>
-                  </Card>
-                  <Card className={stylesHome.yellowBulletBackground}>
-                    <img
-                      src="/vector_map.png"
-                      className={stylesHome.cardBulletImage}
-                    ></img>
-                  </Card>
-                  <Card className={stylesHome.yellowBulletBackground}>
-                    <img
-                      src="/vector_orang.png"
-                      className={stylesHome.cardBulletImage}
-                    ></img>
-                  </Card>
+
+              {/* Experimental Row */}
+              <div
+                className={`container position-absolute ${stylesHome.headerCardBackground}`}
+              >
+                <div className={`${stylesHome.headerCardRow} row py-4`}>
+                  <Col>
+                    <Row className="h-100">
+                      <Col className="my-auto">
+                        <div
+                          className={`${stylesHome.yellowBulletBackground} float-end`}
+                        >
+                          <img
+                            src="/vector_orang.png"
+                            className={stylesHome.cardBulletImage}
+                          ></img>
+                        </div>
+                      </Col>
+                      <Col className={stylesHome.bulletDescription}>
+                        <span className="fw-bold d-block">90+</span>
+                        <span className="d-block">Staff</span>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col>
+                    <Row className="h-100">
+                      <Col className="my-auto">
+                        <div
+                          className={`${stylesHome.yellowBulletBackground} float-end`}
+                        >
+                          <img
+                            src="/vector_map.png"
+                            className={`${stylesHome.cardBulletImage}`}
+                          ></img>
+                        </div>
+                      </Col>
+                      <Col className={stylesHome.bulletDescription}>
+                        <span className="fw-bold d-block">30+</span>
+                        <span className="d-block">Store</span>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col>
+                    <Row className="h-100">
+                      <Col className="my-auto">
+                        <div
+                          className={`${stylesHome.yellowBulletBackground} float-end`}
+                        >
+                          <img
+                            src="/vector_hati.png"
+                            className={`${stylesHome.cardBulletImage} ${stylesHome.heartBulletSize}`}
+                          ></img>
+                        </div>
+                      </Col>
+                      <Col className={stylesHome.bulletDescription}>
+                        <span className="fw-bold d-block">30+</span>
+                        <span className="d-block">Store</span>
+                      </Col>
+                    </Row>
+                  </Col>
                 </div>
-              </Card>
+              </div>
             </Row>
           </Container>
         </div>
+        <Container className={stylesHome.secondRow}>
+          <Row>
+            <Col lg={6} md={6} sm={5} xs={12}>
+              Left
+            </Col>
+            <Col lg={6} md={6} sm={6} xs={12}>
+              Right
+            </Col>
+          </Row>
+        </Container>
       </Layout>
     </>
   );
