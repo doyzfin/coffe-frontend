@@ -62,9 +62,6 @@ function setProduct(props) {
   });
 
   useEffect(() => {
-    const id = props.data.product_id;
-    const token = Cookies.get("token");
-
     setFormProduct({
       productName: props.data.product_name,
       productPrice: props.data.product_price,
@@ -75,9 +72,6 @@ function setProduct(props) {
     });
     setToken(Cookies.get("token"));
   }, []);
-  // const getData = (id, token) => {
-  //   props.getProduct(id, token);
-  // };
   const handleClickSizeCoffee = () => {
     setIsClickCoffee(true);
     setIsClickSize(false);
@@ -133,14 +127,9 @@ function setProduct(props) {
         setTimeout(() => {
           setIsSuccess(false);
         }, 3000);
-        window.location.reload();
-        handleCancel();
-
-        console.log(res);
+        router.push("/product-admin");
       })
       .catch((err) => {
-        console.log(err);
-        // setIsImage(false);
         setIsError(true);
         setMsgError(err.response.data.msg);
         setTimeout(() => {

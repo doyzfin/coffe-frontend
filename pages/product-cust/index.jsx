@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 import { authPage } from "middleware/authorizationPage";
-
 import { connect } from "react-redux";
 import { getAllProduct } from "redux/actions/product";
 import { getAllPromo } from "redux/actions/promo";

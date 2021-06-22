@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { getAllProduct } from "redux/actions/product";
 import { getAllPromo } from "redux/actions/promo";
 import ReactPaginate from "react-paginate";
+import { route } from "next/dist/next-server/server/router";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -194,8 +195,23 @@ function productAdmin(props) {
                   </Card>
                 );
               })}
+              <Button
+                className={styles.btnApply}
+                onClick={() => {
+                  router.push("/set-promo");
+                }}
+              >
+                Add Coupon
+              </Button>
+              <Button
+                className={styles.btnApply}
+                onClick={() => {
+                  router.push("/set-product");
+                }}
+              >
+                Add Product
+              </Button>
               <p className={styles.terms}>Terms and Condition</p>
-
               <p className={styles.listTerm}>
                 1. You can only apply 1 coupon per day
                 <br />
