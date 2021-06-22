@@ -2,8 +2,48 @@ import AdminDashboardNavbar from "../../../components/module/AdminDashboardNavba
 import Layout from "../../../components/Layout";
 import styles from "../../../styles/Dashboard.module.css";
 import Footer from "../../../components/module/footer";
+import axiosApiIntances from "utils/axios";
+import { authPage } from "middleware/authorizationPage";
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
+import { useState } from "react";
 
-export default function AdminDashboard() {
+export async function getServerSideProps(context) {
+  const data = await authPage(context);
+  const charts = await axiosApiIntances
+    .get("/chart/daily", {
+      headers: {
+        Authorization: `Bearer ${data.token || ""}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
+
+  return {
+    props: { data: charts },
+  };
+}
+
+export default function AdminDashboard(props) {
+  const [isDaily, setIsDaily] = useState(false);
+  const [isWeek, setIsWeek] = useState(false);
+  const [isMonth, setIsMonth] = useState(false);
+  const handleDaily = () => {
+    setIsDaily(true);
+    setIsMonth(false);
+    setIsWeek(false);
+  };
+  const handleWeek = () => {
+    setIsDaily(false);
+    setIsMonth(false);
+    setIsWeek(true);
+  };
+  const handleMonth = () => {
+    setIsDaily(false);
+    setIsMonth(true);
+    setIsWeek(false);
+  };
+  console.log(props.data);
   return (
     <>
       <Layout title="Admin Dashboard">
@@ -18,7 +58,10 @@ export default function AdminDashboard() {
                 <div className="d-flex justify-content-center">
                   <img
                     src="/Ellipse 189.png"
-                    className={styles.bulletPeriod}
+                    className={
+                      isDaily ? styles.bulletPeriod1 : styles.bulletPeriod
+                    }
+                    onClick={handleDaily}
                   ></img>
                 </div>
                 <span className="text-center">Daily</span>
@@ -27,8 +70,11 @@ export default function AdminDashboard() {
                 <div className="d-flex justify-content-center">
                   <img
                     src="/Ellipse 189.png"
-                    className={styles.bulletPeriod}
-                  ></img>
+                    className={
+                      isWeek ? styles.bulletPeriod1 : styles.bulletPeriod
+                    }
+                    onClick={handleWeek}
+                  />
                 </div>
                 <span className="text-center">Weekly</span>
               </div>
@@ -36,17 +82,46 @@ export default function AdminDashboard() {
                 <div className="d-flex justify-content-center">
                   <img
                     src="/Ellipse 189.png"
-                    className={styles.bulletPeriod}
-                  ></img>
+                    className={
+                      isMonth ? styles.bulletPeriod1 : styles.bulletPeriod
+                    }
+                    onClick={handleMonth}
+                  />
                 </div>
                 <span className="text-center">Monthly</span>
               </div>
             </div>
             <div className={`card ${styles.chartCard}`}>
               <div className="p-3">
-                <h5 className="fw-bold">Monthly Report</h5>
-                <span className="d-block">Last 9 months</span>
+                <h5 className="fw-bold">
+                  {isDaily
+                    ? "Daily Report"
+                    : isWeek
+                    ? "Weekly Report"
+                    : "Monthly Report"}
+                </h5>
+                <span className="d-block">
+                  Last 9 {isDaily ? "Days" : isWeek ? "Week" : "Month"}
+                </span>
               </div>
+              <BarChart
+                width={1100}
+                height={600}
+                data={props.data.data}
+                barSize={50}
+                margin={{ top: 50, left: 20, right: 20, bottom: 20 }}
+              >
+                <XAxis padding={{ left: 20, right: 100 }} dataKey="DAY" />
+                <YAxis type="number" />
+                <CartesianGrid horizontal={false} />
+                <Tooltip />
+                <Bar
+                  dataKey="Total"
+                  fill="#6a4029"
+                  maxBarSize={15}
+                  isAnimationActive={false}
+                />
+              </BarChart>
             </div>
             <div className="pt-4">
               <button className={`${styles.downloadButton} w-100`}>

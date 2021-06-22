@@ -3,15 +3,33 @@ import Layout from "../../components/Layout";
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import styles from "../../styles/SetPromo.module.css";
 import Footer from "../../components/module/greyFooter";
+import { useState } from "react";
+import { authPage } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
+  const data = await authPage(context);
   const { id } = context.query;
   return {
-    props: { user: context.query },
+    props: {},
   };
 }
-export default function updatepromo(props) {
-  console.log("This is " + props.user.id + "!");
+export default function updateromo(props) {
+  const [formPromo, setFormPromo] = useState({
+    promoName: "",
+    promoCode: "",
+    promoDiscount: "",
+    promoDesc: "",
+    expireStart: "",
+    expireEnd: "",
+    minTotalPrice: "",
+    maxDiscount: "",
+    image: null,
+  });
+  const changeText = (event) => {
+    event.preventDefault();
+    setFormPromo({ ...formPromo, [event.target.name]: event.target.value });
+  };
+
   return (
     <>
       <Layout title="Update Promo">
@@ -61,10 +79,16 @@ export default function updatepromo(props) {
                   <input
                     className={`${styles.setPromoForm1} w-100 form-control`}
                     type="date"
+                    name="expireStart"
+                    value={formPromo.expireStart}
+                    onChange={(event) => changeText(event)}
                   ></input>
                   <input
                     className={`${styles.setPromoForm1} w-100 form-control`}
                     type="date"
+                    name="expireEnd"
+                    value={formPromo.expireEnd}
+                    onChange={(event) => changeText(event)}
                   ></input>
                 </div>
               </form>
@@ -78,6 +102,9 @@ export default function updatepromo(props) {
                       className={`${styles.setPromoForm} w-100 form-control`}
                       type="text"
                       placeholder="Type product name min. 50 characters"
+                      name="promoName"
+                      value={formPromo.promoName}
+                      onChange={(event) => changeText(event)}
                     ></input>
                   </div>
                   <div className="row mt-5">
@@ -89,6 +116,9 @@ export default function updatepromo(props) {
                         className={`${styles.setPromoForm} form-control`}
                         type="text"
                         placeholder="Type the min total price"
+                        name="minTotalPrice"
+                        value={formPromo.minTotalPrice}
+                        onChange={(event) => changeText(event)}
                       ></input>
                     </div>
                     <div className="col">
@@ -98,6 +128,9 @@ export default function updatepromo(props) {
                       <input
                         className={`${styles.setPromoForm} form-control`}
                         placeholder="Type the max discount"
+                        name="maxDiscount"
+                        value={formPromo.maxDiscount}
+                        onChange={(event) => changeText(event)}
                       ></input>
                     </div>
                   </div>
@@ -109,6 +142,9 @@ export default function updatepromo(props) {
                       className={`${styles.setPromoForm} w-100 form-control`}
                       type="text"
                       placeholder="Type the promo code"
+                      name="promoCode"
+                      value={formPromo.promoCode}
+                      onChange={(event) => changeText(event)}
                     ></input>
                   </div>
                   <div className="form-group mt-5">
@@ -119,6 +155,9 @@ export default function updatepromo(props) {
                       className={`${styles.setPromoForm} w-100 form-control`}
                       type="text"
                       placeholder="Describe your product min. 150 characters"
+                      name="promoDesc"
+                      value={formPromo.promoDesc}
+                      onChange={(event) => changeText(event)}
                     ></input>
                   </div>
                   <Row>
