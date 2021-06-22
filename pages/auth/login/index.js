@@ -42,7 +42,11 @@ function Login(props) {
           setIsError(false);
           Cookies.set("token", res.data.data.token);
           Cookies.set("userId", res.data.data.user_id);
-          router.push("/product-cust");
+          if (res.data.data.user_role === "admin") {
+            router.push("/product-admin");
+          } else {
+            router.push("/product-cust");
+          }
         })
         .catch((err) => {
           setIsError(true);
@@ -53,6 +57,9 @@ function Login(props) {
   };
   const handleSignUp = () => {
     router.push("/signup");
+  };
+  const handleForgot = () => {
+    router.push("/forget-password");
   };
   return (
     <>
@@ -119,7 +126,11 @@ function Login(props) {
                       ></input>
                     </div>
 
-                    <span className="d-block fw-bold text-decoration-underline">
+                    <span
+                      className="d-block fw-bold text-decoration-underline"
+                      onClick={handleForgot}
+                      style={{ cursor: "pointer" }}
+                    >
                       Forgot Password?
                     </span>
 
