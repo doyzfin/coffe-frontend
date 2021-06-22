@@ -2,8 +2,9 @@ import Layout from "../components/Layout";
 import Navbar from "../components/module/HomeNavbar";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import stylesHome from "../styles/Home.module.css";
+import {useState} from "react";
 
-export default function Home() {
+export default function Home() { 
   return (
     <>
       <Layout title="Coffee Express">
@@ -96,15 +97,84 @@ export default function Home() {
           </Container>
         </div>
         <Container className={stylesHome.secondRow}>
-          <Row>
+          <Row className="pb-5">
             <Col lg={6} md={6} sm={5} xs={12}>
-              Left
+              <img src="/35744 1.png" className="img-fluid"></img>
             </Col>
-            <Col lg={6} md={6} sm={6} xs={12}>
-              Right
+            <Col lg={6} md={6} sm={6} xs={12} >
+              <div className={`position-relative ${stylesHome.secondRowRight}`}>
+              <h2 className={`${stylesHome.secondRowRightHeader} fw-bold`}>We Provide Good Coffee and Healthy Meals</h2>
+              <p className={stylesHome.secondRowRightParagraph}>You can explore the menu that we provide with fun and have their own taste and make your day better.</p>
+              <ul className={stylesHome.secondRowRightLists}>
+                <li>High quality beans</li> 
+                <li>Healthy meals, you can request the ingredients</li>
+                <li>Chat with our staff to get better experience for ordering</li>
+                <li>Free member card with a minimum purchase of IDR 200.000.</li>
+              </ul>
+              </div>
             </Col>
           </Row>
         </Container>
+        <div className={stylesHome.greyBackground}>
+          <Container className="py-5">
+            <Row className="py-5">
+              <h2 className="text-center">Here Is People's Favorite</h2>
+              <span className="d-block text-center text-wrap">Let’s choose and have a bit taste of poeple’s favorite. It might be yours too!</span>
+            </Row>
+          </Container>
+          <Container>
+            <Row className={stylesHome.gridFavoriteRow}>
+              <Col lg={4} md={4} sm={12} xs={12}>
+                <div className={`${stylesHome.gridFavoriteCard}`}> 
+                <img src="/image 22.png" className={stylesHome.gridFavoritePicture}></img>
+                  <div className={`${stylesHome.gridFavoriteDescription} `}>
+                    <span className={`d-block text-center`}>Hazelnut Latte</span> 
+                    <ul className={stylesHome.gridFavoriteDescriptionLists}>
+                      <li>Hazelnut Syrup</li>
+                      <li>Wanilla Whipped Cream</li>
+                      <li>Ice / Hot</li>
+                      <li>Sliced Banana on Top</li>
+                    </ul>
+                    <h5 className="fw-bold">IDR 25.000</h5>
+                  </div>
+                </div>
+              </Col>
+              <Col lg={4} md={4} sm={12} xs={12}>
+                <div className={`${stylesHome.gridFavoriteCard}`}> 
+                <img src="/image 27.png" className={stylesHome.gridFavoritePicture}></img>
+                  <div className={`${stylesHome.gridFavoriteDescription} `}>
+                    <span className={`d-block text-center`}>Pinky Promise</span> 
+                    <ul className={stylesHome.gridFavoriteDescriptionLists}>
+                      <li>1 Shot of Coffee</li>
+                      <li>Wanilla Whipped Cream</li>
+                      <li>Chocolate Biscuits</li>
+                      <li>Strawberry Syrup</li> 
+                      <li>Sliced Strawberry on Top</li>
+                    </ul>
+                    <h5 className="fw-bold">IDR 30.000</h5>
+                  </div>
+                </div>
+              </Col> 
+              <Col lg={4} md={4} sm={12} xs={12}>
+              <div className={`${stylesHome.gridFavoriteCard}`}> 
+                <img src="/image 30.png" className={stylesHome.gridFavoritePicture}></img>
+                  <div className={`${stylesHome.gridFavoriteDescription} `}>
+                    <span className={`d-block text-center`}>Chicken Wings</span> 
+                    <ul className={stylesHome.gridFavoriteDescriptionLists}>
+                      <li>Wings</li>
+                      <li>Drum Stick</li>
+                      <li>Mayonaise and Lemon</li>
+                      <li>Hot Fried</li> 
+                      <li>Secret Recipe</li> 
+                      <li>Buy 1 Get 1 for Dine in</li>
+                    </ul>
+                    <h5 className="fw-bold">IDR 30.000</h5>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </Layout>
     </>
   );

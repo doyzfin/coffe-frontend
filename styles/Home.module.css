@@ -63,7 +63,8 @@
   left: 0;
   right: 0;
   top: 89%;
-  margin: auto;
+  margin: auto; 
+  box-shadow: 6px 0px 20px 0px #313131;
 }
 
 .headerCardRow {
@@ -76,6 +77,61 @@
 /* Second Row */
 .secondRow {
   margin-top: 8rem;
+}
+
+.secondRowRight {
+  top: 12%;
+}
+
+.secondRowRightHeader {
+  line-height: 3rem;
+} 
+
+.secondRowRightParagraph {
+  line-height: 2rem;
+}
+
+.secondRowRightLists {
+  line-height: 2rem;
+  list-style-image: url("/checklist.png");
+}
+
+/* Third Row */ 
+.greyBackground {
+  background-color: #ebebeb;
+}
+
+.gridFavoriteRow {
+  position: relative;
+  left: 0; 
+  right: 0; 
+  margin: auto;
+  width: 50rem;
+}
+
+.gridFavoriteCard {
+  border: 1px solid #DDDDDD; 
+  border-radius: 10px; 
+  position: relative; 
+  height: 100%;
+} 
+
+.gridFavoritePicture {
+  border-radius: 70px; 
+  position: absolute;
+}
+
+.gridFavoriteDescription {
+  position: relative; 
+  margin-top: 45%; 
+  font-weight: bold;
+}
+
+.gridFavoriteDescriptionLists {
+  margin-top: 20%;
+  line-height: 2rem; 
+  font-weight: normal; 
+  list-style-image: url("/blank_checklist.png");
 }
 
 /* .container {
