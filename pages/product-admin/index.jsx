@@ -3,98 +3,138 @@ import Navbar from "../../components/module/AdminDashboardNavbar";
 import Footer from "../../components/module/footer";
 import { Col, Container, Row, Card, Button, Nav } from "react-bootstrap";
 import styles from "../../styles/ProductAdmin.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Cookie from "js-cookie";
+import { authPage } from "middleware/authorizationPage";
 
-export default function productadmin() {
-  const [dataCoupons, setDataCoupons] = useState([
-    {
-      image: "/image 46.png",
-      name: "HAPPY MOTHERS DAYS",
-      note: "Get one of our favorite menu for free!",
-    },
-    {
-      image: "/image 43.png",
-      name: "Get a cup of coffee for free on sunday morning",
-      note: "Only at 7 to 9 AM",
-    },
-    {
-      image: "/image 46.png",
-      name: "HAPPY MOTHERS DAYS",
-      note: "Get one of our favorite menu for free!",
-    },
-    {
-      image: "/image 45.png",
-      name: "HAPPY HALLOWEEN!",
-      note: "Do you like chicken wings? Get 1 free only if you buy pinky promise",
-    },
-  ]);
-  const [dataMenu, setDataMenu] = useState([
-    {
-      name: "Veggie tomato mix",
-      price: "IDR 34.000",
-      image: "/Mask Group (2).png",
-    },
-    {
-      name: "Hazelnut Latte",
-      price: "IDR 25.000",
-      image: "/Mask Group (3).png",
-    },
-    {
-      name: "Summer fried rice",
-      price: "IDR 32.000",
-      image: "/Mask Group (4).png",
-    },
-    {
-      name: "Creamy Ice Latte",
-      price: "IDR 27.000",
-      image: "/Mask Group (5).png",
-    },
-    {
-      name: "Drum Sticks",
-      price: "IDR 30.000",
-      image: "/Mask Group (7).png",
-    },
-    {
-      name: "Salty Rice",
-      price: "IDR 20.000",
-      image: "/Mask Group (6).png",
-    },
-    {
-      name: "Summer fried rice",
-      price: "IDR 32.000",
-      image: "/Mask Group (4).png",
-    },
-    {
-      name: "Creamy Ice Latte",
-      price: "IDR 27.000",
-      image: "/Mask Group (5).png",
-    },
+import { connect } from "react-redux";
+import { getAllProduct } from "redux/actions/product";
+import { getPromo } from "redux/actions/promo";
+import ReactPaginate from "react-paginate";
 
-    {
-      name: "Veggie tomato mix",
-      price: "IDR 34.000",
-      image: "/Mask Group (2).png",
-    },
-    {
-      name: "Hazelnut Latte",
-      price: "IDR 25.000",
-      image: "/Mask Group (3).png",
-    },
-    {
-      name: "Summer fried rice",
-      price: "IDR 32.000",
-      image: "/Mask Group (4).png",
-    },
-    {
-      name: "Creamy Ice Latte",
-      price: "IDR 27.000",
-      image: "/Mask Group (5).png",
-    },
-  ]);
+export async function getServerSideProps(context) {
+  const data = await authPage(context);
+
+  return {
+    props: {},
+  };
+}
+
+function productAdmin(props) {
+  const router = useRouter();
+  const limit = 10;
+  const [page, setPage] = useState(1);
+  const [category, setCateggory] = useState("foods");
+  const [search, setSearch] = useState("");
+  const [pagination, setPagination] = useState({});
+
+  const [dataCoupons, setDataCoupons] = useState([]);
+  const [dataMenu, setDataMenu] = useState([]);
+
+  useEffect(() => {
+    // setSearch(props.keywords);
+    if (Cookie.get("coupon")) {
+      setSelectedCoupon(JSON.parse(Cookie.get("coupon")));
+    }
+    props
+      .getAllProduct(Cookie.get("token"), search, limit, page, category)
+      .then((res) => {
+        // console.log("RES", res.value.data.data);
+        setPagination(res.value.data.pagination);
+        setDataMenu(
+          res.value.data.data.map((item) => {
+            return {
+              productId: item.product_id,
+              name: item.product_name,
+              price: item.product_price,
+              image: item.product_image
+                ? `${process.env.IMAGE_URL}/${item.product_image}`
+                : "/Mask Group (2).png",
+            };
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err.response.status);
+      });
+
+    props
+      .getPromo(Cookie.get("token"), 1000, 1)
+      .then((res) => {
+        // console.log("RES PROMO", res.value.data.data);
+        setDataCoupons(
+          res.value.data.data.map((item) => {
+            return {
+              promoId: item.promo_id,
+              name: item.promo_name,
+              promoCode: item.promo_code,
+              maxDiscount: item.max_discount,
+              minTotalPrice: item.min_total_price,
+              note: item.promo_desc,
+              image: item.promo_image
+                ? `${process.env.IMAGE_URL}/${item.promo_image}`
+                : "/image 43.png",
+            };
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
+
+  useEffect(() => {
+    // setSearch(props.keywords);
+    props
+      .getAllProduct(Cookie.get("token"), search, limit, page, category)
+      .then((res) => {
+        // console.log("RES", res.value.data.data);
+        setPagination(res.value.data.pagination);
+        setDataMenu(
+          res.value.data.data.map((item) => {
+            return {
+              productId: item.product_id,
+              name: item.product_name,
+              price: item.product_price,
+              image: item.product_image
+                ? `${process.env.IMAGE_URL}/${item.product_image}`
+                : "/Mask Group (2).png",
+            };
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err.response.status);
+        if (err.response.status === 404) {
+          setDataMenu([]);
+          setPagination({});
+        }
+      });
+
+    router.push(
+      `/product-admin?limit=${limit}&page=${page}&search=${search}&category=${category}`
+    );
+  }, [page, search, category]);
+
+  const handlePageClick = (event) => {
+    const selectedPage = event.selected + 1;
+    setPage(selectedPage);
+  };
 
   const catchKeywords = (text) => {
-    // setSearch(text);
+    setSearch(text);
   };
+
+  const deleteProduct = (id) => {
+    console.log(id);
+  };
+
+  const deleteCoupon = (id) => {
+    console.log(id);
+  };
+
+  // console.log(category);
 
   return (
     <>
@@ -112,12 +152,11 @@ export default function productadmin() {
                 return (
                   <Card
                     className={`${
-                      item.name === "HAPPY MOTHERS DAYS"
+                      item.name === "MOTHER DAY"
                         ? styles.cardCoupons
-                        : item.name ===
-                          "Get a cup of coffee for free on sunday morning"
+                        : item.name === "INDEPENDENT DAY"
                         ? styles.cardCoupons2
-                        : item.name === "HAPPY HALLOWEEN!"
+                        : item.name === "BATIK DAY"
                         ? styles.cardCoupons3
                         : styles.cardCoupons
                     }`}
@@ -175,27 +214,57 @@ export default function productadmin() {
               <Nav as="ul" className={styles.nav}>
                 <Nav.Item as="li">
                   <Nav.Link href="#" className={styles.link}>
-                    Favorite Product
+                    <div
+                      onClick={() => {
+                        setCateggory("fav");
+                      }}
+                    >
+                      Favorite Product
+                    </div>
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item as="li">
                   <Nav.Link eventKey="link-1" className={styles.link}>
-                    Coffee
+                    <div
+                      onClick={() => {
+                        setCateggory("coffee");
+                      }}
+                    >
+                      Coffee
+                    </div>
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item as="li">
                   <Nav.Link eventKey="link-2" className={styles.link}>
-                    Non Coffee
+                    <div
+                      onClick={() => {
+                        setCateggory("noncoffee");
+                      }}
+                    >
+                      Non Coffee
+                    </div>
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item as="li">
                   <Nav.Link eventKey="link-2" className={styles.link}>
-                    Foods
+                    <div
+                      onClick={() => {
+                        setCateggory("foods");
+                      }}
+                    >
+                      Foods
+                    </div>
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item as="li">
                   <Nav.Link eventKey="link-2" className={styles.link}>
-                    Add-on
+                    <div
+                      onClick={() => {
+                        setCateggory("addon");
+                      }}
+                    >
+                      Add-on
+                    </div>
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
@@ -228,6 +297,21 @@ export default function productadmin() {
                   );
                 })}
               </Row>
+              <div className="mt-3 d-flex justify-content-center">
+                <ReactPaginate
+                  previousLabel={"prev"}
+                  nextLabel={"next"}
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={pagination.totalPage ? pagination.totalPage : 0}
+                  marginPagesDisplayed={5}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageClick}
+                  containerClassName={styles.pagination}
+                  subContainerClassName={`${styles.pages} ${styles.pagination}`}
+                  activeClassName={styles.active}
+                />
+              </div>
             </Col>
           </Row>
         </Container>
@@ -236,3 +320,6 @@ export default function productadmin() {
     </>
   );
 }
+
+const mapDispatchToProps = { getAllProduct, getPromo };
+export default connect(null, mapDispatchToProps)(productAdmin);

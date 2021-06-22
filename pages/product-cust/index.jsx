@@ -112,6 +112,10 @@ function ProductCust(props) {
           setPagination({});
         }
       });
+
+    router.push(
+      `/product-cust?limit=${limit}&page=${page}&search=${search}&category=${category}`
+    );
   }, [page, search, category]);
 
   const handlePageClick = (event) => {
@@ -149,13 +153,12 @@ function ProductCust(props) {
             {dataCoupons.map((item, index) => {
               return (
                 <Card
-                  className={`position-relative ${
-                    item.name === "HAPPY MOTHERS DAYS"
+                  className={`${
+                    item.name === "MOTHER DAY"
                       ? styles.cardCoupons
-                      : item.name ===
-                        "Get a cup of coffee for free on sunday morning"
+                      : item.name === "INDEPENDENT DAY"
                       ? styles.cardCoupons2
-                      : item.name === "HAPPY HALLOWEEN!"
+                      : item.name === "BATIK DAY"
                       ? styles.cardCoupons3
                       : styles.cardCoupons
                   }`}
