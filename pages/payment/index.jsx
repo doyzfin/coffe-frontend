@@ -1,5 +1,4 @@
 import Layout from "components/Layout";
-import NavBar from "components/module/NavBar";
 import Footer from "components/module/footer";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import styles from "../../styles/Payment.module.css";
@@ -8,6 +7,7 @@ import Cookies from "js-cookie";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
 import { useRouter } from "next/router";
+import NavBar from "components/module/NavBar";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);

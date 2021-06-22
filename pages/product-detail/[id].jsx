@@ -3,11 +3,9 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import styles from "../../styles/ProductDetail.module.css";
-import NavBar from "components/module/NavBar";
 import Footer from "components/module/footer";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
