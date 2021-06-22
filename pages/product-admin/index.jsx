@@ -10,7 +10,7 @@ import { authPage } from "middleware/authorizationPage";
 
 import { connect } from "react-redux";
 import { getAllProduct } from "redux/actions/product";
-import { getPromo } from "redux/actions/promo";
+import { getAllPromo } from "redux/actions/promo";
 import ReactPaginate from "react-paginate";
 
 export async function getServerSideProps(context) {
@@ -34,9 +34,6 @@ function productAdmin(props) {
 
   useEffect(() => {
     // setSearch(props.keywords);
-    if (Cookie.get("coupon")) {
-      setSelectedCoupon(JSON.parse(Cookie.get("coupon")));
-    }
     props
       .getAllProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
@@ -60,7 +57,7 @@ function productAdmin(props) {
       });
 
     props
-      .getPromo(Cookie.get("token"), 1000, 1)
+      .getAllPromo(Cookie.get("token"), 1000, 1)
       .then((res) => {
         // console.log("RES PROMO", res.value.data.data);
         setDataCoupons(
@@ -126,12 +123,14 @@ function productAdmin(props) {
     setSearch(text);
   };
 
-  const deleteProduct = (id) => {
-    console.log(id);
+  const updateProduct = (id) => {
+    // console.log("update P", id);
+    router.push(`/set-product/${id}`);
   };
 
-  const deleteCoupon = (id) => {
-    console.log(id);
+  const updateCoupon = (id) => {
+    // console.log("update C", id);
+    router.push(`/set-promo/${id}`);
   };
 
   // console.log(category);
@@ -180,16 +179,14 @@ function productAdmin(props) {
                         </Card.Text>
                       </Col>
                       <span className={`d-flex ${styles.updateAndDelete}`}>
-                        <span className={`${styles.updateButton} me-2`}>
-                          <img
-                            src="/trash 13.png"
-                            className={styles.updateButtonWidth}
-                          ></img>
-                        </span>
                         <span className={`${styles.deleteButton} ms-2`}>
                           <img
                             src="/pencil vector.png"
                             className={styles.deleteButtonWidth}
+                            onClick={() => {
+                              updateCoupon(item.promoId);
+                            }}
+                            style={{ cursor: "pointer" }}
                           ></img>
                         </span>
                       </span>
@@ -279,16 +276,13 @@ function productAdmin(props) {
                         <span
                           className={`d-flex justify-content-between position-absolute ${styles.updateAndDelete2}`}
                         >
-                          <span className={`${styles.updateButton2}`}>
-                            <img
-                              src="/trash 13.png"
-                              className={styles.updateButtonWidth}
-                            ></img>
-                          </span>
                           <span className={`${styles.deleteButton2}`}>
                             <img
                               src="/pencil vector.png"
                               className={styles.deleteButtonWidth2}
+                              onClick={() => {
+                                updateProduct(item.productId);
+                              }}
                             ></img>
                           </span>
                         </span>
@@ -321,5 +315,5 @@ function productAdmin(props) {
   );
 }
 
-const mapDispatchToProps = { getAllProduct, getPromo };
+const mapDispatchToProps = { getAllProduct, getAllPromo };
 export default connect(null, mapDispatchToProps)(productAdmin);

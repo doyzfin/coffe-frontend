@@ -10,7 +10,7 @@ import { authPage } from "middleware/authorizationPage";
 
 import { connect } from "react-redux";
 import { getAllProduct } from "redux/actions/product";
-import { getPromo } from "redux/actions/promo";
+import { getAllPromo } from "redux/actions/promo";
 import ReactPaginate from "react-paginate";
 
 export async function getServerSideProps(context) {
@@ -61,7 +61,7 @@ function ProductCust(props) {
       });
 
     props
-      .getPromo(Cookie.get("token"), 1000, 1)
+      .getAllPromo(Cookie.get("token"), 1000, 1)
       .then((res) => {
         // console.log("RES PROMO", res.value.data.data);
         setDataCoupons(
@@ -321,5 +321,5 @@ const mapStateToProps = (state) => ({
   keywords: state.keywords.keywords,
 });
 
-const mapDispatchToProps = { getAllProduct, getPromo };
+const mapDispatchToProps = { getAllProduct, getAllPromo };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCust);
