@@ -9,6 +9,7 @@ import axiosApiIntances from "utils/axios";
 import Cookies from "js-cookie";
 import { connect } from "react-redux";
 import { updatePromo, deletePromo } from "redux/actions/promo";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -27,6 +28,7 @@ export async function getServerSideProps(context) {
   };
 }
 function updatepromo(props) {
+  const router = useRouter();
   const [formPromo, setFormPromo] = useState({
     promoName: "",
     promoCode: "",
@@ -71,8 +73,8 @@ function updatepromo(props) {
       promoCode: props.data.promo_code,
       promoDiscount: props.data.promo_discount,
       promoDesc: props.data.promo_desc,
-      expireStart: props.data.expires_start,
-      expireEnd: props.data.expires_end,
+      expireStart: props.data.expire_start.substring(0, 10),
+      expireEnd: props.data.expire_end.substring(0, 10),
       minTotalPrice: props.data.min_total_price,
       maxDiscount: props.data.max_discount,
       image: props.data.promo_image,
@@ -88,8 +90,8 @@ function updatepromo(props) {
       promoCode: props.data.promo_code,
       promoDiscount: props.data.promo_discount,
       promoDesc: props.data.promo_desc,
-      expireStart: props.data.expires_start,
-      expireEnd: props.data.expires_end,
+      expireStart: props.data.expire_start,
+      expireEnd: props.data.expire_end,
       minTotalPrice: props.data.min_total_price,
       maxDiscount: props.data.max_discount,
       image: props.data.promo_image,
@@ -107,7 +109,12 @@ function updatepromo(props) {
     formData.append("expireEnd", formPromo.expireEnd);
     formData.append("minTotalPrice", formPromo.minTotalPrice);
     formData.append("maxDiscount", formPromo.maxDiscount);
-    formData.append("image", formPromo.image);
+    if (typeof formPromo.image === "object") {
+      formData.append("image", formPromo.image);
+    }
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
     props
       .updatePromo(id, formData, token)
       .then((res) => {
@@ -116,14 +123,9 @@ function updatepromo(props) {
         setTimeout(() => {
           setIsSuccess(false);
         }, 3000);
-
-        handleCancel();
-
-        console.log(res);
+        router.push("/product-admin");
       })
       .catch((err) => {
-        console.log(err);
-        // setIsImage(false);
         setIsError(true);
         setMsgError(err.response.data.msg);
         setTimeout(() => {
@@ -131,8 +133,16 @@ function updatepromo(props) {
         }, 3000);
       });
   };
-  console.log(props.data.expires_start);
+  const handleDelete = (event) => {
+    event.preventDefault();
+    const id = props.data.promo_id;
+    props.deletePromo(id, token).then((res) => {
+      router.push("/product-admin");
+    });
+  };
+  console.log(props.data.expire_start.substring(0, 10));
   console.log(formPromo);
+  console.log(props.data);
   return (
     <>
       <Layout title="Update Promo">
@@ -300,7 +310,10 @@ function updatepromo(props) {
                     </Col>
                     <Col>
                       <div className="pt-4">
-                        <button className={styles.redButton}>
+                        <button
+                          className={styles.redButton}
+                          onClick={(event) => handleDelete(event)}
+                        >
                           Delete Promo
                         </button>
                       </div>

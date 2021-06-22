@@ -127,14 +127,9 @@ function setProduct(props) {
         setTimeout(() => {
           setIsSuccess(false);
         }, 3000);
-        window.location.reload();
-        handleCancel();
-
-        console.log(res);
+        router.push("/product-admin");
       })
       .catch((err) => {
-        console.log(err);
-        // setIsImage(false);
         setIsError(true);
         setMsgError(err.response.data.msg);
         setTimeout(() => {

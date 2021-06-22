@@ -29,24 +29,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function AdminDashboard(props) {
-  const [isDaily, setIsDaily] = useState(false);
-  const [isWeek, setIsWeek] = useState(false);
-  const [isMonth, setIsMonth] = useState(false);
-  const handleDaily = () => {
-    setIsDaily(true);
-    setIsMonth(false);
-    setIsWeek(false);
-  };
-  const handleWeek = () => {
-    setIsDaily(false);
-    setIsMonth(false);
-    setIsWeek(true);
-  };
-  const handleMonth = () => {
-    setIsDaily(false);
-    setIsMonth(true);
-    setIsWeek(false);
-  };
   return (
     <>
       <Layout title="Admin Dashboard">
@@ -61,51 +43,18 @@ export default function AdminDashboard(props) {
                 <div className="d-flex justify-content-center">
                   <img
                     src="/Ellipse 189.png"
-                    className={
-                      isDaily ? styles.bulletPeriod1 : styles.bulletPeriod
-                    }
-                    onClick={handleDaily}
+                    className={styles.bulletPeriod}
                   ></img>
                 </div>
                 <span className="text-center">Daily</span>
               </div>
-              <div className="row mx-1">
-                <div className="d-flex justify-content-center">
-                  <img
-                    src="/Ellipse 189.png"
-                    className={
-                      isWeek ? styles.bulletPeriod1 : styles.bulletPeriod
-                    }
-                    onClick={handleWeek}
-                  />
-                </div>
-                <span className="text-center">Weekly</span>
-              </div>
-              <div className="row mx-1">
-                <div className="d-flex justify-content-center">
-                  <img
-                    src="/Ellipse 189.png"
-                    className={
-                      isMonth ? styles.bulletPeriod1 : styles.bulletPeriod
-                    }
-                    onClick={handleMonth}
-                  />
-                </div>
-                <span className="text-center">Monthly</span>
-              </div>
+              <div className="row mx-1"></div>
+              <div className="row mx-1"></div>
             </div>
             <div className={`card ${styles.chartCard}`}>
               <div className="p-3">
-                <h5 className="fw-bold">
-                  {isDaily
-                    ? "Daily Report"
-                    : isWeek
-                    ? "Weekly Report"
-                    : "Monthly Report"}
-                </h5>
-                <span className="d-block">
-                  Last 9 {isDaily ? "Days" : isWeek ? "Week" : "Month"}
-                </span>
+                <h5 className="fw-bold">Daily Report</h5>
+                <span className="d-block">Last 7 Days</span>
               </div>
 
               <BarChart
