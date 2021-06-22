@@ -1,19 +1,32 @@
-import Navbar from "../../components/module/NavBar";
+import Navbar from "../../components/module/AdminDashboardNavbar";
 import Layout from "../../components/Layout";
-import { Container, Row, Col, Card, Form } from "react-bootstrap";
+import { Container, Row, Col, Card, Alert } from "react-bootstrap";
 import styles from "../../styles/SetPromo.module.css";
 import Footer from "../../components/module/greyFooter";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { authPage } from "middleware/authorizationPage";
+import axiosApiIntances from "utils/axios";
+import Cookies from "js-cookie";
+import { connect } from "react-redux";
+import { updatePromo, deletePromo } from "redux/actions/promo";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
   const { id } = context.query;
+  const promo = await axiosApiIntances
+    .get(`/promo/${id}`, {
+      headers: {
+        Authorization: `Bearer ${data.token || ""}`,
+      },
+    })
+    .then((res) => {
+      return res.data.data[0];
+    });
   return {
-    props: {},
+    props: { data: promo },
   };
 }
-export default function updateromo(props) {
+function updatepromo(props) {
   const [formPromo, setFormPromo] = useState({
     promoName: "",
     promoCode: "",
@@ -25,11 +38,101 @@ export default function updateromo(props) {
     maxDiscount: "",
     image: null,
   });
-  const changeText = (event) => {
+  const [token, setToken] = useState("");
+  const [isImage, setIsImage] = useState(false);
+  const [imagePromo, setImagePromo] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [msgError, setMsgError] = useState("");
+  const [msgSuccess, setMsgSuccess] = useState("");
+  const inputOpenFileRef = React.createRef();
+
+  const showOpenFileDlg = () => {
+    inputOpenFileRef.current.click();
+  };
+  const handleImage = (event) => {
     event.preventDefault();
+    setIsImage(true);
+    setImagePromo(URL.createObjectURL(event.target.files[0]));
+    setFormPromo({ ...formPromo, image: event.target.files[0] });
+  };
+  const changeText = (event) => {
     setFormPromo({ ...formPromo, [event.target.name]: event.target.value });
   };
+  useEffect(() => {
+    const id = props.data.promo_id;
+    axiosApiIntances.get(`promo/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token") || ""}`,
+      },
+    });
+    setFormPromo({
+      promoName: props.data.promo_name,
+      promoCode: props.data.promo_code,
+      promoDiscount: props.data.promo_discount,
+      promoDesc: props.data.promo_desc,
+      expireStart: props.data.expires_start,
+      expireEnd: props.data.expires_end,
+      minTotalPrice: props.data.min_total_price,
+      maxDiscount: props.data.max_discount,
+      image: props.data.promo_image,
+    });
+    setToken(Cookies.get("token"));
+  }, []);
+  const handleCancel = () => {
+    setIsImage(false);
+    // isClickCoffee(false);
+    // isClickSize(false);
+    setFormPromo({
+      promoName: props.data.promo_name,
+      promoCode: props.data.promo_code,
+      promoDiscount: props.data.promo_discount,
+      promoDesc: props.data.promo_desc,
+      expireStart: props.data.expires_start,
+      expireEnd: props.data.expires_end,
+      minTotalPrice: props.data.min_total_price,
+      maxDiscount: props.data.max_discount,
+      image: props.data.promo_image,
+    });
+  };
+  const updateData = (event) => {
+    event.preventDefault();
+    const id = props.data.promo_id;
+    const formData = new FormData();
+    formData.append("promoName", formPromo.promoName);
+    formData.append("promoCode", formPromo.promoCode);
+    formData.append("promoDiscount", formPromo.promoDiscount);
+    formData.append("promoDesc", formPromo.promoDesc);
+    formData.append("expireStart", formPromo.expireStart);
+    formData.append("expireEnd", formPromo.expireEnd);
+    formData.append("minTotalPrice", formPromo.minTotalPrice);
+    formData.append("maxDiscount", formPromo.maxDiscount);
+    formData.append("image", formPromo.image);
+    props
+      .updatePromo(id, formData, token)
+      .then((res) => {
+        setIsSuccess(true);
+        setMsgSuccess(res.action.payload.data.msg);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
 
+        handleCancel();
+
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        // setIsImage(false);
+        setIsError(true);
+        setMsgError(err.response.data.msg);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+      });
+  };
+  console.log(props.data.expires_start);
+  console.log(formPromo);
   return (
     <>
       <Layout title="Update Promo">
@@ -42,16 +145,40 @@ export default function updateromo(props) {
               </span>
               <div className="pt-5">
                 <div className="pt-3">
+                  {isError && (
+                    <Alert variant="danger" className={styles.alert}>
+                      {msgError}
+                    </Alert>
+                  )}
+                  {isSuccess && (
+                    <Alert variant="success" className={styles.alert}>
+                      Success Update Data
+                    </Alert>
+                  )}
                   <Card className={`${styles.picturePlaceBackground} mx-auto`}>
+                    <input
+                      ref={inputOpenFileRef}
+                      type="file"
+                      style={{ display: "none" }}
+                      onChange={(event) => handleImage(event)}
+                    />
                     <img
-                      src="/photo-camera-black-tool 4.png"
-                      className={`${styles.picturePlace} mx-auto my-auto`}
-                    ></img>
+                      alt=""
+                      src={
+                        isImage
+                          ? imagePromo
+                          : `http://localhost:3005/backend5/api/${props.data.promo_image}`
+                      }
+                      className={styles.camera}
+                    />
                   </Card>
                 </div>
               </div>
               <div className="pt-4">
-                <button className={styles.yellowishButton}>
+                <button
+                  className={styles.yellowishButton}
+                  onClick={showOpenFileDlg}
+                >
                   Choose From Gallery
                 </button>
               </div>
@@ -66,10 +193,10 @@ export default function updateromo(props) {
                     value={formPromo.promoDiscount}
                     onChange={(event) => changeText(event)}
                   >
-                    <option value="20%">20%</option>
-                    <option value="30%">30%</option>
-                    <option value="50%">50%</option>
-                    <option value="70%">70%</option>
+                    <option value="20">20%</option>
+                    <option value="30">30%</option>
+                    <option value="50">50%</option>
+                    <option value="70">70%</option>
                   </select>
                 </div>
                 <div className="form-group">
@@ -163,7 +290,10 @@ export default function updateromo(props) {
                   <Row>
                     <Col>
                       <div className="pt-4">
-                        <button className={styles.brownButton}>
+                        <button
+                          className={styles.brownButton}
+                          onClick={(event) => updateData(event)}
+                        >
                           Update Promo
                         </button>
                       </div>
@@ -178,7 +308,12 @@ export default function updateromo(props) {
                   </Row>
 
                   <div className="pt-4">
-                    <button className={styles.greyButton}>Cancel</button>
+                    <button
+                      className={styles.greyButton}
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </form>
               </div>
@@ -194,3 +329,10 @@ export default function updateromo(props) {
     </>
   );
 }
+const mapStateToProps = (state) => ({
+  promo: state.promo,
+});
+
+const mapDispatchToProps = { updatePromo, deletePromo };
+
+export default connect(mapStateToProps, mapDispatchToProps)(updatepromo);

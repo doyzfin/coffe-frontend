@@ -49,7 +49,7 @@
 }
 .pagination {
   text-align: center;
-
+  justify-content: center;
   margin-top: 30px;
   display: flex;
   list-style: none;

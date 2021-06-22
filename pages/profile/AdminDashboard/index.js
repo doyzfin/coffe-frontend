@@ -5,7 +5,7 @@ import Footer from "../../../components/module/footer";
 import axiosApiIntances from "utils/axios";
 import { authPage } from "middleware/authorizationPage";
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -18,9 +18,13 @@ export async function getServerSideProps(context) {
     .then((res) => {
       return res.data;
     });
+  const dataChart = charts.data.map((item) => {
+    const data = { DAY: item.DAY, Total: parseInt(item.Total) };
+    return data;
+  });
 
   return {
-    props: { data: charts },
+    props: { data: dataChart },
   };
 }
 
@@ -43,7 +47,6 @@ export default function AdminDashboard(props) {
     setIsMonth(true);
     setIsWeek(false);
   };
-  console.log(props.data);
   return (
     <>
       <Layout title="Admin Dashboard">
@@ -104,10 +107,11 @@ export default function AdminDashboard(props) {
                   Last 9 {isDaily ? "Days" : isWeek ? "Week" : "Month"}
                 </span>
               </div>
+
               <BarChart
                 width={1100}
                 height={600}
-                data={props.data.data}
+                data={props.data}
                 barSize={50}
                 margin={{ top: 50, left: 20, right: 20, bottom: 20 }}
               >
@@ -115,12 +119,7 @@ export default function AdminDashboard(props) {
                 <YAxis type="number" />
                 <CartesianGrid horizontal={false} />
                 <Tooltip />
-                <Bar
-                  dataKey="Total"
-                  fill="#6a4029"
-                  maxBarSize={15}
-                  isAnimationActive={false}
-                />
+                <Bar dataKey="Total" fill="#6a4029" isAnimationActive={true} />
               </BarChart>
             </div>
             <div className="pt-4">
