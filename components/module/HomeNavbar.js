@@ -12,7 +12,6 @@ import styles from "../../styles/NavBar.module.css";
 import homeStyles from "../../styles/HomeNavbar.module.css";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 import { connect } from "react-redux";
 import { setKeywords } from "redux/actions/keywords";
@@ -60,7 +59,7 @@ function HomeNavBar(props) {
               <Nav.Link
                 className={styles.navLink}
                 onClick={() => {
-                  router.push("/product-admin");
+                  router.push("/");
                 }}
               >
                 Product
@@ -68,7 +67,7 @@ function HomeNavBar(props) {
               <Nav.Link
                 className={styles.navLink}
                 onClick={() => {
-                  router.push("/manage-order-admin");
+                  router.push("/");
                 }}
               >
                 Orders
@@ -76,16 +75,26 @@ function HomeNavBar(props) {
               <Nav.Link
                 className={styles.navLink}
                 onClick={() => {
-                  router.push("/admin-dashboard");
+                  router.push("/");
                 }}
               >
                 Dashboard
               </Nav.Link>
             </Nav>
-            <Nav.Link className={`${styles.navLink} me-5 fw-bold`}>
+            <Nav.Link
+              className={`${styles.navLink} me-5 fw-bold`}
+              onClick={() => {
+                router.push("/login");
+              }}
+            >
               Login
             </Nav.Link>
-            <button className={`${homeStyles.yellowButton} fw-bold`}>
+            <button
+              className={`${homeStyles.yellowButton} fw-bold`}
+              onClick={() => {
+                router.push("/signup");
+              }}
+            >
               Sign Up
             </button>
           </Navbar.Collapse>
