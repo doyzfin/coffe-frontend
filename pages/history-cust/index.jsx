@@ -3,85 +3,76 @@ import NavBar from "components/module/NavBar";
 import Footer from "components/module/footer";
 import { Container, Row, Col, Card, Modal, Button } from "react-bootstrap";
 import styles from "../../styles/HistoryCust.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { authPage } from "middleware/authorizationPage";
+import Cookie from "js-cookie";
 
-export default function historyCust() {
-  const [dataHistory, setDataHistory] = useState([
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-    {
-      name: "CS-1234567",
-      price: "IDR 34.000",
-      status: "Done",
-    },
-  ]);
+import { connect } from "react-redux";
+import { getOrder, deleteOrder } from "redux/actions/order";
+import { useRouter } from "next/router";
+
+export async function getServerSideProps(context) {
+  const data = await authPage(context);
+
+  return {
+    props: {},
+  };
+}
+
+function historyCust(props) {
+  const [dataHistory, setDataHistory] = useState([]);
   const [isClick, setIsClick] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [orderId, setOrderId] = useState(0);
+
+  useEffect(() => {
+    getHistory();
+  }, []);
+
   const handleClick = () => {
     setIsClick(true);
   };
+
   const handleCloseClick = () => {
     setIsClick(false);
   };
-  const handleDelete = () => {
+
+  const handleDelete = (id) => {
+    setOrderId(id);
     setIsDelete(true);
   };
+
   const handleCloseDelete = () => {
     setIsDelete(false);
   };
+
+  const getHistory = () => {
+    props
+      .getOrder(Cookie.get("userId"), Cookie.get("token"))
+      .then((res) => {
+        // console.log(res.value.data.data);
+        setDataHistory(res.value.data.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
+  const handleDeleteOrder = () => {
+    console.log(orderId);
+    props
+      .deleteOrder(orderId, Cookie.get("token"))
+      .then((res) => {
+        handleCloseDelete();
+        getHistory();
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
+  // console.log(props);
+
   return (
     <Layout title="History Customer">
       <Modal
@@ -99,7 +90,7 @@ export default function historyCust() {
           <Button onClick={handleCloseDelete} className={styles.btnClose}>
             Close
           </Button>
-          <Button onClick={handleCloseDelete} className={styles.btnDelete}>
+          <Button onClick={handleDeleteOrder} className={styles.btnDelete}>
             Delete
           </Button>
         </Modal.Body>
@@ -120,7 +111,9 @@ export default function historyCust() {
                         alt=""
                         src="/Ellipse 15.png"
                         className={styles.forDelete}
-                        onClick={handleDelete}
+                        onClick={() => {
+                          handleDelete(item.order_id);
+                        }}
                       />
                       <img
                         alt=""
@@ -132,7 +125,9 @@ export default function historyCust() {
                         alt=""
                         src="/Vector (6).png"
                         className={styles.imgDelete}
-                        onClick={handleDelete}
+                        onClick={() => {
+                          handleDelete(item.order_id);
+                        }}
                       />
                       <img
                         alt=""
@@ -149,9 +144,15 @@ export default function historyCust() {
                           />
                         </Col>
                         <Col xs={8}>
-                          <h1 className={styles.nameHistory}>{item.name}</h1>
-                          <p className={styles.priceHistory}>{item.price}</p>
-                          <p className={styles.statusHistory}>{item.status}</p>
+                          <h1 className={styles.nameHistory}>
+                            {item.invoice_number}
+                          </h1>
+                          <p className={styles.priceHistory}>
+                            IDR {item.total_price}
+                          </p>
+                          <p className={styles.statusHistory}>
+                            {item.order_status}
+                          </p>
                         </Col>
                       </Row>
                     </Card>
@@ -161,14 +162,24 @@ export default function historyCust() {
                         <Col xs={4}>
                           <img
                             alt=""
-                            src="/Mask Group (2).png"
+                            src={
+                              item.product_image.length > 0
+                                ? `${process.env.IMAGE_URL}/${item.product_image}`
+                                : "/Mask Group (2).png"
+                            }
                             className={styles.imgHistory}
                           />
                         </Col>
                         <Col xs={8}>
-                          <h1 className={styles.nameHistory}>{item.name}</h1>
-                          <p className={styles.priceHistory}>{item.price}</p>
-                          <p className={styles.statusHistory}>{item.status}</p>
+                          <h1 className={styles.nameHistory}>
+                            {item.invoice_number}
+                          </h1>
+                          <p className={styles.priceHistory}>
+                            IDR {item.total_price}
+                          </p>
+                          <p className={styles.statusHistory}>
+                            {item.order_status}
+                          </p>
                         </Col>
                       </Row>
                     </Card>
@@ -183,3 +194,6 @@ export default function historyCust() {
     </Layout>
   );
 }
+
+const mapDispatchToProps = { getOrder, deleteOrder };
+export default connect(null, mapDispatchToProps)(historyCust);

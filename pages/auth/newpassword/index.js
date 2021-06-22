@@ -9,6 +9,12 @@ import axiosApiIntances from "utils/axios";
 import { Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
+import { unauthPage } from "middleware/authorizationPage";
+
+export async function getServerSideProps(context) {
+  await unauthPage(context);
+  return { props: {} };
+}
 
 export default function forgetpassword() {
   const userEmailCookie = Cookie.get("userEmail");
