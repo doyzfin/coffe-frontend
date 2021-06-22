@@ -30,7 +30,6 @@ function ProductCust(props) {
   const [pagination, setPagination] = useState({});
   const [dataCoupons, setDataCoupons] = useState([]);
   const [dataMenu, setDataMenu] = useState([]);
-
   const [selectedCoupon, setSelectedCoupon] = useState({});
 
   useEffect(() => {

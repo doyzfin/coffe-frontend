@@ -28,7 +28,7 @@ export default function signup() {
   };
   const handleSignUp = (event) => {
     event.preventDefault();
-    console.log(form);
+    // console.log(form);
     if (
       form.userEmail.length === 0 ||
       form.userPassword.length === 0 ||
