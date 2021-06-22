@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout";
 import Navbar from "../../components/module/AdminDashboardNavbar";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Modal, Button } from "react-bootstrap";
 import styles from "../../styles/ManageOrderAdmin.module.css";
 import Footer from "../../components/module/footer";
 import axiosApiIntances from "utils/axios";
@@ -38,6 +38,9 @@ function manageOrderAdmin(props) {
   const [page, setPage] = useState(1);
   const [token, setToken] = useState("");
   const [pagination, setPagination] = useState({});
+  const [isDone, setIsDone] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [msgError, setMsgError] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, []);
@@ -56,7 +59,14 @@ function manageOrderAdmin(props) {
         setPagination(res.data.pagination);
       });
   }, [page]);
-
+  const getData = () => {
+    const limit = 1;
+    axiosApiIntances.get(`invoice/pending?limit=${limit}&page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token") || ""}`,
+      },
+    });
+  };
   const formatRupiah = (money) => {
     return new Intl.NumberFormat("id-ID", {
       minimumFractionDigits: 0,
@@ -70,11 +80,23 @@ function manageOrderAdmin(props) {
     event.preventDefault();
     const id = data[0].invoice_id;
     console.log(id);
-    props.updateStatus(id, token).then((res) => {
-      console.log(res);
-    });
+    props
+      .updateStatus(id, token)
+      .then((res) => {
+        setIsDone(true);
+        getData();
+        setPage(1);
+      })
+      .catch((err) => {
+        setIsError(true);
+        setMsgError(err.response.data.msg);
+        console.log(err);
+      });
   };
-  console.log(Cookies.get("token"));
+  const handleClose = () => {
+    setIsDone(false);
+  };
+  console.log(data);
   return (
     <>
       <Layout title="Admin Order Manage">
@@ -127,18 +149,6 @@ function manageOrderAdmin(props) {
                         })}
 
                         <hr />
-                        {/* <div className="d-flex justify-content-between my-2">
-                          <span>SUBTOTAL</span>
-                          <span>IDR </span>
-                        </div>
-                        <div className="d-flex justify-content-between mt-2">
-                          <span>TAX & FEES</span>
-                          <span>IDR 20.000</span>
-                        </div>
-                        <div className="d-flex justify-content-between mt-2">
-                          <span>SHIPPING</span>
-                          <span>IDR 10.000</span>
-                        </div> */}
                         <div className="d-flex justify-content-between mt-5 mb-5">
                           <h5
                             className={`fw-bold text-center ${styles.brownText}`}
@@ -184,27 +194,6 @@ function manageOrderAdmin(props) {
                             <Card className={`mt-4 ${styles.bigCard}`}>
                               <div className="p-4">
                                 <form>
-                                  {/* <div className="d-flex h-100">
-                                    <input
-                                      type="radio"
-                                      id="card"
-                                      name="paymentMethod"
-                                      value="card"
-                                      className="my-auto"
-                                    ></input>
-                                    <span
-                                      className={`${styles.cardVectorBackground} mx-2`}
-                                    >
-                                      <img
-                                        src="/card vector.png"
-                                        className={`${styles.cardVectorSize} my-2 mx-2`}
-                                      ></img>
-                                    </span>
-                                    <label for="card" className="my-auto">
-                                      Card
-                                    </label>
-                                  </div> */}
-                                  {/* <hr /> */}
                                   {data.map((item, index) => {
                                     return (
                                       <div className="d-flex h-100" key={index}>
@@ -234,6 +223,17 @@ function manageOrderAdmin(props) {
                                 </form>
                               </div>
                             </Card>
+                            <Modal show={isDone} onHide={handleClose}>
+                              <Modal.Body className={styles.modalBody}>
+                                <img
+                                  alt=""
+                                  src={isError ? "failed.png" : "/success.png"}
+                                  className={styles.success}
+                                />
+                                <br />
+                                {isError ? msgError : "Success Done Order"}
+                              </Modal.Body>
+                            </Modal>
                             <div className="my-5">
                               <button
                                 className={styles.brownDoneButton}

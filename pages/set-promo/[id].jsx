@@ -44,6 +44,9 @@ export default function updatepromo(props) {
                   </label>
                   <select
                     className={`${styles.setPromoForm1} w-100 form-control`}
+                    name="promoDiscount"
+                    value={formPromo.promoDiscount}
+                    onChange={(event) => changeText(event)}
                   >
                     <option value="20%">20%</option>
                     <option value="30%">30%</option>
