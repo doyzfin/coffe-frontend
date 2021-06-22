@@ -3,6 +3,7 @@ import styles from "../../styles/Footer.module.css";
 export default function footer() {
   return (
     <>
+    <div className={styles.greyBackground}>
       <div className="container">
         <div className="row pt-5">
           <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -47,6 +48,7 @@ export default function footer() {
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 }
