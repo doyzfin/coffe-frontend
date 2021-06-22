@@ -2,7 +2,7 @@ import Layout from "../components/Layout";
 import Navbar from "../components/module/HomeNavbar";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import stylesHome from "../styles/Home.module.css";
-import {useState} from "react";
+import Footer from "../components/module/footer";
 
 export default function Home() { 
   return (
@@ -173,8 +173,90 @@ export default function Home() {
                 </div>
               </Col>
             </Row>
+            <Row className="mt-5">
+              <div className="py-5">
+                <h2 className="fw-bold text-center">Visit Our Store in the</h2> 
+                <h2 className="fw-bold text-center">Spot on the Map Below</h2>
+              </div>
+              <div className="mt-2">
+                <span className="d-block text-center">See our store in every city on the spot and spend your good day there. See you soon!</span>
+              </div>
+              <div className="pt-5">
+                <img src="/world_map.png" className="img-fluid"></img>
+              </div>
+            </Row>
+            <Row className="mt-5">
+              <h2 className="fw-bold text-center">Loved by Thousands of Happy Customer</h2> 
+              <span className="d-block text-center mt-2">These are the stories of our customers who have visited us with great pleasure.</span>
+            </Row>
+            <Row className="mt-2"> 
+              <Col lg={4} md={4} sm={12} xs={12}>
+                <Card>
+                  <div className="p-3">
+                  <Row>
+                    <Col>                
+                      <img src="/viezh.png"></img>
+                    </Col>
+                    <Col xs={6}>
+                      <span className="d-block fw-bold text-wrap">Viezh Robert</span> 
+                      <span>Warsaw, Poland</span> 
+                    </Col> 
+                    <Col xs={3}>
+                      <span>4.5 <img src="/Vector (1).png" className="mx-2"></img></span> 
+                    </Col>
+                  </Row>
+                  <Row className="pt-3">
+                    <span>“Wow... I am very happy to spend my whole day here. the Wi-fi is good, and the coffee and meals tho. I like it here!! Very recommended!"</span>
+                  </Row>
+                  </div>
+                </Card> 
+                </Col> 
+                <Col lg={4} md={4} sm={12} xs={12}>
+                <Card>
+                  <div className="p-3">
+                  <Row>
+                    <Col>                
+                      <img src="/viezh.png"></img>
+                    </Col>
+                    <Col xs={6}>
+                      <span className="d-block fw-bold text-wrap">Yessica Christy</span> 
+                      <span>Shanxi, China</span> 
+                    </Col> 
+                    <Col xs={3}>
+                      <span>4.5 <img src="/Vector (1).png" className="mx-2"></img></span> 
+                    </Col>
+                  </Row>
+                  <Row className="pt-3">
+                    <span>“I like it because I like to travel far and still can make my day better just by drinking their Hazelnut Latte"</span>
+                  </Row>
+                  </div>
+                </Card> 
+                </Col>
+                <Col lg={4} md={4} sm={12} xs={12}>
+                <Card>
+                  <div className="p-3">
+                  <Row>
+                    <Col>                
+                      <img src="/kim_young.png"></img>
+                    </Col>
+                    <Col xs={6}>
+                      <span className="d-block fw-bold text-wrap">Kim Young Jou</span> 
+                      <span>Seoul, South Korea</span> 
+                    </Col> 
+                    <Col xs={3}>
+                      <span>4.5 <img src="/Vector (1).png" className="mx-2"></img></span> 
+                    </Col>
+                  </Row>
+                  <Row className="pt-3">
+                    <span>“This is very unusual for my taste, I haven’t liked coffee before but their coffee is the best! and yup, you have to order the chicken wings, the best in town!"</span>
+                  </Row>
+                  </div>
+                </Card>
+              </Col>
+            </Row>
           </Container>
         </div>
+        <Footer />
       </Layout>
     </>
   );
