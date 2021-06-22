@@ -1,37 +1,53 @@
+import NavBar from "components/module/NavBar";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Layout from "../../components/Layout";
 import styles from "../../styles/ProductDetail.module.css";
-import NavBar from "components/module/NavBar";
 import Footer from "components/module/footer";
+import { authPage } from "middleware/authorizationPage";
+import axiosApiIntances from "utils/axios";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
-  // const data = await authPage(context);
+  const data = await authPage(context);
   const { id } = context.query;
 
+  const product = await axiosApiIntances
+    .get(`product/${id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch(() => {
+      return [];
+    });
+
   return {
-    props: { id },
+    props: { id, product },
   };
 }
 
 export default function ProductDetail(props) {
+  const router = useRouter();
   const [count, setCount] = useState(0);
   const [size, setSize] = useState("");
   const [price, setPrice] = useState(0);
   const [cart, setCart] = useState(false);
-  const priceR = 10000;
-  const priceL = 15000;
-  const priceXL = 20000;
+  const priceR = props.product[0].product_price;
+  const priceL = (priceR * 50) / 100 + priceR;
+  const priceXL = (priceL * 50) / 100 + priceL;
+  const [productName, setProductName] = useState("");
+  const [order, setOrder] = useState([]);
 
   const handleCart = () => {
     if (count === 0) {
       alert("Choose a size");
     } else {
-      if (cart === false) {
-        setCart(true);
-      } else {
-        setCart(false);
-      }
+      alert("Berhasil masuk ke cart");
     }
   };
 
@@ -51,8 +67,6 @@ export default function ProductDetail(props) {
       }
     }
   };
-
-  console.log(count, price, size);
 
   const countMinus = () => {
     if (count <= 0) {
@@ -76,15 +90,19 @@ export default function ProductDetail(props) {
 
   const handleSize = (stringSize) => {
     setCount(1);
+    setCart(true);
     if (stringSize == "R") {
+      setProductName(props.product[0].product_name);
       setSize("regular");
       setPrice(priceR);
     }
     if (stringSize == "L") {
+      setProductName(props.product[0].product_name);
       setSize("large");
       setPrice(priceL);
     }
     if (stringSize == "XL") {
+      setProductName(props.product[0].product_name);
       setSize("extra large");
       setPrice(priceXL);
     }
@@ -102,29 +120,68 @@ export default function ProductDetail(props) {
     }
   };
 
-  console.log(props.id);
-
+  const handleCheckout = () => {
+    event.preventDefault();
+    localStorage.setItem(
+      "item",
+      JSON.stringify([
+        ...order,
+        {
+          productName,
+          size,
+          price,
+          count,
+          productImage: props.product[0].product_image,
+          productId: props.product[0].product_id,
+        },
+      ])
+    );
+    router.push("/payment");
+  };
   return (
     <Layout title="Product Detail">
       <NavBar />
       <div className={styles.container}>
         <h2>
-          Favorite & Promo <span>{">"} Cold Braw</span>
+          Favorite & Promo{" "}
+          <span>
+            {">"} {props.product[0].product_name}
+          </span>
         </h2>
         <div className={`row ${styles.row}`}>
           <div className={`col-5 ${styles.colLeft}`}>
-            <img src="/img-coffee.png" alt="" />
+            {props.product[0].product_image ? (
+              <img
+                src={`http://localhost:3005/backend5/api/${props.product[0].product_image}`}
+                alt=""
+              />
+            ) : (
+              <img src="/warning.png" alt="" />
+            )}
+
             <div className={styles.size}>
               <h3>Choose a size</h3>
               <div className={styles.sizeFont}>
                 <Button variant="warning" onClick={() => handleSize("R")}>
-                  R
+                  {props.product[0].product_category == "foods" ? (
+                    <h6>250gr</h6>
+                  ) : (
+                    "R"
+                  )}
                 </Button>
                 <Button variant="warning" onClick={() => handleSize("L")}>
-                  L
+                  {props.product[0].product_category == "foods" ? (
+                    <h6>300gr</h6>
+                  ) : (
+                    "L"
+                  )}
                 </Button>
                 <Button variant="warning" onClick={() => handleSize("XL")}>
-                  XL
+                  {props.product[0].product_category == "foods" ? (
+                    <h6>500gr</h6>
+                  ) : (
+                    "XL"
+                  )}
                 </Button>
               </div>
             </div>
@@ -133,14 +190,16 @@ export default function ProductDetail(props) {
             </Button>
           </div>
           <div className={`col-7 ${styles.colRight}`}>
-            <h1>Cold Brew</h1>
-            <p>
-              Cold brewing is a method of brewing that combines ground coffee
-              and cool water and uses time instead of heat to extract the
-              flavor. It is brewed in small batches and steeped for as long as
-              48 hours.
-            </p>
-            <div className={styles.total}>
+            <h1>{props.product[0].product_name}</h1>
+            <p>{props.product[0].product_desc}</p>
+            <div
+              className={styles.total}
+              style={
+                cart === false
+                  ? { visibility: "hidden" }
+                  : { visibility: "visible" }
+              }
+            >
               <div className={styles.btnCount}>
                 <button
                   className={styles.minus}
@@ -171,10 +230,14 @@ export default function ProductDetail(props) {
                   : { visibility: "visible" }
               }
               className={styles.checkout}
+              onClick={handleCheckout}
             >
-              <img src="/img-coffee.png" alt="" />
+              <img
+                src={`http://localhost:3005/backend5/api/${props.product[0].product_image}`}
+                alt=""
+              />
               <div className={styles.order}>
-                <h5>Cold Brew</h5>
+                <h5>{props.product[0].product_name}</h5>
                 <h6>
                   x{count} ({size})
                 </h6>

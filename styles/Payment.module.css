@@ -69,15 +69,18 @@
   line-height: 30px;
   color: #000000;
   margin-top: 30px;
+  width: 100%;
 }
 .imgOrder {
   margin-top: 5px;
   margin-left: 15px;
+  width: 100%;
 }
 .cardOrder {
   margin-top: 40px;
   border: none;
 }
+
 .dropdown {
   width: 100%;
   background: #ffffff;
@@ -85,27 +88,19 @@
   box-sizing: border-box;
   border-radius: 20px;
   font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 19px;
-  line-height: 138.84%;
-  letter-spacing: 0.03em;
-  color: #000000;
-  text-align: left;
-  padding: 20px 30px;
-}
-.dropdown:focus {
-  background: white;
-  color: #000000;
-}
-.dropdownMenu {
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid #9f9f9f;
-  box-sizing: border-box;
-  border-radius: 20px;
   padding: 20px;
 }
+
+.invoice select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.invoice select:focus,
+.invoice option:focus {
+  outline: none;
+}
+
 .countInvoice {
   font-family: Poppins;
   font-style: normal;
@@ -133,7 +128,7 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
   line-height: 45px;
   color: #362115;
 }
@@ -141,7 +136,7 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
   line-height: 45px;
   text-align: right;
   color: #362115;

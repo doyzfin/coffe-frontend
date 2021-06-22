@@ -171,8 +171,8 @@ function manageOrderAdmin(props) {
                   breakLabel={"..."}
                   breakClassName={"break-me"}
                   pageCount={pagination.totalPage}
-                  marginPagesDisplayed={5}
-                  pageRangeDisplayed={5}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={2}
                   onPageChange={handlePageClick}
                   containerClassName={styles.pagination}
                   subContainerClassName={`${styles.pages} ${styles.pagination}`}
