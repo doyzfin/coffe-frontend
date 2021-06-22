@@ -160,10 +160,11 @@ function Profile(props) {
   // console.log("GENDER", user.user_id);
   return (
     <Layout title="Profile">
-      <NavBar />
+      <NavBar global={true} />
       <Container className={`${styles.cnt} pt-4 pb-5`} fluid>
         <Row>
           <Col>
+            <div className={styles.title}>User Profile</div>
             <div className={`${styles.title} mb-4 ms-3`}>User Profile</div>
           </Col>
         </Row>

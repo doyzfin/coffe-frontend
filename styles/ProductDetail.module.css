@@ -21,7 +21,10 @@
 }
 
 .colLeft img {
+  border: black solid 1px;
   border-radius: 100%;
+  width: 320px;
+  height: 320px;
 }
 
 .colLeft .size {

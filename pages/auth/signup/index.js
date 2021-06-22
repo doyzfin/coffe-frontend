@@ -4,6 +4,12 @@ import styles from "../../../styles/Signup.module.css";
 import Footer from "../../../components/module/footer";
 import axiosApiIntances from "utils/axios";
 import { Alert } from "react-bootstrap";
+import { unauthPage } from "middleware/authorizationPage";
+
+export async function getServerSideProps(context) {
+  await unauthPage(context);
+  return { props: {} };
+}
 
 export default function signup() {
   const router = useRouter();
@@ -22,7 +28,7 @@ export default function signup() {
   };
   const handleSignUp = (event) => {
     event.preventDefault();
-    console.log(form);
+    // console.log(form);
     if (
       form.userEmail.length === 0 ||
       form.userPassword.length === 0 ||

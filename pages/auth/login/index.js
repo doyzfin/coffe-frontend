@@ -54,6 +54,9 @@ function Login(props) {
   const handleSignUp = () => {
     router.push("/signup");
   };
+  const handleForgot = () => {
+    router.push("/forget-password");
+  };
   return (
     <>
       <Layout title="Login">
@@ -119,7 +122,11 @@ function Login(props) {
                       ></input>
                     </div>
 
-                    <span className="d-block fw-bold text-decoration-underline">
+                    <span
+                      className="d-block fw-bold text-decoration-underline"
+                      onClick={handleForgot}
+                      style={{ cursor: "pointer" }}
+                    >
                       Forgot Password?
                     </span>
 
