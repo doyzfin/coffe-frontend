@@ -17,8 +17,10 @@ function NavBar(props) {
     props
       .getUser(Cookie.get("userId"), Cookie.get("token"))
       .then((res) => {
-        if (res.value.data.data[0].user_role !== "customer") {
-          window.location.href = "/product-admin";
+        if (!props.global) {
+          if (res.value.data.data[0].user_role !== "customer") {
+            window.location.href = "/product-admin";
+          }
         }
         setUser(res.value.data.data[0]);
       })
