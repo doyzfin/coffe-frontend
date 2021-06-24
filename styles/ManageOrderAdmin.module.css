@@ -1,3 +1,22 @@
+@media (max-width: 512px) {
+  .col1 {
+    margin: 0 auto !important;
+    text-align: center;
+  }
+  .col2 {
+    margin-right: 20px !important;
+  }
+  .col3 {
+    margin: 0 auto !important;
+  }
+  .pagination {
+    margin-right: 30px !important;
+  }
+}
+.productImg {
+  width: 60px;
+  height: 60px;
+}
 .pageBackground {
   background-image: url("/bg2.png");
   background-repeat: no-repeat;

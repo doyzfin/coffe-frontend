@@ -19,7 +19,6 @@ import { authPage } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
-  // console.log("data", data);
 
   return {
     props: {},
@@ -29,6 +28,7 @@ export async function getServerSideProps(context) {
 function newProduct(props) {
   const [isClickSize, setIsClickSize] = useState(false);
   const [isClickCoffee, setIsClickCoffee] = useState(false);
+  const [validate, setValidate] = useState(false);
   const [isImage, setIsImage] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -44,38 +44,59 @@ function newProduct(props) {
     productDesc: "",
     image: null,
   });
+
   useEffect(() => {
     setToken(Cookies.get("token"));
+    if (
+      formProduct.productName === "" &&
+      formProduct.productPrice === "" &&
+      formProduct.productCategory === "" &&
+      formProduct.productSize === "" &&
+      formProduct.productDesc === ""
+    ) {
+      setValidate(true);
+    } else {
+      setValidate(false);
+    }
   }, []);
 
   const handleClickSizeCoffee = () => {
+    setValidate(false);
     setIsClickCoffee(true);
     setIsClickSize(false);
     setFormProduct({ ...formProduct, productSize: "A" });
   };
 
   const handleClickSizeFood = () => {
+    setValidate(false);
     setIsClickSize(true);
     setIsClickCoffee(false);
     setFormProduct({ ...formProduct, productSize: "B" });
   };
+
   const inputOpenFileRef = React.createRef();
+
   const showOpenFileDlg = () => {
     inputOpenFileRef.current.click();
   };
+
   const handleImage = (event) => {
     event.preventDefault();
     setIsImage(true);
     setImageProduct(URL.createObjectURL(event.target.files[0]));
     setFormProduct({ ...formProduct, image: event.target.files[0] });
   };
+
   const changeText = (event) => {
-    setFormProduct({ ...formProduct, [event.target.name]: event.target.value });
+    setFormProduct({
+      ...formProduct,
+      [event.target.name]: event.target.value,
+    });
   };
+
   const handleCancel = () => {
+    setValidate(true);
     setIsImage(false);
-    // isClickCoffee(false);
-    // isClickSize(false);
     setFormProduct({
       productName: "",
       productPrice: "",
@@ -85,6 +106,7 @@ function newProduct(props) {
       image: null,
     });
   };
+
   const handlePost = () => {
     const formData = new FormData();
     formData.append("productName", formProduct.productName);
@@ -115,6 +137,7 @@ function newProduct(props) {
         }, 3000);
       });
   };
+
   return (
     <Layout title="Add Product">
       <NavBar />
@@ -150,9 +173,16 @@ function newProduct(props) {
             <Button className={styles.btnGalery} onClick={showOpenFileDlg}>
               Choose from gallery
             </Button>
-            <Button className={styles.btnSave} onClick={handlePost}>
+            <Button
+              className={styles.btnSave}
+              onClick={handlePost}
+              disabled={validate}
+            >
               Save Product
             </Button>
+            {validate && (
+              <p className={styles.validate}>Please Input All Field</p>
+            )}
             <Button className={styles.btnCancel} onClick={handleCancel}>
               Cancel
             </Button>
@@ -161,6 +191,7 @@ function newProduct(props) {
             <Form>
               <Form.Group controlId="formText">
                 <Form.Label className={styles.nameLabel}>Name :</Form.Label>
+
                 <Form.Control
                   type="text"
                   placeholder="Type product name min. 50 characters"
@@ -176,6 +207,7 @@ function newProduct(props) {
                     <Form.Label className={styles.nameLabel}>
                       Price :
                     </Form.Label>
+
                     <Form.Control
                       type="text"
                       placeholder="Type the price"
@@ -232,7 +264,7 @@ function newProduct(props) {
               </Form.Group>
             </Form>
             <Row className={styles.rowCardCategory}>
-              <Col>
+              <Col xs={2} className={styles.col2}>
                 <Card
                   className={isClickCoffee ? styles.click : styles.unClick}
                   onClick={handleClickSizeCoffee}
@@ -240,7 +272,7 @@ function newProduct(props) {
                   R
                 </Card>
               </Col>{" "}
-              <Col>
+              <Col xs={2} className={styles.col2}>
                 <Card
                   className={isClickCoffee ? styles.click : styles.unClick}
                   onClick={handleClickSizeCoffee}
@@ -248,7 +280,7 @@ function newProduct(props) {
                   L
                 </Card>
               </Col>{" "}
-              <Col>
+              <Col xs={2} className={styles.col2}>
                 <Card
                   className={isClickCoffee ? styles.click : styles.unClick}
                   onClick={handleClickSizeCoffee}
@@ -256,7 +288,7 @@ function newProduct(props) {
                   XL
                 </Card>
               </Col>{" "}
-              <Col>
+              <Col xs={2} className={styles.col2}>
                 <Card
                   className={isClickSize ? styles.click : styles.unClick}
                   onClick={handleClickSizeFood}
@@ -265,7 +297,7 @@ function newProduct(props) {
                   <br /> gr
                 </Card>
               </Col>{" "}
-              <Col>
+              <Col xs={2} className={styles.col2}>
                 <Card
                   className={isClickSize ? styles.click : styles.unClick}
                   onClick={handleClickSizeFood}
@@ -274,7 +306,7 @@ function newProduct(props) {
                   <br /> gr
                 </Card>
               </Col>{" "}
-              <Col>
+              <Col xs={2} className={styles.col2}>
                 <Card
                   className={isClickSize ? styles.click : styles.unClick}
                   onClick={handleClickSizeFood}

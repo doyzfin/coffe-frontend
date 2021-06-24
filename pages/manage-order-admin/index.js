@@ -13,8 +13,9 @@ import { updateStatus } from "redux/actions/invoice";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
-  // console.log("data", data);
+
   const limit = 1;
+
   const res = await axiosApiIntances
     .get(`invoice/pending?limit=${limit}`, {
       headers: {
@@ -41,9 +42,11 @@ function manageOrderAdmin(props) {
   const [isDone, setIsDone] = useState(false);
   const [isError, setIsError] = useState(false);
   const [msgError, setMsgError] = useState("");
+
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, []);
+
   useEffect(() => {
     console.log(page);
     const limit = 1;
@@ -59,6 +62,7 @@ function manageOrderAdmin(props) {
         setPagination(res.data.pagination);
       });
   }, [page]);
+
   const getData = () => {
     const limit = 1;
     axiosApiIntances.get(`invoice/pending?limit=${limit}&page=${page}`, {
@@ -67,15 +71,18 @@ function manageOrderAdmin(props) {
       },
     });
   };
+
   const formatRupiah = (money) => {
     return new Intl.NumberFormat("id-ID", {
       minimumFractionDigits: 0,
     }).format(money);
   };
+
   const handlePageClick = (event) => {
     const selectedPage = event.selected + 1;
     setPage(selectedPage);
   };
+
   const handleDone = (event) => {
     event.preventDefault();
     const id = data[0].invoice_id;
@@ -93,10 +100,11 @@ function manageOrderAdmin(props) {
         console.log(err);
       });
   };
+
   const handleClose = () => {
     setIsDone(false);
   };
-  console.log(data);
+
   return (
     <>
       <Layout title="Admin Order Manage">
@@ -135,7 +143,10 @@ function manageOrderAdmin(props) {
                               className="d-flex justify-content-between mt-5 mb-3"
                               key={index}
                             >
-                              <img src="/image 36.png"></img>
+                              <img
+                                src={`http://localhost:3005/backend5/api/${item.product_image}`}
+                                className={styles.productImg}
+                              ></img>
                               <div className="row px-4">
                                 <span>{item.product_name}</span>
                                 <span>x {item.qty}</span>
@@ -171,7 +182,7 @@ function manageOrderAdmin(props) {
                   breakLabel={"..."}
                   breakClassName={"break-me"}
                   pageCount={pagination.totalPage}
-                  marginPagesDisplayed={2}
+                  marginPagesDisplayed={1}
                   pageRangeDisplayed={2}
                   onPageChange={handlePageClick}
                   containerClassName={styles.pagination}
@@ -179,13 +190,13 @@ function manageOrderAdmin(props) {
                   activeClassName={styles.active}
                 />
               </Col>
-              <Col lg={7} md={7} sm={7} xs={12} className="mt-5">
-                <div className="ms-5">
+              <Col className={styles.col2}>
+                <div className={`ms-5  ${styles.col1}`}>
                   <div className="ms-5">
                     <div className="mt-5">
                       <div className="mt-5">
                         <div className="mt-5">
-                          <div className="mt-5">
+                          <div className={`mt-5  ${styles.col3}`}>
                             <h5
                               className={`mt-5 fw-bold ${styles.customerOrderStyle}`}
                             >

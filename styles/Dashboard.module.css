@@ -1,3 +1,9 @@
+@media (max-width: 512px) {
+  .chart {
+    box-sizing: border-box !important;
+  }
+}
+
 .greyBackground {
   background-color: #fcfcfc;
 }
