@@ -38,7 +38,6 @@ export default function ProductDetail(props) {
   const [size, setSize] = useState("");
   const [price, setPrice] = useState(0);
   const [cart, setCart] = useState(false);
-  const [subTotal, setSubTotal] = useState(0);
   const priceR = props.product[0].product_price;
   const priceL = (priceR * 50) / 100 + priceR;
   const priceXL = (priceL * 50) / 100 + priceL;
@@ -46,6 +45,24 @@ export default function ProductDetail(props) {
   const [order, setOrder] = useState({});
   const [checkout, setCheckout] = useState([]);
   const [productType, setProductType] = useState([]);
+
+  const handleProductCategory = () => {
+    if (props.product[0].product_category == "fav") {
+      return "Favorite Product";
+    }
+    if (props.product[0].product_category == "coffee") {
+      return "Coffee";
+    }
+    if (props.product[0].product_category == "noncoffee") {
+      return "Non Coffee";
+    }
+    if (props.product[0].product_category == "foods") {
+      return "Foods";
+    }
+    if (props.product[0].product_category == "addon") {
+      return "Add-on";
+    }
+  };
 
   const handleCart = () => {
     if (count === 0) {
@@ -56,11 +73,7 @@ export default function ProductDetail(props) {
   };
 
   useEffect(() => {
-    setCheckout(
-      Object.keys(order).map((key) => ({
-        value: order[key],
-      }))
-    );
+    setCheckout(Object.keys(order).map((key) => order[key]));
   }, [count, size]);
 
   useEffect(() => {
@@ -79,7 +92,7 @@ export default function ProductDetail(props) {
       setQty(qty + 1);
       if (size == "R" || size == "250gr") {
         setPrice(parseInt(priceR) + parseInt(price));
-        setSubTotal(priceR + subTotal);
+
         setOrder(
           Object.assign(order, {
             sizeR: [order.sizeR[0], count + 1, priceR + price],
@@ -88,7 +101,7 @@ export default function ProductDetail(props) {
       }
       if (size == "L" || size == "300gr") {
         setPrice(parseInt(priceL) + parseInt(price));
-        setSubTotal(priceL + subTotal);
+
         setOrder(
           Object.assign(order, {
             sizeL: [order.sizeL[0], count + 1, priceL + price],
@@ -97,7 +110,7 @@ export default function ProductDetail(props) {
       }
       if (size == "XL" || size == "500gr") {
         setPrice(parseInt(priceXL) + parseInt(price));
-        setSubTotal(priceXL + subTotal);
+
         setOrder(
           Object.assign(order, {
             sizeXL: [order.sizeXL[0], count + 1, priceXL + price],
@@ -108,7 +121,7 @@ export default function ProductDetail(props) {
   };
 
   const countMinus = () => {
-    if (count <= 0) {
+    if (count <= 1) {
       setQty(0);
       setCount(0);
       setPrice(0);
@@ -161,31 +174,37 @@ export default function ProductDetail(props) {
     if (stringSize == "R" || stringSize == "250gr") {
       setSize(stringSize);
       setPrice(priceR);
-      setSubTotal(priceR);
+
       if (order.sizeR === undefined) {
         setOrder(Object.assign(order, { sizeR: [stringSize, 1, priceR] }));
       } else {
+        setCount(order.sizeR[1]);
         setQty(order.sizeR[1]);
+        setPrice(order.sizeR[2]);
       }
     }
     if (stringSize == "L" || stringSize == "300gr") {
       setSize(stringSize);
       setPrice(priceL);
-      setSubTotal(priceL);
+
       if (order.sizeL === undefined) {
         setOrder(Object.assign(order, { sizeL: [stringSize, 1, priceL] }));
       } else {
+        setCount(order.sizeL[1]);
         setQty(order.sizeL[1]);
+        setPrice(order.sizeL[2]);
       }
     }
     if (stringSize == "XL" || stringSize == "500gr") {
       setSize(stringSize);
       setPrice(priceXL);
-      setSubTotal(priceXL);
+
       if (order.sizeXL === undefined) {
         setOrder(Object.assign(order, { sizeXL: [stringSize, 1, priceXL] }));
       } else {
+        setCount(order.sizeXL[1]);
         setQty(order.sizeXL[1]);
+        setPrice(order.sizeXL[2]);
       }
     }
   };
@@ -204,17 +223,20 @@ export default function ProductDetail(props) {
 
   const handleCheckout = () => {
     event.preventDefault();
-    // Cookies.set("item", checkout);
-    // Cookies.set("productId", props.product[0].product_id);
+    console.log(checkout);
 
-    // router.push(`/payment?productId=${props.product[0].product_id}`);
+    Cookies.set("item", checkout);
+    Cookies.set("productId", props.product[0].product_id);
+
+    router.push(`/payment?productId=${props.product[0].product_id}`);
   };
+
   return (
     <Layout title="Product Detail">
       <NavBar />
       <div className={styles.container}>
         <h2>
-          Favorite & Promo{" "}
+          {handleProductCategory()}
           <span>
             {">"} {props.product[0].product_name}
           </span>
@@ -267,15 +289,14 @@ export default function ProductDetail(props) {
             >
               <div className={styles.btnCount}>
                 <button
-                  className={styles.minus}
-                  onClick={countMinus}
-                  style={
-                    qty === 0 && cart === true
-                      ? { backgroundColor: "red" }
-                      : { backgroundColor: "white" }
+                  className={
+                    qty === 1 && cart === true
+                      ? styles.minusTrash
+                      : styles.minus
                   }
+                  onClick={countMinus}
                 >
-                  {qty === 0 && cart === true ? (
+                  {qty === 1 && cart === true ? (
                     <img src="/icon-trash.png" alt="" />
                   ) : (
                     "-"
@@ -286,14 +307,14 @@ export default function ProductDetail(props) {
                   +
                 </button>
               </div>
-              <h2>IDR{convertToRupiah(subTotal)}</h2>
+              <h2>IDR{convertToRupiah(price)}</h2>
             </div>
             <div
-              // style={
-              //   cart === false
-              //     ? { visibility: "hidden" }
-              //     : { visibility: "visible" }
-              // }
+              style={
+                checkout.length <= 0
+                  ? { visibility: "hidden" }
+                  : { visibility: "visible" }
+              }
               className={styles.checkout}
               onClick={handleCheckout}
             >
@@ -307,7 +328,7 @@ export default function ProductDetail(props) {
                   ? checkout.map((item, index) => {
                       return (
                         <h6 key={index}>
-                          x{item.value[1]} ({item.value[0]})
+                          x{item[1]} ({item[0]})
                         </h6>
                       );
                     })
