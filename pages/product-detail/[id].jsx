@@ -45,6 +45,7 @@ export default function ProductDetail(props) {
   const [productName, setProductName] = useState("");
   const [order, setOrder] = useState({});
   const [checkout, setCheckout] = useState([]);
+  const [productType, setProductType] = useState([]);
 
   const handleCart = () => {
     if (count === 0) {
@@ -60,7 +61,15 @@ export default function ProductDetail(props) {
         value: order[key],
       }))
     );
-  }, [price]);
+  }, [count, size]);
+
+  useEffect(() => {
+    if (props.product[0].product_size == "A") {
+      setProductType(["R", "L", "XL"]);
+    } else {
+      setProductType(["250gr", "300gr", "500gr"]);
+    }
+  }, []);
 
   const countPlus = () => {
     if (size === "") {
@@ -68,30 +77,30 @@ export default function ProductDetail(props) {
     } else {
       setCount(parseInt(count) + 1);
       setQty(qty + 1);
-      if (size == "regular") {
+      if (size == "R" || size == "250gr") {
         setPrice(parseInt(priceR) + parseInt(price));
         setSubTotal(priceR + subTotal);
         setOrder(
           Object.assign(order, {
-            sizeR: ["regular", count + 1, priceR + price],
+            sizeR: [order.sizeR[0], count + 1, priceR + price],
           })
         );
       }
-      if (size == "large") {
+      if (size == "L" || size == "300gr") {
         setPrice(parseInt(priceL) + parseInt(price));
         setSubTotal(priceL + subTotal);
         setOrder(
           Object.assign(order, {
-            sizeL: ["large", count + 1, priceL + price],
+            sizeL: [order.sizeL[0], count + 1, priceL + price],
           })
         );
       }
-      if (size == "extra large") {
+      if (size == "XL" || size == "500gr") {
         setPrice(parseInt(priceXL) + parseInt(price));
         setSubTotal(priceXL + subTotal);
         setOrder(
           Object.assign(order, {
-            sizeXL: ["extra large", count + 1, priceXL + price],
+            sizeXL: [order.sizeXL[0], count + 1, priceXL + price],
           })
         );
       }
@@ -105,30 +114,39 @@ export default function ProductDetail(props) {
       setPrice(0);
       setSize([""]);
       setCart(false);
+      if (size == "R" || size == "250gr") {
+        delete order.sizeR;
+      }
+      if (size == "L" || size == "300gr") {
+        delete order.sizeL;
+      }
+      if (size == "XL" || size == "500gr") {
+        delete order.sizeXL;
+      }
     } else {
       setCount(parseInt(count) - 1);
       setQty(qty - 1);
-      if (size == "regular") {
+      if (size == "R" || size == "250gr") {
         setPrice(parseInt(price) - parseInt(priceR));
         setOrder(
           Object.assign(order, {
-            sizeR: ["regular", count - 1, price - priceR],
+            sizeR: [order.sizeR[0], count - 1, price - priceR],
           })
         );
       }
-      if (size == "large") {
+      if (size == "L" || size == "300gr") {
         setPrice(parseInt(price) - parseInt(priceL));
         setOrder(
           Object.assign(order, {
-            sizeL: ["large", count - 1, price - priceL],
+            sizeL: [order.sizeL[0], count - 1, price - priceL],
           })
         );
       }
-      if (size == "extra large") {
+      if (size == "XL" || size == "500gr") {
         setPrice(parseInt(price) - parseInt(priceXL));
         setOrder(
           Object.assign(order, {
-            sizeXL: ["extra large", count - 1, price - priceXL],
+            sizeXL: [order.sizeXL[0], count - 1, price - priceXL],
           })
         );
       }
@@ -140,34 +158,34 @@ export default function ProductDetail(props) {
     setCount(1);
     setCart(true);
     setProductName(props.product[0].product_name);
-    if (stringSize == "R") {
-      setSize("regular");
+    if (stringSize == "R" || stringSize == "250gr") {
+      setSize(stringSize);
       setPrice(priceR);
       setSubTotal(priceR);
       if (order.sizeR === undefined) {
-        setOrder(Object.assign(order, { sizeR: ["regular", 1, priceR] }));
+        setOrder(Object.assign(order, { sizeR: [stringSize, 1, priceR] }));
       } else {
-        return {};
+        setQty(order.sizeR[1]);
       }
     }
-    if (stringSize == "L") {
-      setSize("large");
+    if (stringSize == "L" || stringSize == "300gr") {
+      setSize(stringSize);
       setPrice(priceL);
       setSubTotal(priceL);
       if (order.sizeL === undefined) {
-        setOrder(Object.assign(order, { sizeL: ["large", 1, priceL] }));
+        setOrder(Object.assign(order, { sizeL: [stringSize, 1, priceL] }));
       } else {
-        return {};
+        setQty(order.sizeL[1]);
       }
     }
-    if (stringSize == "XL") {
-      setSize("extra large");
+    if (stringSize == "XL" || stringSize == "500gr") {
+      setSize(stringSize);
       setPrice(priceXL);
       setSubTotal(priceXL);
       if (order.sizeXL === undefined) {
-        setOrder(Object.assign(order, { sizeXL: ["extra large", 1, priceXL] }));
+        setOrder(Object.assign(order, { sizeXL: [stringSize, 1, priceXL] }));
       } else {
-        return {};
+        setQty(order.sizeXL[1]);
       }
     }
   };
@@ -186,11 +204,10 @@ export default function ProductDetail(props) {
 
   const handleCheckout = () => {
     event.preventDefault();
-    console.log(checkout);
-    Cookies.set("item", checkout);
-    Cookies.set("productId", props.product[0].product_id);
+    // Cookies.set("item", checkout);
+    // Cookies.set("productId", props.product[0].product_id);
 
-    router.push(`/payment?productId=${props.product[0].product_id}`);
+    // router.push(`/payment?productId=${props.product[0].product_id}`);
   };
   return (
     <Layout title="Product Detail">
@@ -216,15 +233,21 @@ export default function ProductDetail(props) {
             <div className={styles.size}>
               <h3>Choose a size</h3>
               <div className={styles.sizeFont}>
-                <Button variant="warning" onClick={() => handleSize("R")}>
-                  {props.product[0].product_size == "B" ? <h6>250gr</h6> : "R"}
-                </Button>
-                <Button variant="warning" onClick={() => handleSize("L")}>
-                  {props.product[0].product_size == "B" ? <h6>300gr</h6> : "L"}
-                </Button>
-                <Button variant="warning" onClick={() => handleSize("XL")}>
-                  {props.product[0].product_size == "B" ? <h6>500gr</h6> : "XL"}
-                </Button>
+                {productType.map((item, index) => {
+                  return (
+                    <Button
+                      key={index}
+                      variant="warning"
+                      onClick={() => handleSize(item)}
+                    >
+                      {props.product[0].product_size == "A" ? (
+                        item
+                      ) : (
+                        <h6>{item}</h6>
+                      )}
+                    </Button>
+                  );
+                })}
               </div>
             </div>
             <Button onClick={handleCart} variant="Light">
@@ -266,11 +289,11 @@ export default function ProductDetail(props) {
               <h2>IDR{convertToRupiah(subTotal)}</h2>
             </div>
             <div
-              style={
-                cart === false
-                  ? { visibility: "hidden" }
-                  : { visibility: "visible" }
-              }
+              // style={
+              //   cart === false
+              //     ? { visibility: "hidden" }
+              //     : { visibility: "visible" }
+              // }
               className={styles.checkout}
               onClick={handleCheckout}
             >

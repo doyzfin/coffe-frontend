@@ -60,6 +60,10 @@
   padding: 0 !important;
 }
 
+.colLeft .size .sizeFont button h6 {
+  margin-top: 5px;
+}
+
 .colLeft .size button:hover {
   background-color: #79550e;
   color: white;
