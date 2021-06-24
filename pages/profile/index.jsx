@@ -164,7 +164,6 @@ function Profile(props) {
       <Container className={`${styles.cnt} pt-4 pb-5`} fluid>
         <Row>
           <Col>
-            <div className={styles.title}>User Profile</div>
             <div className={`${styles.title} mb-4 ms-3`}>User Profile</div>
           </Col>
         </Row>
