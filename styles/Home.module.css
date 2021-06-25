@@ -64,6 +64,7 @@
   right: 0;
   top: 89%;
   margin: auto;
+  max-width: 1140px;
   box-shadow: 6px 0px 20px 0px #313131;
 }
 
@@ -149,7 +150,7 @@
 .footerCardBackground {
   left: 0;
   right: 0;
-  width: 60rem;
+  max-width: 60rem;
   top: 102%;
   margin: auto;
 }
