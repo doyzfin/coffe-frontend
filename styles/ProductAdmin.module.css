@@ -16,12 +16,15 @@ background: #0B132A;
 */
 
 .col1 {
-  padding: 29px 50px;
   border-right: 0.5px solid #9f9f9f !important;
-  padding-bottom: 100px;
+}
+.cnt {
+  overflow: auto;
+  height: 550px;
+  border-radius: 10px;
 }
 .col2 {
-  padding: 29px 82px;
+  padding: 29px;
 }
 .title {
   font-family: Rubik;
@@ -43,19 +46,19 @@ background: #0B132A;
   color: #000000;
 }
 .cardCoupons {
-  padding: 18px 40px 18px 18px;
+  padding: 10px;
   background: #88b788;
   border-radius: 20px;
   margin-bottom: 19px;
 }
 .cardCoupons2 {
-  padding: 18px 40px 18px 18px;
+  padding: 10px;
   background: #f5c361;
   border-radius: 20px;
   margin-bottom: 19px;
 }
 .cardCoupons3 {
-  padding: 18px 40px 18px 18px;
+  padding: 10px;
   background: #c59378;
   border-radius: 20px;
   margin-bottom: 19px;
@@ -76,7 +79,7 @@ background: #0B132A;
   font-family: Poppins;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 21px;
   color: #000000;
 }
@@ -144,8 +147,9 @@ background: #0B132A;
   box-shadow: 0px 30px 60px rgba(57, 57, 57, 0.1);
   border-radius: 30px;
   border: none;
-  margin-bottom: 30px;
   position: relative;
+  width: 180px;
+  height: 260px;
 }
 .nameMenu {
   font-family: Poppins;
@@ -164,12 +168,6 @@ background: #0B132A;
   line-height: 25px;
   text-align: center;
   color: #6a4029;
-}
-
-.updateAndDelete {
-  position: absolute;
-  top: 103%;
-  right: -74%;
 }
 
 .updateButton {
@@ -249,16 +247,16 @@ background: #6A4029;
   font-size: 14px;
   line-height: 12px;
   letter-spacing: 0.75px;
-  color: #6e7191;
+  color: #f5c361;
 }
 .pagination > .active > a {
-  background-color: #6379f4;
-  border-color: #6379f4;
+  background-color: #6a4029;
+  border-color: #6a4029;
   border-radius: 6px;
   color: #fff;
 }
 .pagination > li > a {
-  border: 1px solid #6379f4;
+  border: 1px solid #6a4029;
   border-radius: 6px;
   margin-left: 3px;
   margin-right: 3px;
@@ -272,14 +270,14 @@ background: #6A4029;
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-  background-color: #6379f4;
-  border-color: #6379f4;
+  background-color: #6a4029;
+  border-color: #6a4029;
   border-radius: 6px;
   outline: none;
 }
 .pagination > li > a,
 .pagination > li > span {
-  color: #6379f4;
+  color: #6a4029;
 }
 .pagination > li:first-child > a,
 .pagination > li:first-child > span,

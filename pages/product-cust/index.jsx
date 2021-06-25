@@ -140,53 +140,59 @@ function ProductCust(props) {
   return (
     <Layout title="Product Customer">
       <NavBar catchKey={catchKeywords} />
-      <Container fluid className={styles.mainContainer}>
+      <Container
+        fluid
+        className={`${styles.mainContainer} p-3`}
+        style={{ marginBottom: "-20px" }}
+      >
         <Row>
-          <Col sm={4} className={styles.col1}>
+          <Col md={4} className={`${styles.col1} p-4`}>
             <h1 className={styles.title}>Promo Today</h1>
-            <p className={styles.note}>
+            <p className={`${styles.note} mb-4`}>
               Coupons will be updated every weeks.
               <br /> Check them out!{" "}
             </p>
-            {dataCoupons.map((item, index) => {
-              return (
-                <Card
-                  className={`${
-                    item.name === "MOTHER DAY"
-                      ? styles.cardCoupons
-                      : item.name === "INDEPENDENT DAY"
-                      ? styles.cardCoupons2
-                      : item.name === "BATIK DAY"
-                      ? styles.cardCoupons3
-                      : styles.cardCoupons
-                  }`}
-                  key={index}
-                  onClick={() => {
-                    setSelectedCoupon(item);
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <Row>
-                    <Col xs={4}>
-                      <Card.Img
-                        alt=""
-                        src={item.image}
-                        className={styles.cardImgCoupons}
-                        variant="left"
-                      />
-                    </Col>
-                    <Col xs={8}>
-                      <Card.Text className={styles.nameCoupons}>
-                        {item.name}
-                      </Card.Text>
-                      <Card.Text className={styles.noteCoupons}>
-                        {item.note}
-                      </Card.Text>
-                    </Col>
-                  </Row>
-                </Card>
-              );
-            })}
+            <div className={styles.cnt}>
+              {dataCoupons.map((item, index) => {
+                return (
+                  <Card
+                    className={`${
+                      item.name === "MOTHER DAY"
+                        ? styles.cardCoupons
+                        : item.name === "INDEPENDENT DAY"
+                        ? styles.cardCoupons2
+                        : item.name === "BATIK DAY"
+                        ? styles.cardCoupons3
+                        : styles.cardCoupons
+                    }`}
+                    key={index}
+                    onClick={() => {
+                      setSelectedCoupon(item);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <Row>
+                      <Col lg={4} className="text-center">
+                        <Card.Img
+                          alt=""
+                          src={item.image}
+                          className={styles.cardImgCoupons}
+                          variant="left"
+                        />
+                      </Col>
+                      <Col lg={8} className="text-center">
+                        <Card.Text className={styles.nameCoupons}>
+                          {item.name}
+                        </Card.Text>
+                        <Card.Text className={styles.noteCoupons}>
+                          {item.note}
+                        </Card.Text>
+                      </Col>
+                    </Row>
+                  </Card>
+                );
+              })}
+            </div>
             {selectedCoupon.name ? (
               <div className="text-center">
                 Selected coupon : {selectedCoupon.name}
@@ -214,7 +220,7 @@ function ProductCust(props) {
               4. Should make member card to apply coupon
             </p>
           </Col>
-          <Col sm={8} className={styles.col2}>
+          <Col md={8} className={styles.col2}>
             <Nav as="ul" className={styles.nav}>
               <Nav.Item as="li">
                 <Nav.Link href="#" className={styles.link}>
@@ -272,13 +278,13 @@ function ProductCust(props) {
                 </Nav.Link>
               </Nav.Item>
             </Nav>
-            <Row>
+            <Row className={styles.cnt} style={{ height: "800px" }}>
               {dataMenu.length > 0
                 ? dataMenu.map((item, index) => {
                     return (
-                      <Col sm={3} key={index}>
+                      <Col key={index}>
                         <Card
-                          className={styles.cardMenu}
+                          className={`${styles.cardMenu} mx-auto`}
                           onClick={() => {
                             moveToProductDetail(item.productId);
                           }}
