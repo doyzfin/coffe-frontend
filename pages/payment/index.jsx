@@ -8,7 +8,6 @@ import Cookies from "js-cookie";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
 import { useRouter } from "next/router";
-import product from "redux/reducer/product";
 
 export async function getServerSideProps(context) {
   const { productId } = context.query;
@@ -62,7 +61,7 @@ export default function payment(props) {
   useEffect(() => {
     let total = 0;
     for (const key in orderItem) {
-      total += orderItem[key].value[2];
+      total += orderItem[key][2];
     }
     setSubtotal(total);
   }, [orderItem]);
@@ -108,9 +107,9 @@ export default function payment(props) {
       setData.orders = orderItem.map((item) => {
         return {
           productId: props.product.product_id,
-          size: item.value[0],
-          qty: item.value[1],
-          totalPrice: item.value[2],
+          size: item[0],
+          qty: item[1],
+          totalPrice: item[2],
         };
       });
       axiosApiIntances
@@ -162,7 +161,7 @@ export default function payment(props) {
                         return (
                           <div key={index}>
                             <p className={styles.Order}>
-                              x{item.value[1]} {item.value[0]}
+                              x{item[1]} {item[0]}
                             </p>
                           </div>
                         );
