@@ -54,8 +54,12 @@ export default function payment(props) {
   const [subTotal, setSubtotal] = useState(0);
 
   useEffect(() => {
-    setDataCoupons([JSON.parse(Cookies.get("coupon"))]);
-    setOrderItem(JSON.parse(Cookies.get("item")));
+    if (Cookies.get("coupon")) {
+      setDataCoupons([JSON.parse(Cookies.get("coupon"))]);
+    }
+    if (Cookies.get("item")) {
+      setOrderItem(JSON.parse(Cookies.get("item")));
+    }
   }, []);
 
   useEffect(() => {
@@ -120,7 +124,7 @@ export default function payment(props) {
         })
         .then((res) => {
           Cookies.remove("coupon");
-          localStorage.removeItem("item");
+          Cookies.remove("item");
           alert("Pesanan berhasil");
           router.push("/product-cust");
         })
@@ -145,15 +149,15 @@ export default function payment(props) {
                 <h1 className={styles.titleInvoice}>Order Summary</h1>
 
                 <Card className={styles.cardOrder}>
-                  <Row>
-                    <Col sm={3}>
+                  <Row className={styles.rowCardOrder}>
+                    <Col sm={3} className={styles.colCardOrderImg}>
                       <img
                         alt=""
                         src={`http://localhost:3005/backend5/api/${props.product.product_image}`}
                         className={styles.imgOrder}
                       />
                     </Col>
-                    <Col sm={6}>
+                    <Col sm={6} className={styles.colCardOrder}>
                       <p className={styles.Order}>
                         {props.product.product_name}
                       </p>
@@ -167,8 +171,10 @@ export default function payment(props) {
                         );
                       })}
                     </Col>
-                    <Col sm={4}>
-                      <p className={styles.priceOrder}>IDR{subTotal}</p>
+                    <Col sm={4} className={styles.colPriceOrder}>
+                      <p className={styles.priceOrder}>
+                        IDR {convertToRupiah(subTotal)}
+                      </p>
                     </Col>
                   </Row>
                 </Card>
@@ -183,7 +189,9 @@ export default function payment(props) {
                       className={styles.dropdown}
                       key={index}
                     >
-                      <option value="">Select Coupon</option>
+                      <option value={[0, "No Select Coupon"]}>
+                        No Select Coupon
+                      </option>
                       <option value={[item.maxDiscount, item.promoCode]}>
                         {item.name}
                       </option>
@@ -194,13 +202,18 @@ export default function payment(props) {
                 <Row className={styles.rowCount}>
                   <Col className={styles.countInvoice}>DISCOUNT</Col>
                   <Col className={styles.nominal}>
-                    IDR {useCoupun != undefined ? useCoupun : 0}
+                    IDR{" "}
+                    {useCoupun === undefined || !useCoupun
+                      ? 0
+                      : convertToRupiah(useCoupun)}
                   </Col>
                 </Row>
                 <Row className={styles.rowCount}>
                   <Col className={styles.countInvoice}>SUBTOTAL</Col>
 
-                  <Col className={styles.nominal}>IDR {subTotal}</Col>
+                  <Col className={styles.nominal}>
+                    IDR {convertToRupiah(subTotal)}
+                  </Col>
                 </Row>
                 <Row className={styles.rowCountTotal}>
                   <Col className={styles.countTotal} sm={6}>
@@ -212,21 +225,17 @@ export default function payment(props) {
                     {useCoupun != undefined
                       ? subTotal <= useCoupun
                         ? 0
-                        : subTotal - useCoupun
-                      : subTotal}
+                        : convertToRupiah(subTotal - useCoupun)
+                      : convertToRupiah(subTotal)}
                   </Col>
                 </Row>
               </Card>
             </Col>
             <Col sm={6} className={styles.colDetails}>
-              <Row>
-                <Col>
-                  <h1 className={styles.textDetails}>Address details</h1>
-                </Col>
-                <Col>
-                  <p className={styles.edit}>Edit</p>
-                </Col>
-              </Row>
+              <Col>
+                <h1 className={styles.textDetails}>Address details</h1>
+              </Col>
+
               <Card className={styles.cardAddress}>
                 <p className={styles.address}>
                   <strong>Delivery</strong>
