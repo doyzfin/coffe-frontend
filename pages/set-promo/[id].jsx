@@ -13,7 +13,9 @@ import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
+
   const { id } = context.query;
+
   const promo = await axiosApiIntances
     .get(`/promo/${id}`, {
       headers: {
@@ -42,6 +44,7 @@ function updatepromo(props) {
   });
   const [token, setToken] = useState("");
   const [isImage, setIsImage] = useState(false);
+  const [validate, setValidate] = useState(true);
   const [imagePromo, setImagePromo] = useState("");
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -52,15 +55,18 @@ function updatepromo(props) {
   const showOpenFileDlg = () => {
     inputOpenFileRef.current.click();
   };
+
   const handleImage = (event) => {
     event.preventDefault();
     setIsImage(true);
     setImagePromo(URL.createObjectURL(event.target.files[0]));
     setFormPromo({ ...formPromo, image: event.target.files[0] });
   };
+
   const changeText = (event) => {
     setFormPromo({ ...formPromo, [event.target.name]: event.target.value });
   };
+
   useEffect(() => {
     const id = props.data.promo_id;
     axiosApiIntances.get(`promo/${id}`, {
@@ -80,11 +86,24 @@ function updatepromo(props) {
       image: props.data.promo_image,
     });
     setToken(Cookies.get("token"));
+    if (
+      formPromo.promoName === "" ||
+      formPromo.promoCode === "" ||
+      formPromo.promoDiscount === "" ||
+      formPromo.promoDesc === "" ||
+      formPromo.expireStart === "" ||
+      formPromo.expireEnd === "" ||
+      formPromo.minTotalPrice === "" ||
+      formPromo.maxDiscount === ""
+    ) {
+      setValidate(true);
+    } else if (formPromo) {
+      setValidate(false);
+    }
   }, []);
+
   const handleCancel = () => {
     setIsImage(false);
-    // isClickCoffee(false);
-    // isClickSize(false);
     setFormPromo({
       promoName: props.data.promo_name,
       promoCode: props.data.promo_code,
@@ -97,6 +116,7 @@ function updatepromo(props) {
       image: props.data.promo_image,
     });
   };
+
   const updateData = (event) => {
     event.preventDefault();
     const id = props.data.promo_id;
@@ -133,6 +153,7 @@ function updatepromo(props) {
         }, 3000);
       });
   };
+
   const handleDelete = (event) => {
     event.preventDefault();
     const id = props.data.promo_id;
@@ -140,9 +161,7 @@ function updatepromo(props) {
       router.push("/product-admin");
     });
   };
-  console.log(props.data.expire_start.substring(0, 10));
-  console.log(formPromo);
-  console.log(props.data);
+
   return (
     <>
       <Layout title="Update Promo">
@@ -232,7 +251,7 @@ function updatepromo(props) {
             </Col>
             <Col lg={7} md={7} sm={12} xs={12}>
               <div className={styles.leftPanel}>
-                <form>
+                <form onSubmit={(event) => updateData(event)}>
                   <div className="form-group">
                     <label className={styles.boldBrownText}>Name: </label>
                     <input
@@ -242,6 +261,7 @@ function updatepromo(props) {
                       name="promoName"
                       value={formPromo.promoName}
                       onChange={(event) => changeText(event)}
+                      required
                     ></input>
                   </div>
                   <div className="row mt-5">
@@ -256,6 +276,7 @@ function updatepromo(props) {
                         name="minTotalPrice"
                         value={formPromo.minTotalPrice}
                         onChange={(event) => changeText(event)}
+                        required
                       ></input>
                     </div>
                     <div className="col">
@@ -268,6 +289,7 @@ function updatepromo(props) {
                         name="maxDiscount"
                         value={formPromo.maxDiscount}
                         onChange={(event) => changeText(event)}
+                        required
                       ></input>
                     </div>
                   </div>
@@ -282,6 +304,7 @@ function updatepromo(props) {
                       name="promoCode"
                       value={formPromo.promoCode}
                       onChange={(event) => changeText(event)}
+                      required
                     ></input>
                   </div>
                   <div className="form-group mt-5">
@@ -295,15 +318,13 @@ function updatepromo(props) {
                       name="promoDesc"
                       value={formPromo.promoDesc}
                       onChange={(event) => changeText(event)}
+                      required
                     ></input>
                   </div>
                   <Row>
                     <Col>
                       <div className="pt-4">
-                        <button
-                          className={styles.brownButton}
-                          onClick={(event) => updateData(event)}
-                        >
+                        <button className={styles.brownButton} type="submit">
                           Update Promo
                         </button>
                       </div>

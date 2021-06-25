@@ -25,6 +25,7 @@ import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
+
   const { id } = context.query;
 
   const product = await axiosApiIntances
@@ -45,6 +46,7 @@ function setProduct(props) {
   const router = useRouter();
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [validate, setValidate] = useState(false);
   const [msgError, setMsgError] = useState("");
   const [msgSuccess, setMsgSuccess] = useState("");
   const [token, setToken] = useState("");
@@ -71,35 +73,52 @@ function setProduct(props) {
       image: props.data.product_image,
     });
     setToken(Cookies.get("token"));
+    if (
+      formProduct.productName === "" &&
+      formProduct.productPrice === "" &&
+      formProduct.productCategory === "" &&
+      formProduct.productSize === "" &&
+      formProduct.productDesc === ""
+    ) {
+      setValidate(true);
+    } else {
+      setValidate(false);
+    }
   }, []);
+
   const handleClickSizeCoffee = () => {
+    setValidate(false);
     setIsClickCoffee(true);
     setIsClickSize(false);
     setFormProduct({ ...formProduct, productSize: "A" });
   };
 
   const handleClickSizeFood = () => {
+    setValidate(false);
     setIsClickSize(true);
     setIsClickCoffee(false);
     setFormProduct({ ...formProduct, productSize: "B" });
   };
+
   const inputOpenFileRef = React.createRef();
+
   const showOpenFileDlg = () => {
     inputOpenFileRef.current.click();
   };
+
   const handleImage = (event) => {
     event.preventDefault();
     setIsImage(true);
     setImageProduct(URL.createObjectURL(event.target.files[0]));
     setFormProduct({ ...formProduct, image: event.target.files[0] });
   };
+
   const changeText = (event) => {
     setFormProduct({ ...formProduct, [event.target.name]: event.target.value });
   };
+
   const handleCancel = () => {
     setIsImage(false);
-    // isClickCoffee(false);
-    // isClickSize(false);
     setFormProduct({
       productName: props.data.product_name,
       productPrice: props.data.product_price,
@@ -109,6 +128,7 @@ function setProduct(props) {
       image: props.data.product_image,
     });
   };
+
   const updateData = (event) => {
     event.preventDefault();
     const id = props.data.product_id;
@@ -137,14 +157,14 @@ function setProduct(props) {
         }, 3000);
       });
   };
+
   const handleDelete = () => {
     const id = props.data.product_id;
     props.deleteProduct(id, token).then((res) => {
       router.push("/product-admin");
     });
   };
-  // console.log(props.data.product_id);
-  console.log(formProduct);
+
   return (
     <Layout title="Update Product">
       <NavBar />
@@ -187,9 +207,13 @@ function setProduct(props) {
             <Button
               className={styles.btnSave}
               onClick={(event) => updateData(event)}
+              disabled={validate}
             >
               Update Product
             </Button>
+            {validate && (
+              <p className={styles.validate}>Please Input All Field</p>
+            )}
             <Button className={styles.btnDelete} onClick={handleDelete}>
               Delete Product
             </Button>
