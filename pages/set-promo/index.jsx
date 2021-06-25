@@ -67,37 +67,45 @@ function setpromo(props) {
 
   const handlePost = (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("promoName", formPromo.promoName);
-    formData.append("promoDiscount", formPromo.promoDiscount);
-    formData.append("expireStart", formPromo.expireStart);
-    formData.append("expireEnd", formPromo.expireEnd);
-    formData.append("minTotalPrice", formPromo.minTotalPrice);
-    formData.append("maxDiscount", formPromo.maxDiscount);
-    formData.append("promoCode", formPromo.promoCode);
-    formData.append("promoDesc", formPromo.promoDesc);
-    formData.append("image", formPromo.image);
-    props
-      .postPromo(formData, token)
-      .then((res) => {
-        setIsSuccess(true);
-        setMsgSuccess(res.action.payload.data.msg);
-        setTimeout(() => {
-          setIsSuccess(false);
-        }, 3000);
-        handleCancel();
+    if (formPromo.expireEnd === "" || formPromo.expireStart === "") {
+      setIsError(true);
+      setMsgError("Please Input From Expire Correctly!");
+      setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+    } else {
+      const formData = new FormData();
+      formData.append("promoName", formPromo.promoName);
+      formData.append("promoDiscount", formPromo.promoDiscount);
+      formData.append("expireStart", formPromo.expireStart);
+      formData.append("expireEnd", formPromo.expireEnd);
+      formData.append("minTotalPrice", formPromo.minTotalPrice);
+      formData.append("maxDiscount", formPromo.maxDiscount);
+      formData.append("promoCode", formPromo.promoCode);
+      formData.append("promoDesc", formPromo.promoDesc);
+      formData.append("image", formPromo.image);
+      props
+        .postPromo(formData, token)
+        .then((res) => {
+          setIsSuccess(true);
+          setMsgSuccess(res.action.payload.data.msg);
+          setTimeout(() => {
+            setIsSuccess(false);
+          }, 3000);
+          handleCancel();
 
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsImage(false);
-        setIsError(true);
-        setMsgError(err.response.data.msg);
-        setTimeout(() => {
-          setIsError(false);
-        }, 3000);
-      });
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsImage(false);
+          setIsError(true);
+          setMsgError(err.response.data.msg);
+          setTimeout(() => {
+            setIsError(false);
+          }, 3000);
+        });
+    }
   };
 
   const handleCancel = () => {

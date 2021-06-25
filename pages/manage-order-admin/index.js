@@ -112,7 +112,7 @@ function manageOrderAdmin(props) {
         <div className={styles.pageBackground}>
           <Container className="pb-5">
             <Row>
-              <Col lg={5} md={5} sm={5} xs={12} className="mt-5">
+              <Col lg={5} md={5} sm={12} className="mt-5">
                 <h4 className={`fw-bold ${styles.customerOrderStyle}`}>
                   Finish your
                 </h4>
@@ -191,14 +191,14 @@ function manageOrderAdmin(props) {
                 />
               </Col>
               <Col className={styles.col2}>
-                <div className={`ms-5  ${styles.col1}`}>
-                  <div className="ms-5">
+                <div className={`ms-4 me-4 ${styles.col1}`}>
+                  <div>
                     <div className="mt-5">
                       <div className="mt-5">
                         <div className="mt-5">
                           <div className={`mt-5  ${styles.col3}`}>
                             <h5
-                              className={`mt-5 fw-bold ${styles.customerOrderStyle}`}
+                              className={`mt-5 mb-5 fw-bold ${styles.customerOrderStyle}`}
                             >
                               Payment method
                             </h5>
@@ -245,7 +245,7 @@ function manageOrderAdmin(props) {
                                 {isError ? msgError : "Success Done Order"}
                               </Modal.Body>
                             </Modal>
-                            <div className="my-5">
+                            <div className="mt-2">
                               <button
                                 className={styles.brownDoneButton}
                                 onClick={(event) => handleDone(event)}

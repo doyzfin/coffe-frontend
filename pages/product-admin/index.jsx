@@ -140,61 +140,67 @@ function productAdmin(props) {
     <>
       <Layout title="Product Admin">
         <Navbar catchKey={catchKeywords} />
-        <Container fluid className={styles.mainContainer}>
+        <Container
+          fluid
+          className={`${styles.mainContainer} p-3`}
+          style={{ marginBottom: "-20px" }}
+        >
           <Row>
-            <Col sm={4} className={styles.col1}>
+            <Col sm={4} className={`${styles.col1} p-4`}>
               <h1 className={styles.title}>Promo Today</h1>
-              <p className={styles.note}>
+              <p className={`${styles.note} mb-4`}>
                 Coupons will be updated every weeks.
                 <br /> Check them out!{" "}
               </p>
-              {dataCoupons.map((item, index) => {
-                return (
-                  <Card
-                    className={`${
-                      item.name === "MOTHER DAY"
-                        ? styles.cardCoupons
-                        : item.name === "INDEPENDENT DAY"
-                        ? styles.cardCoupons2
-                        : item.name === "BATIK DAY"
-                        ? styles.cardCoupons3
-                        : styles.cardCoupons
-                    }`}
-                    key={index}
-                  >
-                    <Row className="position-relative">
-                      <Col xs={4}>
-                        <Card.Img
-                          alt=""
-                          src={item.image}
-                          className={styles.cardImgCoupons}
-                          variant="left"
-                        />
-                      </Col>
-                      <Col xs={8}>
-                        <Card.Text className={styles.nameCoupons}>
-                          {item.name}
-                        </Card.Text>
-                        <Card.Text className={styles.noteCoupons}>
-                          {item.note}
-                        </Card.Text>
-                      </Col>
-                      <span className={`d-flex ${styles.updateAndDelete}`}>
-                        <span className={`${styles.deleteButton} ms-2`}>
-                          <img
-                            src="/pencil vector.png"
-                            className={styles.deleteButtonWidth}
-                            onClick={() => {
-                              updateCoupon(item.promoId);
-                            }}
-                            style={{ cursor: "pointer" }}
-                          ></img>
+              <div className={styles.cnt}>
+                {dataCoupons.map((item, index) => {
+                  return (
+                    <Card
+                      className={`${
+                        item.name === "MOTHER DAY"
+                          ? styles.cardCoupons
+                          : item.name === "INDEPENDENT DAY"
+                          ? styles.cardCoupons2
+                          : item.name === "BATIK DAY"
+                          ? styles.cardCoupons3
+                          : styles.cardCoupons
+                      }`}
+                      key={index}
+                    >
+                      <Row className="position-relative">
+                        <Col lg={4} className="text-center">
+                          <Card.Img
+                            alt=""
+                            src={item.image}
+                            className={styles.cardImgCoupons}
+                            variant="left"
+                          />
+                        </Col>
+                        <Col lg={8} className="text-center">
+                          <Card.Text className={styles.nameCoupons}>
+                            {item.name}
+                          </Card.Text>
+                          <Card.Text className={styles.noteCoupons}>
+                            {item.note}
+                          </Card.Text>
+                        </Col>
+                        <span className={`d-flex ${styles.updateAndDelete}`}>
+                          <span className={`${styles.deleteButton} me-3`}>
+                            <img
+                              src="/pencil vector.png"
+                              className={styles.deleteButtonWidth}
+                              onClick={() => {
+                                updateCoupon(item.promoId);
+                              }}
+                              style={{ cursor: "pointer" }}
+                            ></img>
+                          </span>
                         </span>
-                      </span>
-                    </Row>
-                  </Card>
-                );
-              })}
+                      </Row>
+                    </Card>
+                  );
+                })}
+              </div>
               <Button
                 className={styles.btnApply}
                 onClick={() => {
@@ -280,11 +286,11 @@ function productAdmin(props) {
                   </Nav.Link>
                 </Nav.Item>
               </Nav>
-              <Row>
+              <Row className={styles.cnt} style={{ height: "800px" }}>
                 {dataMenu.map((item, index) => {
                   return (
-                    <Col sm={3} key={index}>
-                      <Card className={styles.cardMenu}>
+                    <Col key={index}>
+                      <Card className={`${styles.cardMenu} mx-auto`}>
                         <img alt="" src={item.image} />
                         <h1 className={styles.nameMenu}>{item.name}</h1>
                         <p className={styles.price}>{item.price}</p>
