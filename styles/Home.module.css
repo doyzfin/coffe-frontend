@@ -92,6 +92,11 @@
   line-height: 2rem;
 }
 
+.secondRowLeft {
+  top: 50%;
+  margin-top: -25%;
+}
+
 .secondRowRightLists {
   line-height: 2rem;
   list-style-image: url("/checklist.png");
@@ -107,7 +112,7 @@
   left: 0;
   right: 0;
   margin: auto;
-  width: 50rem;
+  max-width: 50rem;
 }
 
 .gridFavoriteCard {
@@ -120,7 +125,9 @@
 .gridFavoritePicture {
   border-radius: 70px;
   top: -15%;
-  left: 23%;
+  left: 0;
+  right: 0;
+  margin: auto;
   position: absolute;
 }
 

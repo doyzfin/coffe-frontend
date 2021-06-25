@@ -96,12 +96,15 @@ export default function Home() {
             </Row>
           </Container>
         </div>
-        <Container className={stylesHome.secondRow}>
-          <Row className="pb-5">
-            <Col lg={6} md={6} sm={5} xs={12}>
-              <img src="/35744 1.png" className="img-fluid"></img>
+        <Container className={`${stylesHome.secondRow}`}>
+          <Row className="pb-5 justify-content-center">
+            <Col lg={6} md={6} sm={9} xs={12} className={`pb-5`}>
+              <img
+                src="/35744 1.png"
+                className={`img-fluid position-relative ${stylesHome.secondRowLeft}`}
+              ></img>
             </Col>
-            <Col lg={6} md={6} sm={6} xs={12}>
+            <Col lg={6} md={6} sm={9} xs={12} className={`pb-5`}>
               <div className={`position-relative ${stylesHome.secondRowRight}`}>
                 <h2 className={`${stylesHome.secondRowRightHeader} fw-bold`}>
                   We Provide Good Coffee and Healthy Meals
@@ -124,8 +127,8 @@ export default function Home() {
             </Col>
           </Row>
         </Container>
-        <div className={`${stylesHome.greyBackground}`}>
-          <Container className="py-5">
+        <div className={`${stylesHome.greyBackground} mt-5`}>
+          <Container className="pt-5">
             <Row className="py-5">
               <h2 className="text-center">Here Is People's Favorite</h2>
               <span className="d-block text-center text-wrap">
@@ -135,8 +138,10 @@ export default function Home() {
             </Row>
           </Container>
           <Container className="position-relative">
-            <Row className={stylesHome.gridFavoriteRow}>
-              <Col lg={4} md={4} sm={12} xs={12}>
+            <Row
+              className={`${stylesHome.gridFavoriteRow} justify-content-center`}
+            >
+              <Col lg={4} md={4} sm={7} xs={12} className="py-5">
                 <div className={`${stylesHome.gridFavoriteCard}`}>
                   <img
                     src="/image 22.png"
@@ -158,7 +163,7 @@ export default function Home() {
                   </div>
                 </div>
               </Col>
-              <Col lg={4} md={4} sm={12} xs={12}>
+              <Col lg={4} md={4} sm={7} xs={12} className="py-5">
                 <div className={`${stylesHome.gridFavoriteCard}`}>
                   <img
                     src="/image 27.png"
@@ -179,7 +184,7 @@ export default function Home() {
                   </div>
                 </div>
               </Col>
-              <Col lg={4} md={4} sm={12} xs={12}>
+              <Col lg={4} md={4} sm={7} xs={12} className="py-5">
                 <div className={`${stylesHome.gridFavoriteCard}`}>
                   <img
                     src="/image 30.png"
