@@ -1,3 +1,27 @@
+@media (max-width: 512px) {
+  .formInput {
+    padding: 20px !important;
+  }
+  .col2 {
+    padding: 2px !important;
+  }
+  .unClick {
+    width: 100%;
+    font-size: 15px !important;
+    padding: 0px !important;
+    padding-top: 14px !important;
+  }
+  .click {
+    width: 100%;
+    font-size: 15px !important;
+    padding: 0px !important;
+    padding-top: 14px !important;
+  }
+}
+.validate {
+  text-align: center;
+  color: #a92c11;
+}
 .titleProduct {
   font-family: Rubik;
   font-style: normal;
@@ -67,7 +91,7 @@
   font-family: Rubik;
   font-style: normal;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   line-height: 30px;
   color: #6a4029;
 }
@@ -89,7 +113,7 @@
 .btnSave {
   width: 100%;
   height: 88px;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
   background: #6a4029;
   box-shadow: 0px 6px 20px rgba(106, 64, 41, 0.4);
   border-radius: 20px;
@@ -97,7 +121,7 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   line-height: 138.84%;
   text-align: center;
   letter-spacing: 0.03em;
@@ -106,7 +130,7 @@
 .btnSave:hover {
   width: 100%;
   height: 88px;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
   background: #a92c11;
   box-shadow: 0px 6px 20px rgba(106, 64, 41, 0.4);
   border-radius: 20px;
@@ -124,6 +148,7 @@
 .btnCancel {
   width: 100%;
   height: 88px;
+  margin-top: 20px;
   margin-bottom: 80px;
   background: rgba(186, 186, 186, 0.35);
   border-radius: 20px;
@@ -131,7 +156,7 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   line-height: 138.84%;
   text-align: center;
   letter-spacing: 0.03em;
@@ -140,6 +165,7 @@
 .btnCancel:hover {
   width: 100%;
   height: 88px;
+  margin-top: 20px;
   margin-bottom: 80px;
   background: rgba(140, 186, 170, 0.35);
   border-radius: 20px;
@@ -154,13 +180,13 @@
   letter-spacing: 0;
 }
 .formInput {
-  padding-left: 100px;
+  padding-left: 20px;
 }
 .nameLabel {
   font-family: Rubik;
   font-style: normal;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 18px;
   line-height: 30px;
   color: #6a4029;
   margin-bottom: 20px;
@@ -169,6 +195,7 @@
   border: none;
   border-bottom: 1px solid #4f5665;
   border-radius: 0px;
+  margin-top: 20px;
   margin-bottom: 54px;
   font-family: Rubik;
   font-style: normal;
@@ -181,7 +208,7 @@
   font-family: Rubik;
   font-style: normal;
   font-weight: normal;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   color: #9f9f9f;
 }

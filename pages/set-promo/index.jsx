@@ -21,6 +21,7 @@ function setpromo(props) {
     image: null,
   });
   const [imagePromo, setImagePromo] = useState("");
+  const [validate, setValidate] = useState(true);
   const [isImage, setIsImage] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -30,6 +31,20 @@ function setpromo(props) {
 
   useEffect(() => {
     setToken(Cookies.get("token"));
+    if (
+      formPromo.promoName === "" ||
+      formPromo.promoCode === "" ||
+      formPromo.promoDiscount === "" ||
+      formPromo.promoDesc === "" ||
+      formPromo.expireStart === "" ||
+      formPromo.expireEnd === "" ||
+      formPromo.minTotalPrice === "" ||
+      formPromo.maxDiscount === ""
+    ) {
+      setValidate(true);
+    } else if (formPromo) {
+      setValidate(false);
+    }
   }, []);
 
   const inputOpenFileRef = React.createRef();
@@ -39,6 +54,7 @@ function setpromo(props) {
   };
 
   const handleImage = (event) => {
+    setValidate(false);
     event.preventDefault();
     setIsImage(true);
     setImagePromo(URL.createObjectURL(event.target.files[0]));
@@ -51,37 +67,45 @@ function setpromo(props) {
 
   const handlePost = (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("promoName", formPromo.promoName);
-    formData.append("promoDiscount", formPromo.promoDiscount);
-    formData.append("expireStart", formPromo.expireStart);
-    formData.append("expireEnd", formPromo.expireEnd);
-    formData.append("minTotalPrice", formPromo.minTotalPrice);
-    formData.append("maxDiscount", formPromo.maxDiscount);
-    formData.append("promoCode", formPromo.promoCode);
-    formData.append("promoDesc", formPromo.promoDesc);
-    formData.append("image", formPromo.image);
-    props
-      .postPromo(formData, token)
-      .then((res) => {
-        setIsSuccess(true);
-        setMsgSuccess(res.action.payload.data.msg);
-        setTimeout(() => {
-          setIsSuccess(false);
-        }, 3000);
-        handleCancel();
+    if (formPromo.expireEnd === "" || formPromo.expireStart === "") {
+      setIsError(true);
+      setMsgError("Please Input From Expire Correctly!");
+      setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+    } else {
+      const formData = new FormData();
+      formData.append("promoName", formPromo.promoName);
+      formData.append("promoDiscount", formPromo.promoDiscount);
+      formData.append("expireStart", formPromo.expireStart);
+      formData.append("expireEnd", formPromo.expireEnd);
+      formData.append("minTotalPrice", formPromo.minTotalPrice);
+      formData.append("maxDiscount", formPromo.maxDiscount);
+      formData.append("promoCode", formPromo.promoCode);
+      formData.append("promoDesc", formPromo.promoDesc);
+      formData.append("image", formPromo.image);
+      props
+        .postPromo(formData, token)
+        .then((res) => {
+          setIsSuccess(true);
+          setMsgSuccess(res.action.payload.data.msg);
+          setTimeout(() => {
+            setIsSuccess(false);
+          }, 3000);
+          handleCancel();
 
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsImage(false);
-        setIsError(true);
-        setMsgError(err.response.data.msg);
-        setTimeout(() => {
-          setIsError(false);
-        }, 3000);
-      });
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsImage(false);
+          setIsError(true);
+          setMsgError(err.response.data.msg);
+          setTimeout(() => {
+            setIsError(false);
+          }, 3000);
+        });
+    }
   };
 
   const handleCancel = () => {
@@ -99,7 +123,6 @@ function setpromo(props) {
     });
   };
 
-  console.log(formPromo);
   return (
     <>
       <Layout title="Set Promo">
@@ -190,7 +213,7 @@ function setpromo(props) {
             </Col>
             <Col lg={7} md={7} sm={12} xs={12}>
               <div className={styles.leftPanel}>
-                <form>
+                <form onSubmit={(event) => handlePost(event)}>
                   <div className="form-group">
                     <label className={styles.boldBrownText}>Name: </label>
                     <input
@@ -200,6 +223,7 @@ function setpromo(props) {
                       name="promoName"
                       value={formPromo.promoName}
                       onChange={(event) => changeText(event)}
+                      required
                     ></input>
                   </div>
                   <div className="row mt-5">
@@ -214,6 +238,7 @@ function setpromo(props) {
                         name="minTotalPrice"
                         value={formPromo.minTotalPrice}
                         onChange={(event) => changeText(event)}
+                        required
                       ></input>
                     </div>
                     <div className="col">
@@ -226,6 +251,7 @@ function setpromo(props) {
                         name="maxDiscount"
                         value={formPromo.maxDiscount}
                         onChange={(event) => changeText(event)}
+                        required
                       ></input>
                     </div>
                   </div>
@@ -240,6 +266,7 @@ function setpromo(props) {
                       name="promoCode"
                       value={formPromo.promoCode}
                       onChange={(event) => changeText(event)}
+                      required
                     ></input>
                   </div>
                   <div className="form-group mt-5">
@@ -253,13 +280,11 @@ function setpromo(props) {
                       name="promoDesc"
                       value={formPromo.promoDesc}
                       onChange={(event) => changeText(event)}
+                      required
                     ></input>
                   </div>
                   <div className="pt-4">
-                    <button
-                      className={styles.brownButton}
-                      onClick={(event) => handlePost(event)}
-                    >
+                    <button className={styles.brownButton} type="submit">
                       Save Promo
                     </button>
                   </div>

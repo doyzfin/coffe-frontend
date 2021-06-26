@@ -50,11 +50,10 @@ function historyCust(props) {
     props
       .getOrder(Cookie.get("userId"), Cookie.get("token"))
       .then((res) => {
-        // console.log(res.value.data.data);
         setDataHistory(res.value.data.data);
       })
       .catch((err) => {
-        console.log(err.response);
+        alert(err.response.data.msg);
       });
   };
 
@@ -71,7 +70,17 @@ function historyCust(props) {
       });
   };
 
-  // console.log(props);
+  const convertToRupiah = (amount) => {
+    let number_string = amount.toString(),
+      sisa = number_string.length % 3,
+      rupiah = number_string.substr(0, sisa),
+      ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+    if (ribuan) {
+      let separator = sisa ? "." : "";
+      return (rupiah += separator + ribuan.join("."));
+    }
+  };
 
   return (
     <Layout title="History Customer">
@@ -101,10 +110,10 @@ function historyCust(props) {
         <Container className={styles.container}>
           <h1 className={styles.text}>Let’s see what you have bought!</h1>
           <p className={styles.noteText}>Long press to delete item</p>
-          <Row>
+          <Row class={styles.rowCardHistory}>
             {dataHistory.map((item, index) => {
               return (
-                <Col key={index} sm={4}>
+                <Col key={index} sm={4} className={styles.colHistory}>
                   {isClick ? (
                     <Card className={styles.cardHistoryClick}>
                       <img
@@ -135,20 +144,24 @@ function historyCust(props) {
                         className={styles.imgCancel}
                         onClick={handleCloseClick}
                       />
-                      <Row>
-                        <Col xs={4}>
+                      <Row className={styles.rowInfo}>
+                        <Col xs={4} className={styles.colImg}>
                           <img
                             alt=""
-                            src="/makanan3.png"
+                            src={
+                              item.product_image
+                                ? `${process.env.IMAGE_URL}/${item.product_image}`
+                                : "/makanan3.png"
+                            }
                             className={styles.imgHistory}
                           />
                         </Col>
-                        <Col xs={8}>
+                        <Col xs={8} class={styles.colInfo}>
                           <h1 className={styles.nameHistory}>
                             {item.invoice_number}
                           </h1>
                           <p className={styles.priceHistory}>
-                            IDR {item.total_price}
+                            IDR {convertToRupiah(item.total_price)}
                           </p>
                           <p className={styles.statusHistory}>
                             {item.order_status}
@@ -158,24 +171,24 @@ function historyCust(props) {
                     </Card>
                   ) : (
                     <Card className={styles.cardHistory} onClick={handleClick}>
-                      <Row>
-                        <Col xs={4}>
+                      <Row className={styles.rowInfo}>
+                        <Col xs={4} className={styles.colImg}>
                           <img
                             alt=""
                             src={
-                              item.product_image.length > 0
+                              item.product_image
                                 ? `${process.env.IMAGE_URL}/${item.product_image}`
                                 : "/makanan3.png"
                             }
                             className={styles.imgHistory}
                           />
                         </Col>
-                        <Col xs={8}>
+                        <Col xs={8} class={styles.colInfo}>
                           <h1 className={styles.nameHistory}>
                             {item.invoice_number}
                           </h1>
                           <p className={styles.priceHistory}>
-                            IDR {item.total_price}
+                            IDR {convertToRupiah(item.total_price)}
                           </p>
                           <p className={styles.statusHistory}>
                             {item.order_status}

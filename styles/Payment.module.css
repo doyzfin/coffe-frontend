@@ -1,25 +1,83 @@
-@media (max-width: 512px) {
+@media (max-width: 600px) {
   .colDetails {
     padding: 10px !important;
     margin-top: 30px !important;
   }
-  .Order {
-    text-align: center;
-  }
-  .priceOrder {
-    text-align: center;
-  }
-  .imgOrder {
-    margin-left: 90px !important;
-    margin-bottom: 20px !important;
-  }
+
   .countTotal {
     text-align: center;
   }
+
   .nominalTotal {
     text-align: center !important;
   }
+
+  .invoice .cardOrder .rowCardOrder {
+    display: flex;
+    padding: 0;
+  }
+
+  .cardOrder .colCardOrderImg,
+  .cardOrder .colCardOrder,
+  .cardOrder .colPriceOrder {
+    width: 33%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .cardOrder .priceOrder,
+  .cardOrder .colCardOrder,
+  .cardOrder .colCardOrderImg {
+    padding: 20px !important;
+    margin: 10px 0;
+    text-align: right;
+  }
+
+  .cardOrder .colCardOrder,
+  .cardOrder .colCardOrderImg {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: right !important;
+  }
+
+  .cardOrder .rowCardOrder .colCardOrderImg {
+    margin: 0 !important;
+  }
+
+  .cardOrder .rowCardOrder .colPriceOrder {
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+  }
+
+  .cardOrder .rowCardOrder .colCardOrder {
+    margin: 0;
+  }
+
+  .rowCountTotal {
+    border-top: black solid 1px !important;
+    display: flex;
+    margin: 0;
+  }
+
+  .rowCountTotal .countTotal,
+  .rowCountTotal .nominalTotal {
+    width: 50%;
+    padding: 0;
+  }
+
+  .rowCountTotal .countTotal {
+    text-align: left;
+  }
+
+  .rowCountTotal .nominalTotal {
+    text-align: right !important;
+  }
 }
+
+/* =============================================== */
 
 .mainBackground {
   background: url("/bg2.png");
@@ -52,6 +110,27 @@
   color: #362115;
   text-align: center;
 }
+
+.cardOrder .colCardOrderImg,
+.cardOrder .colCardOrder,
+.cardOrder .colPriceOrder {
+  width: 33.3%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardOrder .rowCardOrder .colPriceOrder {
+  justify-content: center;
+  text-align: center;
+}
+
+.rowCardOrder .colPriceOrder p {
+  margin: 0;
+}
+
 .Order {
   font-family: Poppins;
   margin-bottom: 5px;
@@ -75,6 +154,8 @@
   margin-top: 5px;
   margin-left: 15px;
   width: 100%;
+  border-radius: 20px;
+  border: #999694 solid 1px;
 }
 .cardOrder {
   margin-top: 40px;
@@ -123,6 +204,7 @@
 }
 .rowCountTotal {
   margin-top: 45px;
+  border-top: black solid 1px;
 }
 .countTotal {
   font-family: Poppins;
