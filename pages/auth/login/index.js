@@ -80,7 +80,7 @@ function Login(props) {
                   <img src="/coffee1.png" className="me-2"></img>
                   <span className="fw-bold my-auto ms-2">Coffee Express</span>
                 </div>
-                <div className="d-flex my-auto">
+                <div className={styles.yellowLoginButton}>
                   <button
                     className={styles.yellowExpressButton}
                     onClick={handleSignUp}
@@ -102,7 +102,10 @@ function Login(props) {
                       Success Login
                     </Alert>
                   )}
-                  <form className="mt-5 px-5" onSubmit={handleLogin}>
+                  <form
+                    className={`mt-5 ${styles.formWidth}`}
+                    onSubmit={handleLogin}
+                  >
                     <div className="my-4">
                       <span className="fw-bold">Email Address</span>
                       <input
@@ -170,7 +173,7 @@ function Login(props) {
               </div>
             </div>
           </div>
-          <div className="mt-5">
+          <div className={styles.footerSpacingLogin}>
             <Footer />
           </div>
         </div>
