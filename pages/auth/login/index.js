@@ -74,7 +74,9 @@ function Login(props) {
             </div>
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
               <div className="d-flex justify-content-between p-4">
-                <div className={`d-flex justify-content-around h-100 my-auto`}>
+                <div
+                  className={`d-flex justify-content-around h-100 my-auto d-block d-sm-none d-md-block`}
+                >
                   <img src="/coffee1.png" className="me-2"></img>
                   <span className="fw-bold my-auto ms-2">Coffee Express</span>
                 </div>
