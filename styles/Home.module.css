@@ -97,6 +97,15 @@
   margin-top: -25%;
 }
 
+@media (max-width: 575.98px) {
+  .secondRowLeft {
+    top: 50%;
+    margin-top: -25%;
+    max-width: 381px;
+    max-width: 303.859px;
+  }
+}
+
 .secondRowRightLists {
   line-height: 2rem;
   list-style-image: url("/checklist.png");
@@ -172,6 +181,18 @@
 /* Footer */
 .footerSpacing {
   margin-top: 6rem;
+}
+
+@media (max-width: 786px) and (min-width: 577px) {
+  .footerSpacing {
+    margin-top: 10rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .footerSpacing {
+    margin-top: 18rem;
+  }
 }
 
 .footerSpacingGrey {

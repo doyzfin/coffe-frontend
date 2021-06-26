@@ -127,7 +127,7 @@ export default function Home() {
             </Col>
           </Row>
         </Container>
-        <div className={`${stylesHome.greyBackground} mt-5`}>
+        <div className={`${stylesHome.greyBackground} position-relative mt-5`}>
           <Container className="pt-5">
             <Row className="py-5">
               <h2 className="text-center">Here Is People's Favorite</h2>
@@ -229,8 +229,8 @@ export default function Home() {
                 great pleasure.
               </span>
             </Row>
-            <Row className="mt-2">
-              <Col lg={4} md={4} sm={12} xs={12}>
+            <Row>
+              <Col lg={4} md={4} sm={12} xs={12} className="pt-3">
                 <Card className={stylesHome.testimonyCard}>
                   <div className="p-3">
                     <Row>
@@ -259,7 +259,7 @@ export default function Home() {
                   </div>
                 </Card>
               </Col>
-              <Col lg={4} md={4} sm={12} xs={12}>
+              <Col lg={4} md={4} sm={12} xs={12} className="pt-3">
                 <Card className={stylesHome.testimonyCard}>
                   <div className="p-3">
                     <Row>
@@ -288,7 +288,7 @@ export default function Home() {
                   </div>
                 </Card>
               </Col>
-              <Col lg={4} md={4} sm={12} xs={12}>
+              <Col lg={4} md={4} sm={12} xs={12} className="pt-3">
                 <Card className={stylesHome.testimonyCard}>
                   <div className="p-3">
                     <Row>
