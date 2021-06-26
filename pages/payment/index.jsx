@@ -99,7 +99,10 @@ export default function payment(props) {
     } else {
       const setData = {
         userId: Cookies.get("userId"),
-        invoicePromoCode: dataCoupons[0].promoCode,
+        invoicePromoCode:
+          dataCoupons.length > 0
+            ? dataCoupons[0].promoCode
+            : "No Coupon Selected",
         invoiceSubtotal:
           useCoupun != undefined
             ? subTotal <= useCoupun
@@ -116,6 +119,7 @@ export default function payment(props) {
           totalPrice: item[2],
         };
       });
+
       axiosApiIntances
         .post("/invoice/create", setData, {
           headers: {
@@ -125,8 +129,11 @@ export default function payment(props) {
         .then((res) => {
           Cookies.remove("coupon");
           Cookies.remove("item");
+          if (paymentMethod == "Midtrans") {
+            window.open(res.data.data);
+          }
           alert("Pesanan berhasil");
-          router.push("/product-cust");
+          router.push("product-cust");
         })
         .catch((err) => {
           alert(err.response.data.msg);
