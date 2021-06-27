@@ -4,7 +4,7 @@
   }
 
   .cardHistory {
-    padding: 20px !important;
+    padding: 0 40px !important;
     box-sizing: border-box;
     margin: 0 !important;
   }
@@ -22,7 +22,11 @@
   }
 
   .container .rowCardHistory {
-    padding: 50px !important;
+    padding: 0px !important;
+  }
+
+  .container .rowCardHistory .colHistory {
+    width: 50%;
   }
 
   .nameHistory,
@@ -32,21 +36,26 @@
   }
 
   .nameHistory {
-    font-size: 20px !important;
+    font-size: 15px !important;
   }
 
   .priceHistory {
-    font-size: 15px !important;
+    font-size: 10px !important;
   }
 
   .statusHistory {
-    font-size: 15px !important;
+    font-size: 10px !important;
   }
 
   .colImg {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .colImg img {
+    width: 50px !important;
+    height: 50px !important;
   }
 }
 
