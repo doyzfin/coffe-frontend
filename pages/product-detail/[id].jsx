@@ -7,6 +7,7 @@ import Footer from "components/module/footer";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
