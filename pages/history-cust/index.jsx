@@ -110,10 +110,10 @@ function historyCust(props) {
         <Container className={styles.container}>
           <h1 className={styles.text}>Let’s see what you have bought!</h1>
           <p className={styles.noteText}>Long press to delete item</p>
-          <Row class={styles.rowCardHistory}>
+          <Row className={styles.rowCardHistory}>
             {dataHistory.map((item, index) => {
               return (
-                <Col key={index} sm={4} className={styles.colHistory}>
+                <Col key={index} sm={6} md={4} className={styles.colHistory}>
                   {isClick ? (
                     <Card className={styles.cardHistoryClick}>
                       <img
@@ -156,7 +156,7 @@ function historyCust(props) {
                             className={styles.imgHistory}
                           />
                         </Col>
-                        <Col xs={8} class={styles.colInfo}>
+                        <Col xs={8} className={styles.colInfo}>
                           <h1 className={styles.nameHistory}>
                             {item.invoice_number}
                           </h1>
@@ -183,7 +183,7 @@ function historyCust(props) {
                             className={styles.imgHistory}
                           />
                         </Col>
-                        <Col xs={8} class={styles.colInfo}>
+                        <Col xs={8} className={styles.colInfo}>
                           <h1 className={styles.nameHistory}>
                             {item.invoice_number}
                           </h1>
