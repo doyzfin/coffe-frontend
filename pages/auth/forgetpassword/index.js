@@ -89,20 +89,20 @@ export default function forgetpassword() {
                 </button>
               </form>
               <div className="mt-4">
-                {isError && (
+                {/* {isError && (
                   <Alert
                     variant="danger"
                     className={`${forgetStyles.alert} mx-auto`}
                   >
                     Email not registered !
                   </Alert>
-                )}
-                {/* <Alert
+                )} */}
+                <Alert
                   variant="danger"
                   className={`${forgetStyles.alert} mx-auto`}
                 >
                   Email not registered !
-                </Alert> */}
+                </Alert>
               </div>
               <div className={forgetStyles.lowerHeaderContent}>
                 <span className="text-center d-block fw-bold">

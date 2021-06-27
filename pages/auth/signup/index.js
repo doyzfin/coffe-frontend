@@ -104,6 +104,12 @@ export default function signup() {
                       !
                     </Alert>
                   )}
+                  {/* <Alert variant="danger" className={styles.alert}>
+                    {msgError}
+                  </Alert>
+                  <Alert variant="success" className={styles.alert}>
+                    Register Succesful please check your email for activation !
+                  </Alert> */}
                   <form className={`mt-5 ${styles.formWidth}`}>
                     <div className="my-4">
                       <span className="fw-bold">Email Address</span>
@@ -173,8 +179,10 @@ export default function signup() {
               </div>
             </div>
           </div>
-          <div className={styles.footerSpacingSignup}>
-            <Footer />
+          <div className="pt-5">
+            <div className={`${styles.footerSpacingSignup} pt-5`}>
+              <Footer />
+            </div>
           </div>
         </div>
       </Layout>
