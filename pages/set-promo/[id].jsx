@@ -119,39 +119,56 @@ function updatepromo(props) {
 
   const updateData = (event) => {
     event.preventDefault();
-    const id = props.data.promo_id;
-    const formData = new FormData();
-    formData.append("promoName", formPromo.promoName);
-    formData.append("promoCode", formPromo.promoCode);
-    formData.append("promoDiscount", formPromo.promoDiscount);
-    formData.append("promoDesc", formPromo.promoDesc);
-    formData.append("expireStart", formPromo.expireStart);
-    formData.append("expireEnd", formPromo.expireEnd);
-    formData.append("minTotalPrice", formPromo.minTotalPrice);
-    formData.append("maxDiscount", formPromo.maxDiscount);
-    if (typeof formPromo.image === "object") {
-      formData.append("image", formPromo.image);
+    if (
+      formPromo.promoName === "" ||
+      formPromo.promoCode === "" ||
+      formPromo.promoDiscount === "" ||
+      formPromo.promoDesc === "" ||
+      formPromo.expireStart === "" ||
+      formPromo.expireEnd === "" ||
+      formPromo.minTotalPrice === "" ||
+      formPromo.maxDiscount === ""
+    ) {
+      setIsError(true);
+      setMsgError("please fill your input correctly !");
+      setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+    } else {
+      const id = props.data.promo_id;
+      const formData = new FormData();
+      formData.append("promoName", formPromo.promoName);
+      formData.append("promoCode", formPromo.promoCode);
+      formData.append("promoDiscount", formPromo.promoDiscount);
+      formData.append("promoDesc", formPromo.promoDesc);
+      formData.append("expireStart", formPromo.expireStart);
+      formData.append("expireEnd", formPromo.expireEnd);
+      formData.append("minTotalPrice", formPromo.minTotalPrice);
+      formData.append("maxDiscount", formPromo.maxDiscount);
+      if (typeof formPromo.image === "object") {
+        formData.append("image", formPromo.image);
+      }
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+      props
+        .updatePromo(id, formData, token)
+        .then((res) => {
+          setIsSuccess(true);
+          setMsgSuccess(res.action.payload.data.msg);
+          setTimeout(() => {
+            setIsSuccess(false);
+          }, 3000);
+          router.push("/product-admin");
+        })
+        .catch((err) => {
+          setIsError(true);
+          setMsgError(err.response.data.msg);
+          setTimeout(() => {
+            setIsError(false);
+          }, 3000);
+        });
     }
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
-    props
-      .updatePromo(id, formData, token)
-      .then((res) => {
-        setIsSuccess(true);
-        setMsgSuccess(res.action.payload.data.msg);
-        setTimeout(() => {
-          setIsSuccess(false);
-        }, 3000);
-        router.push("/product-admin");
-      })
-      .catch((err) => {
-        setIsError(true);
-        setMsgError(err.response.data.msg);
-        setTimeout(() => {
-          setIsError(false);
-        }, 3000);
-      });
   };
 
   const handleDelete = (event) => {
