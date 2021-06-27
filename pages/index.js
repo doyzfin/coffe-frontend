@@ -37,55 +37,67 @@ export default function Home() {
                 className={`container position-absolute ${stylesHome.headerCardBackground}`}
               >
                 <div className={`${stylesHome.headerCardRow} row py-4`}>
-                  <Col>
-                    <Row className="h-100">
-                      <Col className="my-auto">
-                        <div
-                          className={`${stylesHome.yellowBulletBackground} float-end`}
-                        >
+                  <Col lg={4} md={4} sm={4} xs={4}>
+                    <Row className={`${stylesHome.cardContentCenter} h-100`}>
+                      <Col lg={2} md={3} sm={4} xs={5}>
+                        <div className={`${stylesHome.yellowBulletBackground}`}>
                           <img
                             src="/vector_orang.png"
                             className={stylesHome.cardBulletImage}
                           ></img>
                         </div>
                       </Col>
-                      <Col className={stylesHome.bulletDescription}>
+                      <Col
+                        lg={2}
+                        md={2}
+                        sm={2}
+                        xs={2}
+                        className={stylesHome.bulletDescription}
+                      >
                         <span className="fw-bold d-block">90+</span>
                         <span className="d-block">Staff</span>
                       </Col>
                     </Row>
                   </Col>
-                  <Col>
-                    <Row className="h-100">
-                      <Col className="my-auto">
-                        <div
-                          className={`${stylesHome.yellowBulletBackground} float-end`}
-                        >
+                  <Col lg={4} md={4} sm={4} xs={4}>
+                    <Row className={`${stylesHome.cardContentCenter} h-100`}>
+                      <Col lg={2} md={3} sm={4} xs={5}>
+                        <div className={`${stylesHome.yellowBulletBackground}`}>
                           <img
                             src="/vector_map.png"
                             className={`${stylesHome.cardBulletImage}`}
                           ></img>
                         </div>
                       </Col>
-                      <Col className={stylesHome.bulletDescription}>
+                      <Col
+                        lg={2}
+                        md={2}
+                        sm={2}
+                        xs={2}
+                        className={stylesHome.bulletDescription}
+                      >
                         <span className="fw-bold d-block">30+</span>
                         <span className="d-block">Store</span>
                       </Col>
                     </Row>
                   </Col>
-                  <Col>
-                    <Row className="h-100">
-                      <Col className="my-auto">
-                        <div
-                          className={`${stylesHome.yellowBulletBackground} float-end`}
-                        >
+                  <Col lg={4} md={4} sm={4} xs={4}>
+                    <Row className={`${stylesHome.cardContentCenter} h-100`}>
+                      <Col lg={2} md={3} sm={4} xs={5}>
+                        <div className={`${stylesHome.yellowBulletBackground}`}>
                           <img
                             src="/vector_hati.png"
                             className={`${stylesHome.cardBulletImage} ${stylesHome.heartBulletSize}`}
                           ></img>
                         </div>
                       </Col>
-                      <Col className={stylesHome.bulletDescription}>
+                      <Col
+                        lg={2}
+                        md={2}
+                        sm={2}
+                        xs={2}
+                        className={stylesHome.bulletDescription}
+                      >
                         <span className="fw-bold d-block">30+</span>
                         <span className="d-block">Store</span>
                       </Col>
@@ -97,11 +109,11 @@ export default function Home() {
           </Container>
         </div>
         <Container className={`${stylesHome.secondRow}`}>
-          <Row className="pb-5 justify-content-center">
+          <Row className="pb-5">
             <Col lg={6} md={6} sm={9} xs={12} className={`pb-5`}>
               <img
                 src="/35744 1.png"
-                className={`img-fluid position-relative ${stylesHome.secondRowLeft}`}
+                className={`img-fluid mx-auto position-relative ${stylesHome.secondRowLeft}`}
               ></img>
             </Col>
             <Col lg={6} md={6} sm={9} xs={12} className={`pb-5`}>

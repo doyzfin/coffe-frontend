@@ -65,6 +65,7 @@
   top: 89%;
   margin: auto;
   max-width: 1140px;
+  border-radius: 10px;
   box-shadow: 6px 0px 20px 0px #313131;
 }
 
@@ -73,6 +74,18 @@
   color: black;
   position: relative;
   border-radius: 10px;
+}
+
+.cardContentCenter {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 575.98px) {
+  .cardContentCenter {
+    display: flex;
+    justify-content: left;
+  }
 }
 
 /* Second Row */
