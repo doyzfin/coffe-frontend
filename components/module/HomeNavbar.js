@@ -2,6 +2,7 @@ import { Container, Navbar, Nav, Row, Col } from "react-bootstrap";
 import styles from "../../styles/NavBar.module.css";
 import homeStyles from "../../styles/HomeNavbar.module.css";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 
@@ -28,6 +29,11 @@ function HomeNavBar(props) {
   const moveToProfile = () => {
     router.push("/profile");
   };
+
+  const moveToSignup = () => {
+    router.push("/signup");
+  };
+
   // console.log(user);
   return (
     <Container fluid className={styles.main}>
@@ -76,10 +82,18 @@ function HomeNavBar(props) {
               Dashboard
             </Nav.Link>
           </Nav>
-          <Nav.Link className={`${styles.navLink} me-5 fw-bold`}>
+          <Nav.Link
+            onClick={() => {
+              router.push("/login");
+            }}
+            className={`${styles.navLink} me-5 fw-bold`}
+          >
             Login
           </Nav.Link>
-          <button className={`${homeStyles.yellowButton} fw-bold`}>
+          <button
+            onClick={moveToSignup}
+            className={`${homeStyles.yellowButton} fw-bold`}
+          >
             Sign Up
           </button>
         </Navbar.Collapse>
