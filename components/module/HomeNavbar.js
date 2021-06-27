@@ -1,47 +1,34 @@
-import { Container, Navbar, Nav, Form, Row, Col } from "react-bootstrap";
+import { Container, Navbar, Nav, Row, Col } from "react-bootstrap";
 import styles from "../../styles/NavBar.module.css";
+import homeStyles from "../../styles/HomeNavbar.module.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 
 import { connect } from "react-redux";
-import { setKeywords } from "redux/actions/keywords";
 import { getUser } from "redux/actions/user";
 
-function NavBar(props) {
+function HomeNavBar(props) {
   const router = useRouter();
-  const [search, setSearch] = useState("");
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    props
-      .getUser(Cookie.get("userId"), Cookie.get("token"))
-      .then((res) => {
-        if (!props.global) {
-          if (res.value.data.data[0].user_role !== "customer") {
-            window.location.href = "/product-admin";
-          }
-        }
-        setUser(res.value.data.data[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const setKeywordsStore = (text) => {
-    setSearch(text);
-    props.setKeywords(text);
-    if (props.catchKey) {
-      props.catchKey(text);
+    if (Cookie.get("token")) {
+      props
+        .getUser(Cookie.get("userId"), Cookie.get("token"))
+        .then((res) => {
+          setUser(res.value.data.data[0]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  };
+  }, []);
 
   const moveToProfile = () => {
     router.push("/profile");
   };
-
-  // console.log("NAV", user);
+  // console.log(user);
   return (
     <Container fluid className={styles.main}>
       <Container>
@@ -56,57 +43,103 @@ function NavBar(props) {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className={styles.form}>
-              <Nav.Link
-                className={styles.navLink}
-                onClick={() => {
-                  router.push("/");
-                }}
-              >
-                Home
-              </Nav.Link>
-              <Nav.Link
-                className={styles.navLink}
-                onClick={() => {
-                  router.push("/product-cust");
-                }}
-              >
-                Product
-              </Nav.Link>
-              <Nav.Link
-                href="#"
-                className={styles.navLink}
-                onClick={() => {
-                  router.push("/payment");
-                }}
-              >
-                Your Chart
-              </Nav.Link>
-              <Nav.Link
-                href="#"
-                className={styles.navLink}
-                onClick={() => {
-                  router.push("/history-cust");
-                }}
-              >
-                History
-              </Nav.Link>
-            </Nav>
-            {props.catchKey ? (
-              <Form>
-                <Form.Control
-                  type="text"
-                  placeholder="Search"
-                  className={styles.formControl}
-                  onChange={(event) => {
-                    setKeywordsStore(event.target.value);
+            {user.user_role === "admin" ? (
+              <Nav className={styles.form}>
+                <Nav.Link
+                  className={styles.navLink}
+                  onClick={() => {
+                    router.push("/");
                   }}
-                />
-              </Form>
+                >
+                  Home
+                </Nav.Link>
+                <Nav.Link
+                  className={styles.navLink}
+                  onClick={() => {
+                    router.push("/product-admin");
+                  }}
+                >
+                  Product
+                </Nav.Link>
+                <Nav.Link
+                  className={styles.navLink}
+                  onClick={() => {
+                    router.push("/manage-order-admin");
+                  }}
+                >
+                  Orders
+                </Nav.Link>
+                <Nav.Link
+                  className={styles.navLink}
+                  onClick={() => {
+                    router.push("/admin-dashboard");
+                  }}
+                >
+                  Dashboard
+                </Nav.Link>
+              </Nav>
             ) : (
-              ""
+              <Nav className={styles.form}>
+                <Nav.Link
+                  className={styles.navLink}
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                >
+                  Home
+                </Nav.Link>
+                <Nav.Link
+                  className={styles.navLink}
+                  onClick={() => {
+                    router.push("/product-cust");
+                  }}
+                >
+                  Product
+                </Nav.Link>
+                <Nav.Link
+                  href="#"
+                  className={styles.navLink}
+                  onClick={() => {
+                    router.push("/payment");
+                  }}
+                >
+                  Your Chart
+                </Nav.Link>
+                <Nav.Link
+                  href="#"
+                  className={styles.navLink}
+                  onClick={() => {
+                    router.push("/history-cust");
+                  }}
+                >
+                  History
+                </Nav.Link>
+              </Nav>
             )}
-            <img alt="" src="/chat.png" className={styles.notif} />
+            {Cookie.get("token") ? (
+              ""
+            ) : (
+              <Nav.Link
+                className={`${styles.navLink} me-5 fw-bold`}
+                onClick={() => {
+                  router.push("/login");
+                }}
+              >
+                Login
+              </Nav.Link>
+            )}
+            {Cookie.get("token") ? (
+              ""
+            ) : (
+              <button
+                className={`${homeStyles.yellowButton} fw-bold`}
+                onClick={() => {
+                  router.push("/signup");
+                }}
+              >
+                Sign Up
+              </button>
+            )}
             {user.user_image ? (
               <img
                 alt=""
@@ -117,7 +150,7 @@ function NavBar(props) {
                   moveToProfile();
                 }}
               />
-            ) : (
+            ) : Cookie.get("token") ? (
               <img
                 alt=""
                 src="/no-img.png"
@@ -127,6 +160,8 @@ function NavBar(props) {
                   moveToProfile();
                 }}
               />
+            ) : (
+              ""
             )}
           </Navbar.Collapse>
         </Navbar>
@@ -135,5 +170,5 @@ function NavBar(props) {
   );
 }
 
-const mapDispatchToProps = { setKeywords, getUser };
-export default connect(null, mapDispatchToProps)(NavBar);
+const mapDispatchToProps = { getUser };
+export default connect(null, mapDispatchToProps)(HomeNavBar);
