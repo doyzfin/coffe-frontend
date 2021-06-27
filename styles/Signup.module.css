@@ -32,6 +32,16 @@
   transform: translate(-50%, -50%);
 }
 
+.memberCardLogin {
+  position: absolute;
+  width: 50rem;
+  left: 50%;
+  right: 50%;
+  z-index: 2;
+  top: 96%;
+  transform: translate(-50%, -50%);
+}
+
 @media (max-width: 930px) and (min-width: 577px) {
   .memberCard {
     top: 767.625px;
@@ -40,7 +50,13 @@
 
 @media (max-width: 576px) {
   .memberCard {
-    top: 108%;
+    top: 116%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .memberCardLogin {
+    top: 115%;
     padding-left: 2rem;
     padding-right: 2rem;
   }
