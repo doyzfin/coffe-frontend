@@ -64,6 +64,8 @@
   right: 0;
   top: 89%;
   margin: auto;
+  max-width: 1140px;
+  border-radius: 10px;
   box-shadow: 6px 0px 20px 0px #313131;
 }
 
@@ -72,6 +74,18 @@
   color: black;
   position: relative;
   border-radius: 10px;
+}
+
+.cardContentCenter {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 575.98px) {
+  .cardContentCenter {
+    display: flex;
+    justify-content: left;
+  }
 }
 
 /* Second Row */
@@ -91,6 +105,20 @@
   line-height: 2rem;
 }
 
+.secondRowLeft {
+  top: 50%;
+  margin-top: -25%;
+}
+
+@media (max-width: 575.98px) {
+  .secondRowLeft {
+    top: 50%;
+    margin-top: -25%;
+    max-width: 381px;
+    max-width: 303.859px;
+  }
+}
+
 .secondRowRightLists {
   line-height: 2rem;
   list-style-image: url("/checklist.png");
@@ -106,20 +134,26 @@
   left: 0;
   right: 0;
   margin: auto;
-  width: 50rem;
+  max-width: 50rem;
 }
 
 .gridFavoriteCard {
   border: 1px solid #dddddd;
   border-radius: 10px;
   position: relative;
-  height: 100%;
+  min-height: 100%;
+}
+
+.divFavoriteCardInner {
+  height: inherit;
 }
 
 .gridFavoritePicture {
   border-radius: 70px;
   top: -15%;
-  left: 23%;
+  left: 0;
+  right: 0;
+  margin: auto;
   position: absolute;
 }
 
@@ -127,11 +161,32 @@
   position: relative;
   margin-top: 45%;
   font-weight: bold;
+  height: 300px;
+}
+
+.gridFavoriteFooterSkin {
+  height: 100%;
 }
 
 .gridFavoriteFooter {
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.gridFavotireSelectButtonPosition {
   position: relative;
   bottom: 0;
+  margin: bottom;
+}
+
+.gridFavoriteSelectButton {
+  background-color: #ffba33;
+  border: 1px solid #ffba33;
+  position: relative;
+  margin: auto;
+  border-radius: 50px;
+  height: 38px;
+  width: 55%;
 }
 
 .gridFavoriteDescriptionLists {
@@ -149,7 +204,7 @@
 .footerCardBackground {
   left: 0;
   right: 0;
-  width: 60rem;
+  max-width: 60rem;
   top: 102%;
   margin: auto;
 }
@@ -164,6 +219,18 @@
 /* Footer */
 .footerSpacing {
   margin-top: 6rem;
+}
+
+@media (max-width: 786px) and (min-width: 577px) {
+  .footerSpacing {
+    margin-top: 10rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .footerSpacing {
+    margin-top: 18rem;
+  }
 }
 
 .footerSpacingGrey {

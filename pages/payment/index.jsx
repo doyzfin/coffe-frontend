@@ -1,5 +1,4 @@
 import Layout from "components/Layout";
-import NavBar from "components/module/NavBar";
 import Footer from "components/module/footer";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import styles from "../../styles/Payment.module.css";
@@ -8,6 +7,7 @@ import Cookies from "js-cookie";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
 import { useRouter } from "next/router";
+import NavBar from "components/module/NavBar";
 
 export async function getServerSideProps(context) {
   const { productId } = context.query;
@@ -99,7 +99,10 @@ export default function payment(props) {
     } else {
       const setData = {
         userId: Cookies.get("userId"),
-        invoicePromoCode: dataCoupons[0].promoCode,
+        invoicePromoCode:
+          dataCoupons.length > 0
+            ? dataCoupons[0].promoCode
+            : "No Coupon Selected",
         invoiceSubtotal:
           useCoupun != undefined
             ? subTotal <= useCoupun
@@ -116,6 +119,7 @@ export default function payment(props) {
           totalPrice: item[2],
         };
       });
+
       axiosApiIntances
         .post("/invoice/create", setData, {
           headers: {
@@ -125,8 +129,11 @@ export default function payment(props) {
         .then((res) => {
           Cookies.remove("coupon");
           Cookies.remove("item");
+          if (paymentMethod == "Midtrans") {
+            window.open(res.data.data);
+          }
           alert("Pesanan berhasil");
-          router.push("/product-cust");
+          router.push("product-cust");
         })
         .catch((err) => {
           alert(err.response.data.msg);

@@ -10,7 +10,6 @@
   }
 
   .colHistory {
-    width: 50%;
     padding: 10px !important;
   }
 
@@ -23,13 +22,7 @@
   }
 
   .container .rowCardHistory {
-    border: black solid 1px !important;
     padding: 50px !important;
-  }
-
-  .colInfo {
-    border: red solid 1px !important;
-    background-color: black !important;
   }
 
   .nameHistory,

@@ -1,5 +1,8 @@
 .leftSide {
-  background-color: blue;
+  background-image: url("/signup/signup_left_page.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
 }
 
 .removeRowMargin {
@@ -25,8 +28,22 @@
   left: 50%;
   right: 50%;
   z-index: 2;
-  margin-top: 68rem;
+  top: 96%;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 930px) and (min-width: 577px) {
+  .memberCard {
+    top: 767.625px;
+  }
+}
+
+@media (max-width: 576px) {
+  .memberCard {
+    top: 108%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 .yellowExpressButtonLarger {
@@ -35,6 +52,12 @@
   border: 1px solid #ffba33;
   border-radius: 15px;
   height: 48px;
+}
+
+.yellowLoginButton {
+  position: relative;
+  right: 0;
+  margin-left: auto;
 }
 
 .yellowCardButton {
@@ -54,6 +77,14 @@
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
 }
 
+.formWidth {
+  position: relative;
+  max-width: 448px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
 .inputHeight {
   height: 48px;
   border-radius: 15px;
@@ -64,4 +95,23 @@
   margin: 0 auto;
   margin-top: 20px;
   border-radius: 15px;
+}
+
+/* Footer Spacing */
+.footerSpacingSignup {
+  margin-top: 7rem;
+}
+
+.footerSpacingLogin {
+  margin-top: 9rem;
+}
+
+@media (max-width: 576px) {
+  .footerSpacingSignup {
+    margin-top: 8rem;
+  }
+
+  .footerSpacingLogin {
+    margin-top: 8rem;
+  }
 }

@@ -31,8 +31,8 @@ export default function footer() {
         <span className="d-block my-3">Countries</span> 
         <span className="d-block my-3">Blog</span>
       </div>
-      <div className="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-      <span className="d-block fw-bold mb-1">Engage</span> 
+      <div className={`col-lg-2 col-md-2 col-sm-2 col-xs-12`}>
+      <span className={`d-block fw-bold mb-1 ${styles.verticalGap}`}>Engage</span> 
         <span className="d-block my-3">Coffee Shop ?</span> 
         <span className="d-block my-3">FAQ</span>
         <span className="d-block my-3">About Us</span>

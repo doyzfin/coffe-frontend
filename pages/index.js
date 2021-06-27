@@ -37,55 +37,67 @@ export default function Home() {
                 className={`container position-absolute ${stylesHome.headerCardBackground}`}
               >
                 <div className={`${stylesHome.headerCardRow} row py-4`}>
-                  <Col>
-                    <Row className="h-100">
-                      <Col className="my-auto">
-                        <div
-                          className={`${stylesHome.yellowBulletBackground} float-end`}
-                        >
+                  <Col lg={4} md={4} sm={4} xs={4}>
+                    <Row className={`${stylesHome.cardContentCenter} h-100`}>
+                      <Col lg={2} md={3} sm={4} xs={5}>
+                        <div className={`${stylesHome.yellowBulletBackground}`}>
                           <img
                             src="/vector_orang.png"
                             className={stylesHome.cardBulletImage}
                           ></img>
                         </div>
                       </Col>
-                      <Col className={stylesHome.bulletDescription}>
+                      <Col
+                        lg={2}
+                        md={2}
+                        sm={2}
+                        xs={2}
+                        className={stylesHome.bulletDescription}
+                      >
                         <span className="fw-bold d-block">90+</span>
                         <span className="d-block">Staff</span>
                       </Col>
                     </Row>
                   </Col>
-                  <Col>
-                    <Row className="h-100">
-                      <Col className="my-auto">
-                        <div
-                          className={`${stylesHome.yellowBulletBackground} float-end`}
-                        >
+                  <Col lg={4} md={4} sm={4} xs={4}>
+                    <Row className={`${stylesHome.cardContentCenter} h-100`}>
+                      <Col lg={2} md={3} sm={4} xs={5}>
+                        <div className={`${stylesHome.yellowBulletBackground}`}>
                           <img
                             src="/vector_map.png"
                             className={`${stylesHome.cardBulletImage}`}
                           ></img>
                         </div>
                       </Col>
-                      <Col className={stylesHome.bulletDescription}>
+                      <Col
+                        lg={2}
+                        md={2}
+                        sm={2}
+                        xs={2}
+                        className={stylesHome.bulletDescription}
+                      >
                         <span className="fw-bold d-block">30+</span>
                         <span className="d-block">Store</span>
                       </Col>
                     </Row>
                   </Col>
-                  <Col>
-                    <Row className="h-100">
-                      <Col className="my-auto">
-                        <div
-                          className={`${stylesHome.yellowBulletBackground} float-end`}
-                        >
+                  <Col lg={4} md={4} sm={4} xs={4}>
+                    <Row className={`${stylesHome.cardContentCenter} h-100`}>
+                      <Col lg={2} md={3} sm={4} xs={5}>
+                        <div className={`${stylesHome.yellowBulletBackground}`}>
                           <img
                             src="/vector_hati.png"
                             className={`${stylesHome.cardBulletImage} ${stylesHome.heartBulletSize}`}
                           ></img>
                         </div>
                       </Col>
-                      <Col className={stylesHome.bulletDescription}>
+                      <Col
+                        lg={2}
+                        md={2}
+                        sm={2}
+                        xs={2}
+                        className={stylesHome.bulletDescription}
+                      >
                         <span className="fw-bold d-block">30+</span>
                         <span className="d-block">Store</span>
                       </Col>
@@ -96,12 +108,15 @@ export default function Home() {
             </Row>
           </Container>
         </div>
-        <Container className={stylesHome.secondRow}>
+        <Container className={`${stylesHome.secondRow}`}>
           <Row className="pb-5">
-            <Col lg={6} md={6} sm={5} xs={12}>
-              <img src="/35744 1.png" className="img-fluid"></img>
+            <Col lg={6} md={6} sm={9} xs={12} className={`pb-5`}>
+              <img
+                src="/35744 1.png"
+                className={`img-fluid mx-auto position-relative ${stylesHome.secondRowLeft}`}
+              ></img>
             </Col>
-            <Col lg={6} md={6} sm={6} xs={12}>
+            <Col lg={6} md={6} sm={9} xs={12} className={`pb-5`}>
               <div className={`position-relative ${stylesHome.secondRowRight}`}>
                 <h2 className={`${stylesHome.secondRowRightHeader} fw-bold`}>
                   We Provide Good Coffee and Healthy Meals
@@ -124,8 +139,8 @@ export default function Home() {
             </Col>
           </Row>
         </Container>
-        <div className={`${stylesHome.greyBackground}`}>
-          <Container className="py-5">
+        <div className={`${stylesHome.greyBackground} position-relative mt-5`}>
+          <Container className="pt-5">
             <Row className="py-5">
               <h2 className="text-center">Here Is People's Favorite</h2>
               <span className="d-block text-center text-wrap">
@@ -135,30 +150,39 @@ export default function Home() {
             </Row>
           </Container>
           <Container className="position-relative">
-            <Row className={stylesHome.gridFavoriteRow}>
-              <Col lg={4} md={4} sm={12} xs={12}>
+            <Row
+              className={`${stylesHome.gridFavoriteRow} justify-content-center`}
+            >
+              <Col lg={4} md={4} sm={7} xs={12} className="py-5">
                 <div className={`${stylesHome.gridFavoriteCard}`}>
-                  <img
-                    src="/image 22.png"
-                    className={stylesHome.gridFavoritePicture}
-                  ></img>
-                  <div className={`${stylesHome.gridFavoriteDescription} `}>
-                    <span className={`d-block text-center`}>
-                      Hazelnut Latte
-                    </span>
-                    <ul className={stylesHome.gridFavoriteDescriptionLists}>
-                      <li>Hazelnut Syrup</li>
-                      <li>Wanilla Whipped Cream</li>
-                      <li>Ice / Hot</li>
-                      <li>Sliced Banana on Top</li>
-                    </ul>
-                    <h5 className={`${stylesHome.gridFavoriteFooter} fw-bold`}>
-                      IDR 25.000
-                    </h5>
+                  <div className={stylesHome.gridFavoriteCardInner}>
+                    <img
+                      src="/image 22.png"
+                      className={stylesHome.gridFavoritePicture}
+                    ></img>
+                    <div className={`${stylesHome.gridFavoriteDescription} `}>
+                      <span className={`d-block text-center`}>
+                        Hazelnut Latte
+                      </span>
+                      <ul className={stylesHome.gridFavoriteDescriptionLists}>
+                        <li>Hazelnut Syrup</li>
+                        <li>Wanilla Whipped Cream</li>
+                        <li>Ice / Hot</li>
+                        <li>Sliced Banana on Top</li>
+                      </ul>
+                    </div>
+                    <h5 className={`fw-bold text-center`}>IDR 25.000</h5>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className={`${stylesHome.gridFavoriteSelectButton}`}
+                      >
+                        Select
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Col>
-              <Col lg={4} md={4} sm={12} xs={12}>
+              <Col lg={4} md={4} sm={7} xs={12} className="py-5">
                 <div className={`${stylesHome.gridFavoriteCard}`}>
                   <img
                     src="/image 27.png"
@@ -173,13 +197,20 @@ export default function Home() {
                       <li>Strawberry Syrup</li>
                       <li>Sliced Strawberry on Top</li>
                     </ul>
-                    <h5 className={`${stylesHome.gridFavoriteFooter} fw-bold`}>
-                      IDR 30.000
-                    </h5>
+                  </div>
+                  <div className="pb-4">
+                    <h5 className={`fw-bold text-center`}>IDR 30.000</h5>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className={`${stylesHome.gridFavoriteSelectButton}`}
+                      >
+                        Select
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Col>
-              <Col lg={4} md={4} sm={12} xs={12}>
+              <Col lg={4} md={4} sm={7} xs={12} className="py-5">
                 <div className={`${stylesHome.gridFavoriteCard}`}>
                   <img
                     src="/image 30.png"
@@ -195,7 +226,16 @@ export default function Home() {
                       <li>Secret Recipe</li>
                       <li>Buy 1 Get 1 for Dine in</li>
                     </ul>
-                    <h5 className="fw-bold">IDR 30.000</h5>
+                  </div>
+                  <div className="pb-4">
+                    <h5 className="fw-bold text-center">IDR 30.000</h5>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className={`${stylesHome.gridFavoriteSelectButton}`}
+                      >
+                        Select
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Col>
@@ -224,8 +264,8 @@ export default function Home() {
                 great pleasure.
               </span>
             </Row>
-            <Row className="mt-2">
-              <Col lg={4} md={4} sm={12} xs={12}>
+            <Row>
+              <Col lg={4} md={4} sm={12} xs={12} className="pt-3">
                 <Card className={stylesHome.testimonyCard}>
                   <div className="p-3">
                     <Row>
@@ -254,7 +294,7 @@ export default function Home() {
                   </div>
                 </Card>
               </Col>
-              <Col lg={4} md={4} sm={12} xs={12}>
+              <Col lg={4} md={4} sm={12} xs={12} className="pt-3">
                 <Card className={stylesHome.testimonyCard}>
                   <div className="p-3">
                     <Row>
@@ -283,7 +323,7 @@ export default function Home() {
                   </div>
                 </Card>
               </Col>
-              <Col lg={4} md={4} sm={12} xs={12}>
+              <Col lg={4} md={4} sm={12} xs={12} className="pt-3">
                 <Card className={stylesHome.testimonyCard}>
                   <div className="p-3">
                     <Row>

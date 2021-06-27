@@ -1,9 +1,11 @@
 .main {
+  position: relative;
   background: #ffffff;
   border-bottom: 0.5px solid #9f9f9f;
   box-sizing: border-box;
   padding: 10px;
 }
+
 .brand {
   font-family: Rubik;
   font-style: normal;
@@ -12,12 +14,23 @@
   line-height: 24px;
   color: #0b132a;
 }
+
 .colBrand {
   padding-top: 7px;
 }
+
 .form {
   margin: 0 auto;
 }
+
+.navbarWidth {
+  max-width: 1116px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  position: relative;
+}
+
 .navLink {
   font-family: Rubik;
   font-style: normal;

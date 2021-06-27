@@ -5,3 +5,9 @@
 .greyBackground {
   background-color: #ebebeb;
 }
+
+@media (max-width: 575.98px) {
+  .verticalGap {
+    padding-top: 2rem;
+  }
+}

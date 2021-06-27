@@ -3,7 +3,7 @@ import axiosApiIntances from "../../../utils/axios";
 import Layout from "../../../components/Layout";
 import styles from "../../../styles/Signup.module.css";
 import forgetStyles from "../../../styles/Forgetpassword.module.css";
-import Footer from "../../../components/module/Footer";
+import Footer from "../../../components/module/footer";
 import { Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";

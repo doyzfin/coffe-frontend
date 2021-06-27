@@ -39,7 +39,6 @@ function ProductCust(props) {
     props
       .getAllProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
-        // console.log("RES", res.value.data.data);
         setPagination(res.value.data.pagination);
         setDataMenu(
           res.value.data.data.map((item) => {
@@ -61,7 +60,6 @@ function ProductCust(props) {
     props
       .getAllPromo(Cookie.get("token"), 1000, 1)
       .then((res) => {
-        // console.log("RES PROMO", res.value.data.data);
         setDataCoupons(
           res.value.data.data.map((item) => {
             return {
@@ -136,7 +134,18 @@ function ProductCust(props) {
     setSearch(text);
   };
 
-  // console.log("main", search);
+  const convertToRupiah = (amount) => {
+    let number_string = amount.toString(),
+      sisa = number_string.length % 3,
+      rupiah = number_string.substr(0, sisa),
+      ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+    if (ribuan) {
+      let separator = sisa ? "." : "";
+      return (rupiah += separator + ribuan.join("."));
+    }
+  };
+
   return (
     <Layout title="Product Customer">
       <NavBar catchKey={catchKeywords} />
@@ -291,7 +300,9 @@ function ProductCust(props) {
                         >
                           <img alt="" src={item.image} />
                           <h1 className={styles.nameMenu}>{item.name}</h1>
-                          <p className={styles.price}>{item.price}</p>
+                          <p className={styles.price}>
+                            {convertToRupiah(item.price)}
+                          </p>
                         </Card>
                       </Col>
                     );
