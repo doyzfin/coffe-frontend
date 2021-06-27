@@ -143,23 +143,30 @@ export default function Home() {
             >
               <Col lg={4} md={4} sm={7} xs={12} className="py-5">
                 <div className={`${stylesHome.gridFavoriteCard}`}>
-                  <img
-                    src="/image 22.png"
-                    className={stylesHome.gridFavoritePicture}
-                  ></img>
-                  <div className={`${stylesHome.gridFavoriteDescription} `}>
-                    <span className={`d-block text-center`}>
-                      Hazelnut Latte
-                    </span>
-                    <ul className={stylesHome.gridFavoriteDescriptionLists}>
-                      <li>Hazelnut Syrup</li>
-                      <li>Wanilla Whipped Cream</li>
-                      <li>Ice / Hot</li>
-                      <li>Sliced Banana on Top</li>
-                    </ul>
-                    <h5 className={`${stylesHome.gridFavoriteFooter} fw-bold`}>
-                      IDR 25.000
-                    </h5>
+                  <div className={stylesHome.gridFavoriteCardInner}>
+                    <img
+                      src="/image 22.png"
+                      className={stylesHome.gridFavoritePicture}
+                    ></img>
+                    <div className={`${stylesHome.gridFavoriteDescription} `}>
+                      <span className={`d-block text-center`}>
+                        Hazelnut Latte
+                      </span>
+                      <ul className={stylesHome.gridFavoriteDescriptionLists}>
+                        <li>Hazelnut Syrup</li>
+                        <li>Wanilla Whipped Cream</li>
+                        <li>Ice / Hot</li>
+                        <li>Sliced Banana on Top</li>
+                      </ul>
+                    </div>
+                    <h5 className={`fw-bold text-center`}>IDR 25.000</h5>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className={`${stylesHome.gridFavoriteSelectButton}`}
+                      >
+                        Select
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Col>
@@ -178,9 +185,16 @@ export default function Home() {
                       <li>Strawberry Syrup</li>
                       <li>Sliced Strawberry on Top</li>
                     </ul>
-                    <h5 className={`${stylesHome.gridFavoriteFooter} fw-bold`}>
-                      IDR 30.000
-                    </h5>
+                  </div>
+                  <div className="pb-4">
+                    <h5 className={`fw-bold text-center`}>IDR 30.000</h5>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className={`${stylesHome.gridFavoriteSelectButton}`}
+                      >
+                        Select
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Col>
@@ -200,7 +214,16 @@ export default function Home() {
                       <li>Secret Recipe</li>
                       <li>Buy 1 Get 1 for Dine in</li>
                     </ul>
-                    <h5 className="fw-bold">IDR 30.000</h5>
+                  </div>
+                  <div className="pb-4">
+                    <h5 className="fw-bold text-center">IDR 30.000</h5>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className={`${stylesHome.gridFavoriteSelectButton}`}
+                      >
+                        Select
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Col>

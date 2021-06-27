@@ -128,7 +128,11 @@
   border: 1px solid #dddddd;
   border-radius: 10px;
   position: relative;
-  height: 100%;
+  min-height: 100%;
+}
+
+.divFavoriteCardInner {
+  height: inherit;
 }
 
 .gridFavoritePicture {
@@ -144,11 +148,32 @@
   position: relative;
   margin-top: 45%;
   font-weight: bold;
+  height: 300px;
+}
+
+.gridFavoriteFooterSkin {
+  height: 100%;
 }
 
 .gridFavoriteFooter {
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.gridFavotireSelectButtonPosition {
   position: relative;
   bottom: 0;
+  margin: bottom;
+}
+
+.gridFavoriteSelectButton {
+  background-color: #ffba33;
+  border: 1px solid #ffba33;
+  position: relative;
+  margin: auto;
+  border-radius: 50px;
+  height: 38px;
+  width: 55%;
 }
 
 .gridFavoriteDescriptionLists {
