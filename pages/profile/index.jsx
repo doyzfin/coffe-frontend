@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import styles from "../../styles/Profile.module.css";
-import NavBar from "components/module/NavBar";
+import NavBar from "components/module/HomeNavbar";
 import Footer from "components/module/footer";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
