@@ -2,7 +2,7 @@ import { useState } from "react";
 import Layout from "../../../components/Layout";
 import styles from "../../../styles/Signup.module.css";
 import newStyles from "../../../styles/NewPassword.module.css";
-import Footer from "../../../components/module/Footer";
+import Footer from "../../../components/module/footer";
 // import { useRouter } from "next/router";
 // import Cookies from "js-cookie";
 import axiosApiIntances from "utils/axios";
