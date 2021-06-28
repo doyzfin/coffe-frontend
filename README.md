@@ -1,34 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align='center'>Next JS - Coffee Express</h1>
+  <p align="center">
+    <a href="#">View Demo</a>
+    ·
+    <a href="https://github.com/doyzfin/coffe-frontend">Report Bug</a>
+    ·
+    <a href="https://github.com/doyzfin/coffe-frontend">Request Feature</a>
+  </p>
+
+![Image Banner](https://raw.githubusercontent.com/arkbootcamp/week7-web6-intermediateFrontend/main/image_banner.jpg)
+
+## About The Project
+
+when there is a pandemic, this application is here to make it easier for you to enjoy coffee and snacks like in a cafe
+
+## Built With
+
+[![Next](https://img.shields.io/badge/next-v11.0.0-green)](https://github.com/vercel/next.js/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-v4.5.x-blue)](https://github.com/react-bootstrap/react-bootstrap)
+
+## Requirements
+
+1. <a href="https://nodejs.org/en/download/">Node Js</a>
+2. Node_modules `npm install` or `yarn install`
+3. Backend API Coffee Express [`here`](https://github.com/Timotius-Nugroho/cofee-backend)
 
 ## Getting Started
 
-First, run the development server:
+1. Download this Project or you can type `git clone https://github.com/doyzfin/coffee-frontend.git`
+2. Open app's directory in CMD or Terminal
+3. Type `npm install` or `yarn install`
+4. Add .env file at root folder project
 
-```bash
-npm run dev
-# or
-yarn dev
+```sh
+NEXT_APP_ENDPOINT = http://localhost:3005/backend5/api/v1
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Type `npm run dev`
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Acknowledgements
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- [Axios](https://www.npmjs.com/package/axios)
+- [Next](https://nextjs.org/)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Team
 
-## Learn More
+> All Members of Coffee Express Team
 
-To learn more about Next.js, take a look at the following resources:
+|                           <a href="#" target="_blank">**Full-Stack Developer & Team Leader**</a>                           |                                                      <a href="#" target="_blank">**Front-End Developer**</a>                                                      |                                 <a href="#" target="_blank">**Front-End Developer**</a>                                 |                               <a href="#" target="_blank">**Back-End Developer**</a>                               |     |     |
+| :------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------: | :-: | :-: |
+| [![Full-Stack Developer Image](https://avatars.githubusercontent.com/u/78992859?v=4)](https://github.com/Timotius-Nugroho) | [![Front-End Developer Image](https://avatars.githubusercontent.com/u/67232524?s=400&u=074ea4d9ba2705d2192a9cb5aca98ffc8824f1b8&v=4)](https://github.com/doyzfin) | [![Front-End Developer Image](https://avatars.githubusercontent.com/u/78518079?v=4)](https://github.com/elazsyahranie) | [![Back-End Developer Image](https://avatars.githubusercontent.com/u/72638066?v=4)](https://github.com/rifqiziyad) |     |     |
+|          <a href="https://github.com/Timotius-Nugroho" target="_blank">`https://github.com/Timotius-Nugroho`</a>           |                                       <a href="https://github.com/doyzfin" target="_blank">`https://github.com/doyzfin`</a>                                       |           <a href="https://github.com/elazsyahranie" target="_blank">`https://github.com/elazsyahranie`</a>            |            <a href="https://github.com/rifqiziyad" target="_blank">`https://github.com/rifqiziyad`</a>             |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
