@@ -26,21 +26,8 @@ export async function getServerSideProps(context) {
       return {};
     });
 
-  const product = await axiosApiIntances
-    .get(`product/${productId}`, {
-      headers: {
-        Authorization: "Bearer " + data.token,
-      },
-    })
-    .then((res) => {
-      return res.data.data[0];
-    })
-    .catch((err) => {
-      return {};
-    });
-
   return {
-    props: { user, product },
+    props: { user },
   };
 }
 
@@ -64,11 +51,29 @@ export default function payment(props) {
 
   useEffect(() => {
     let total = 0;
-    for (const key in orderItem) {
-      total += orderItem[key][2];
-    }
+    orderItem.map((item) => {
+      item[0].map((it) => {
+        total += it[2];
+      });
+    });
     setSubtotal(total);
+
+    orderItem.map((item) => {
+      let subtotal = 0;
+      item[0].map((it) => {
+        subtotal += it[2];
+      });
+
+      item.push(convertToRupiah(subtotal));
+    });
   }, [orderItem]);
+
+  // looping size ===================================
+  // orderItem.map((item) => {
+  //   item[0].map((it) => {
+  //     console.log(it[0]);
+  //   });
+  // });
 
   const convertToRupiah = (amount) => {
     let number_string = amount.toString(),
@@ -111,33 +116,38 @@ export default function payment(props) {
             : subTotal,
         paymentMethod,
       };
+      // orders ===============================================
       setData.orders = orderItem.map((item) => {
-        return {
-          productId: props.product.product_id,
-          size: item[0],
-          qty: item[1],
-          totalPrice: item[2],
-        };
-      });
-
-      axiosApiIntances
-        .post("/invoice/create", setData, {
-          headers: {
-            Authorization: "Bearer " + Cookies.get("token"),
-          },
-        })
-        .then((res) => {
-          Cookies.remove("coupon");
-          Cookies.remove("item");
-          if (paymentMethod == "Midtrans") {
-            window.open(res.data.data);
-          }
-          alert("Pesanan berhasil");
-          router.push("product-cust");
-        })
-        .catch((err) => {
-          alert(err.response.data.msg);
+        // return {
+        //   productId: item[1][2],
+        //   size,
+        //   qty,
+        //   totalPrice,
+        // };
+        item[0].map((it) => {
+          return it;
         });
+      });
+      console.log(setData.orders);
+
+      // axiosApiIntances
+      //   .post("/invoice/create", setData, {
+      //     headers: {
+      //       Authorization: "Bearer " + Cookies.get("token"),
+      //     },
+      //   })
+      //   .then((res) => {
+      //     Cookies.remove("coupon");
+      //     Cookies.remove("item");
+      //     if (paymentMethod == "Midtrans") {
+      //       window.open(res.data.data);
+      //     }
+      //     alert("Pesanan berhasil");
+      //     router.push("product-cust");
+      //   })
+      //   .catch((err) => {
+      //     alert(err.response.data.msg);
+      //   });
     }
   };
 
@@ -156,34 +166,35 @@ export default function payment(props) {
                 <h1 className={styles.titleInvoice}>Order Summary</h1>
 
                 <Card className={styles.cardOrder}>
-                  <Row className={styles.rowCardOrder}>
-                    <Col sm={3} className={styles.colCardOrderImg}>
-                      <img
-                        alt=""
-                        src={`http://localhost:3005/backend5/api/${props.product.product_image}`}
-                        className={styles.imgOrder}
-                      />
-                    </Col>
-                    <Col sm={6} className={styles.colCardOrder}>
-                      <p className={styles.Order}>
-                        {props.product.product_name}
-                      </p>
-                      {orderItem.map((item, index) => {
-                        return (
-                          <div key={index}>
-                            <p className={styles.Order}>
-                              x{item[1]} {item[0]}
-                            </p>
-                          </div>
-                        );
-                      })}
-                    </Col>
-                    <Col sm={4} className={styles.colPriceOrder}>
-                      <p className={styles.priceOrder}>
-                        IDR {convertToRupiah(subTotal)}
-                      </p>
-                    </Col>
-                  </Row>
+                  {orderItem.map((item, index) => {
+                    return (
+                      <Row className={styles.rowCardOrder} key={index}>
+                        <Col sm={3} className={styles.colCardOrderImg}>
+                          <img
+                            alt=""
+                            src={`http://localhost:3005/backend5/api/${item[1][1]}`}
+                            className={styles.imgOrder}
+                          />
+                        </Col>
+                        <Col sm={6} className={styles.colCardOrder}>
+                          <p className={styles.Order}>{item[1][0]}</p>
+                          {item[0].map((itemName, indexName) => {
+                            return (
+                              <div key={indexName}>
+                                <p className={styles.Order}>
+                                  x{itemName[1]} {convertToRupiah(itemName[2])}
+                                </p>
+                              </div>
+                            );
+                          })}
+                        </Col>
+
+                        <Col sm={4} className={styles.colPriceOrder}>
+                          <p className={styles.priceOrder}>IDR {item[2]}</p>
+                        </Col>
+                      </Row>
+                    );
+                  })}
                 </Card>
 
                 <hr />
