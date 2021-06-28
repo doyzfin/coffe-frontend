@@ -68,13 +68,6 @@ export default function payment(props) {
     });
   }, [orderItem]);
 
-  // looping size ===================================
-  // orderItem.map((item) => {
-  //   item[0].map((it) => {
-  //     console.log(it[0]);
-  //   });
-  // });
-
   const convertToRupiah = (amount) => {
     let number_string = amount.toString(),
       sisa = number_string.length % 3,
@@ -116,38 +109,40 @@ export default function payment(props) {
             : subTotal,
         paymentMethod,
       };
-      // orders ===============================================
-      setData.orders = orderItem.map((item) => {
-        // return {
-        //   productId: item[1][2],
-        //   size,
-        //   qty,
-        //   totalPrice,
-        // };
-        item[0].map((it) => {
-          return it;
+
+      let allOlderItems = [];
+      orderItem.map((item) => {
+        item[0].map((detail) => {
+          allOlderItems.push({
+            productId: item[1][2],
+            size: detail[0],
+            qty: detail[1],
+            totalPrice: detail[2],
+          });
         });
       });
-      console.log(setData.orders);
+      setData.orders = allOlderItems;
+      console.log("data raw", orderItem);
+      console.log("data olah", allOlderItems);
 
-      // axiosApiIntances
-      //   .post("/invoice/create", setData, {
-      //     headers: {
-      //       Authorization: "Bearer " + Cookies.get("token"),
-      //     },
-      //   })
-      //   .then((res) => {
-      //     Cookies.remove("coupon");
-      //     Cookies.remove("item");
-      //     if (paymentMethod == "Midtrans") {
-      //       window.open(res.data.data);
-      //     }
-      //     alert("Pesanan berhasil");
-      //     router.push("product-cust");
-      //   })
-      //   .catch((err) => {
-      //     alert(err.response.data.msg);
-      //   });
+      axiosApiIntances
+        .post("/invoice/create", setData, {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        })
+        .then((res) => {
+          Cookies.remove("coupon");
+          Cookies.remove("item");
+          if (paymentMethod == "Midtrans") {
+            window.open(res.data.data);
+          }
+          alert("Pesanan berhasil");
+          router.push("product-cust");
+        })
+        .catch((err) => {
+          alert(err.response.data.msg);
+        });
     }
   };
 
