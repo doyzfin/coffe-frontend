@@ -102,6 +102,12 @@ function Login(props) {
                       Success Login
                     </Alert>
                   )}
+                  {/* <Alert variant="danger" className={styles.alert}>
+                    {msgError}
+                  </Alert>
+                  <Alert variant="success" className={styles.alert}>
+                    Success Login
+                  </Alert> */}
                   <form
                     className={`mt-5 ${styles.formWidth}`}
                     onSubmit={handleLogin}
@@ -158,7 +164,7 @@ function Login(props) {
                 </div>
               </div>
             </div>
-            <div className={`card ${styles.memberCard}`}>
+            <div className={`card ${styles.memberCardLogin}`}>
               <div className="d-flex justify-content-around h-100 p-4">
                 <div className="row">
                   <h5 className="fw-bold">Get your member</h5>
@@ -173,8 +179,10 @@ function Login(props) {
               </div>
             </div>
           </div>
-          <div className={styles.footerSpacingLogin}>
-            <Footer />
+          <div className="pt-5">
+            <div className={`${styles.footerSpacingLogin} pt-5`}>
+              <Footer />
+            </div>
           </div>
         </div>
       </Layout>

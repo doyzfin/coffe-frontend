@@ -108,34 +108,48 @@ function newProduct(props) {
   };
 
   const handlePost = () => {
-    const formData = new FormData();
-    formData.append("productName", formProduct.productName);
-    formData.append("productPrice", formProduct.productPrice);
-    formData.append("productCategory", formProduct.productCategory);
-    formData.append("productSize", formProduct.productSize);
-    formData.append("productDesc", formProduct.productDesc);
-    formData.append("image", formProduct.image);
-    props
-      .postProduct(formData, token)
-      .then((res) => {
-        setIsSuccess(true);
-        setMsgSuccess(res.action.payload.data.msg);
-        setTimeout(() => {
-          setIsSuccess(false);
-        }, 3000);
-        handleCancel();
+    if (
+      formProduct.productName === "" ||
+      formProduct.productPrice === "" ||
+      formProduct.productCategory === "" ||
+      formProduct.productSize === "" ||
+      formProduct.productDesc === ""
+    ) {
+      setIsError(true);
+      setMsgError("please fill your input correctly !");
+      setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+    } else {
+      const formData = new FormData();
+      formData.append("productName", formProduct.productName);
+      formData.append("productPrice", formProduct.productPrice);
+      formData.append("productCategory", formProduct.productCategory);
+      formData.append("productSize", formProduct.productSize);
+      formData.append("productDesc", formProduct.productDesc);
+      formData.append("image", formProduct.image);
+      props
+        .postProduct(formData, token)
+        .then((res) => {
+          setIsSuccess(true);
+          setMsgSuccess(res.action.payload.data.msg);
+          setTimeout(() => {
+            setIsSuccess(false);
+          }, 3000);
+          handleCancel();
 
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsImage(false);
-        setIsError(true);
-        setMsgError(err.response.data.msg);
-        setTimeout(() => {
-          setIsError(false);
-        }, 3000);
-      });
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsImage(false);
+          setIsError(true);
+          setMsgError(err.response.data.msg);
+          setTimeout(() => {
+            setIsError(false);
+          }, 3000);
+        });
+    }
   };
 
   return (
