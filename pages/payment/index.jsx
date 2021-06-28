@@ -39,6 +39,7 @@ export default function payment(props) {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [promoCode, setPromoCode] = useState("");
   const [subTotal, setSubtotal] = useState(0);
+  const [dataProduct, setDataProduct] = useState([]);
 
   useEffect(() => {
     if (Cookies.get("coupon")) {
@@ -63,17 +64,15 @@ export default function payment(props) {
       item[0].map((it) => {
         subtotal += it[2];
       });
-
       item.push(convertToRupiah(subtotal));
     });
-  }, [orderItem]);
 
-  // looping size ===================================
-  // orderItem.map((item) => {
-  //   item[0].map((it) => {
-  //     console.log(it[0]);
-  //   });
-  // });
+    orderItem.map((item) => {
+      item[0].map((itm) => {
+        dataProduct.push(itm);
+      });
+    });
+  }, [orderItem]);
 
   const convertToRupiah = (amount) => {
     let number_string = amount.toString(),
@@ -117,17 +116,24 @@ export default function payment(props) {
         paymentMethod,
       };
       // orders ===============================================
+
+      // setData.orders = orderItem.map((item) => {
+      //   item[0].map((itm) => {
+      //     return {
+      //       productId: item[1][2],
+      //       size: item[0],
+      //       qty: itm[1],
+      //       totalPrice: item[2],
+      //     };
+      //   });
+      // });
+
       setData.orders = orderItem.map((item) => {
-        // return {
-        //   productId: item[1][2],
-        //   size,
-        //   qty,
-        //   totalPrice,
-        // };
-        item[0].map((it) => {
-          return it;
-        });
+        return {
+          productId: item[1][2],
+        };
       });
+
       console.log(setData.orders);
 
       // axiosApiIntances
