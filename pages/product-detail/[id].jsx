@@ -78,10 +78,6 @@ export default function ProductDetail(props) {
     if (Cookies.get("item")) {
       setOrderItem(JSON.parse(Cookies.get("item")));
     }
-
-    if (Cookies.get("productData")) {
-      setProductData(JSON.parse(Cookies.get("productData")));
-    }
   }, []);
 
   const countPlus = () => {
