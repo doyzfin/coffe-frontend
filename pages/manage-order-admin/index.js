@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout";
 import Navbar from "../../components/module/AdminDashboardNavbar";
-import { Container, Row, Col, Card, Modal, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Modal } from "react-bootstrap";
 import styles from "../../styles/ManageOrderAdmin.module.css";
 import Footer from "../../components/module/footer";
 import axiosApiIntances from "utils/axios";
@@ -13,7 +13,6 @@ import { updateStatus } from "redux/actions/invoice";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
-
   const limit = 1;
 
   const res = await axiosApiIntances
@@ -48,7 +47,6 @@ function manageOrderAdmin(props) {
   }, []);
 
   useEffect(() => {
-    console.log(page);
     const limit = 1;
     axiosApiIntances
       .get(`invoice/pending?limit=${limit}&page=${page}`, {
@@ -57,7 +55,6 @@ function manageOrderAdmin(props) {
         },
       })
       .then((res) => {
-        console.log(res);
         setData(res.data.data);
         setPagination(res.data.pagination);
       });
@@ -86,10 +83,10 @@ function manageOrderAdmin(props) {
   const handleDone = (event) => {
     event.preventDefault();
     const id = data[0].invoice_id;
-    console.log(id);
     props
       .updateStatus(id, token)
       .then((res) => {
+        return res;
         setIsDone(true);
         getData();
         setPage(1);
@@ -97,7 +94,6 @@ function manageOrderAdmin(props) {
       .catch((err) => {
         setIsError(true);
         setMsgError(err.response.data.msg);
-        console.log(err);
       });
   };
 

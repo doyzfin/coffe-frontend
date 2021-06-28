@@ -29,7 +29,6 @@ export default function signup() {
   };
   const handleSignUp = (event) => {
     event.preventDefault();
-    // console.log(form);
     if (
       form.userEmail.length === 0 ||
       form.userPassword.length === 0 ||
@@ -42,6 +41,7 @@ export default function signup() {
       axiosApiIntances
         .post("/auth/register", form)
         .then((res) => {
+          return res;
           setIsSuccess(true);
           setIsError(false);
           setTimeout(() => {
@@ -104,12 +104,6 @@ export default function signup() {
                       !
                     </Alert>
                   )}
-                  {/* <Alert variant="danger" className={styles.alert}>
-                    {msgError}
-                  </Alert>
-                  <Alert variant="success" className={styles.alert}>
-                    Register Succesful please check your email for activation !
-                  </Alert> */}
                   <form className={`mt-5 ${styles.formWidth}`}>
                     <div className="my-4">
                       <span className="fw-bold">Email Address</span>

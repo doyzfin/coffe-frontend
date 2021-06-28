@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import NavBar from "components/module/NavBar";
 
 export async function getServerSideProps(context) {
-  const { productId } = context.query;
   const data = await authPage(context);
   const user = await axiosApiIntances
     .get(`user/${data.userId}`, {
@@ -22,7 +21,6 @@ export async function getServerSideProps(context) {
       return res.data.data[0];
     })
     .catch((err) => {
-      console.log(err.response);
       return {};
     });
 
@@ -39,7 +37,6 @@ export default function payment(props) {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [promoCode, setPromoCode] = useState("");
   const [subTotal, setSubtotal] = useState(0);
-  const [dataProduct, setDataProduct] = useState([]);
 
   useEffect(() => {
     if (Cookies.get("coupon")) {
@@ -64,13 +61,8 @@ export default function payment(props) {
       item[0].map((it) => {
         subtotal += it[2];
       });
-      item.push(convertToRupiah(subtotal));
-    });
 
-    orderItem.map((item) => {
-      item[0].map((itm) => {
-        dataProduct.push(itm);
-      });
+      item.push(convertToRupiah(subtotal));
     });
   }, [orderItem]);
 
@@ -115,45 +107,40 @@ export default function payment(props) {
             : subTotal,
         paymentMethod,
       };
-      // orders ===============================================
 
-      // setData.orders = orderItem.map((item) => {
-      //   item[0].map((itm) => {
-      //     return {
-      //       productId: item[1][2],
-      //       size: item[0],
-      //       qty: itm[1],
-      //       totalPrice: item[2],
-      //     };
-      //   });
-      // });
-
-      setData.orders = orderItem.map((item) => {
-        return {
-          productId: item[1][2],
-        };
+      let allOlderItems = [];
+      orderItem.map((item) => {
+        item[0].map((detail) => {
+          allOlderItems.push({
+            productId: item[1][2],
+            size: detail[0],
+            qty: detail[1],
+            totalPrice: detail[2],
+          });
+        });
       });
+      setData.orders = allOlderItems;
+      console.log("data raw", orderItem);
+      console.log("data olah", allOlderItems);
 
-      console.log(setData.orders);
-
-      // axiosApiIntances
-      //   .post("/invoice/create", setData, {
-      //     headers: {
-      //       Authorization: "Bearer " + Cookies.get("token"),
-      //     },
-      //   })
-      //   .then((res) => {
-      //     Cookies.remove("coupon");
-      //     Cookies.remove("item");
-      //     if (paymentMethod == "Midtrans") {
-      //       window.open(res.data.data);
-      //     }
-      //     alert("Pesanan berhasil");
-      //     router.push("product-cust");
-      //   })
-      //   .catch((err) => {
-      //     alert(err.response.data.msg);
-      //   });
+      axiosApiIntances
+        .post("/invoice/create", setData, {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        })
+        .then((res) => {
+          Cookies.remove("coupon");
+          Cookies.remove("item");
+          if (paymentMethod == "Midtrans") {
+            window.open(res.data.data);
+          }
+          alert("Pesanan berhasil");
+          router.push("product-cust");
+        })
+        .catch((err) => {
+          alert(err.response.data.msg);
+        });
     }
   };
 

@@ -148,9 +148,7 @@ function updatepromo(props) {
       if (typeof formPromo.image === "object") {
         formData.append("image", formPromo.image);
       }
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ", " + pair[1]);
-      }
+
       props
         .updatePromo(id, formData, token)
         .then((res) => {

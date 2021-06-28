@@ -20,7 +20,6 @@ import {
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
-  // console.log("data", data);
 
   const user = await axiosApiIntances
     .get(`user/${data.userId}`, {
@@ -90,9 +89,6 @@ function Profile(props) {
     if (image) {
       formData.append("image", image);
     }
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
 
     props
       .updateUser(user.user_id, formData, token)
@@ -104,7 +100,6 @@ function Profile(props) {
         }, 3000);
       })
       .catch((err) => {
-        // console.log(err.response);
         setShowAlert([true, err.response.data.msg]);
         setTimeout(() => {
           setShowAlert([false, ""]);
@@ -119,7 +114,6 @@ function Profile(props) {
         setUser(res.value.data.data[0]);
       })
       .catch((err) => {
-        console.log(err);
         setShowAlert([true, "uknow error !"]);
         setTimeout(() => {
           setShowAlert([false, ""]);
@@ -128,12 +122,10 @@ function Profile(props) {
   };
 
   const selectGender = (event) => {
-    console.log(event.target.value);
     setUserGender(event.target.value);
   };
 
   const handleRemovePhoto = () => {
-    // console.log(token);
     props
       .deleteImage(user.user_id, token)
       .then((res) => {
@@ -157,7 +149,6 @@ function Profile(props) {
     router.push("/login");
   };
 
-  // console.log("GENDER", user.user_id);
   return (
     <Layout title="Profile">
       <NavBar global={true} />

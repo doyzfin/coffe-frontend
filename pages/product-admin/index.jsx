@@ -34,11 +34,9 @@ function productAdmin(props) {
   const [dataMenu, setDataMenu] = useState([]);
 
   useEffect(() => {
-    // setSearch(props.keywords);
     props
       .getAllProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
-        // console.log("RES", res.value.data.data);
         setPagination(res.value.data.pagination);
         setDataMenu(
           res.value.data.data.map((item) => {
@@ -60,7 +58,6 @@ function productAdmin(props) {
     props
       .getAllPromo(Cookie.get("token"), 1000, 1)
       .then((res) => {
-        // console.log("RES PROMO", res.value.data.data);
         setDataCoupons(
           res.value.data.data.map((item) => {
             return {
@@ -83,11 +80,9 @@ function productAdmin(props) {
   }, []);
 
   useEffect(() => {
-    // setSearch(props.keywords);
     props
       .getAllProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
-        // console.log("RES", res.value.data.data);
         setPagination(res.value.data.pagination);
         setDataMenu(
           res.value.data.data.map((item) => {
@@ -125,16 +120,12 @@ function productAdmin(props) {
   };
 
   const updateProduct = (id) => {
-    // console.log("update P", id);
     router.push(`/set-product/${id}`);
   };
 
   const updateCoupon = (id) => {
-    // console.log("update C", id);
     router.push(`/set-promo/${id}`);
   };
-
-  // console.log(category);
 
   return (
     <>

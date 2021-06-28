@@ -7,7 +7,7 @@ import Footer from "components/module/footer";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
 import { useRouter } from "next/router";
-import Cookies, { set } from "js-cookie";
+import Cookies from "js-cookie";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -23,7 +23,7 @@ export async function getServerSideProps(context) {
       return res.data.data;
     })
     .catch(() => {
-      return [];
+      return {};
     });
 
   return {
@@ -77,10 +77,6 @@ export default function ProductDetail(props) {
 
     if (Cookies.get("item")) {
       setOrderItem(JSON.parse(Cookies.get("item")));
-    }
-
-    if (Cookies.get("productData")) {
-      setProductData(JSON.parse(Cookies.get("productData")));
     }
   }, []);
 
@@ -286,7 +282,6 @@ export default function ProductDetail(props) {
       router.push(`/product-cust`);
     }
   };
-  console.log(orderItem);
 
   return (
     <Layout title="Product Detail">

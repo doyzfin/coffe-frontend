@@ -137,8 +137,6 @@ function newProduct(props) {
             setIsSuccess(false);
           }, 3000);
           handleCancel();
-
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);

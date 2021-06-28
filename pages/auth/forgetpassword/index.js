@@ -52,7 +52,6 @@ export default function forgetpassword() {
           setIsError(true);
           setIsSuccess(false);
           setMsgError("Email is not registered");
-          console.log("This is " + err);
         });
     }
   };
@@ -97,12 +96,6 @@ export default function forgetpassword() {
                     Email not registered !
                   </Alert>
                 )}
-                {/* <Alert
-                  variant="danger"
-                  className={`${forgetStyles.alert} mx-auto`}
-                >
-                  Email not registered !
-                </Alert> */}
               </div>
               <div className={forgetStyles.lowerHeaderContent}>
                 <span className="text-center d-block fw-bold">

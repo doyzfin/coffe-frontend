@@ -3,8 +3,6 @@ import Layout from "../../../components/Layout";
 import styles from "../../../styles/Signup.module.css";
 import newStyles from "../../../styles/NewPassword.module.css";
 import Footer from "../../../components/module/footer";
-// import { useRouter } from "next/router";
-// import Cookies from "js-cookie";
 import axiosApiIntances from "utils/axios";
 import { Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
@@ -18,7 +16,6 @@ export async function getServerSideProps(context) {
 
 export default function forgetpassword() {
   const userEmailCookie = Cookie.get("userEmail");
-  // console.log("And the email is " + userEmailCookie);
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -47,15 +44,15 @@ export default function forgetpassword() {
       axiosApiIntances
         .post("auth/request-change-password", form)
         .then((res) => {
+          return res;
           setIsSuccess(true);
           setIsError(false);
-          console.log(res);
           setTimeout(() => {
             moveToLoginPage();
           }, 2000);
         })
         .catch((err) => {
-          console.log("This is " + err);
+          return err;
         });
     }
   };
@@ -99,21 +96,6 @@ export default function forgetpassword() {
                   </div>
                 </div>
               </form>
-              {/* <div className="mt-4">
-                <Alert
-                  variant="danger"
-                  className={`${newStyles.alert} mx-auto`}
-                >
-                  Message error here
-                </Alert>
-                <Alert
-                  variant="success"
-                  className={`${newStyles.alert} mx-auto`}
-                >
-                  We have sent you an email to restart your password! Please
-                  check it out!
-                </Alert>
-              </div> */}
               <div className="mt-4">
                 {isError && (
                   <Alert

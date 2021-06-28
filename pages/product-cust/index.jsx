@@ -54,7 +54,7 @@ function ProductCust(props) {
         );
       })
       .catch((err) => {
-        console.log(err.response.status);
+        return err;
       });
 
     props
@@ -77,7 +77,7 @@ function ProductCust(props) {
         );
       })
       .catch((err) => {
-        console.log(err.response);
+        return err;
       });
   }, []);
 
@@ -86,7 +86,6 @@ function ProductCust(props) {
     props
       .getAllProduct(Cookie.get("token"), search, limit, page, category)
       .then((res) => {
-        // console.log("RES", res.value.data.data);
         setPagination(res.value.data.pagination);
         setDataMenu(
           res.value.data.data.map((item) => {
@@ -102,7 +101,6 @@ function ProductCust(props) {
         );
       })
       .catch((err) => {
-        console.log(err.response.status);
         if (err.response.status === 404) {
           setDataMenu([]);
           setPagination({});

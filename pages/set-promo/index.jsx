@@ -93,11 +93,8 @@ function setpromo(props) {
             setIsSuccess(false);
           }, 3000);
           handleCancel();
-
-          console.log(res);
         })
         .catch((err) => {
-          console.log(err);
           setIsImage(false);
           setIsError(true);
           setMsgError(err.response.data.msg);

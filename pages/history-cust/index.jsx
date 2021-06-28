@@ -6,10 +6,8 @@ import styles from "../../styles/HistoryCust.module.css";
 import { useState, useEffect } from "react";
 import { authPage } from "middleware/authorizationPage";
 import Cookie from "js-cookie";
-
 import { connect } from "react-redux";
 import { getOrder, deleteOrder } from "redux/actions/order";
-import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -62,11 +60,12 @@ function historyCust(props) {
     props
       .deleteOrder(orderId, Cookie.get("token"))
       .then((res) => {
+        return res;
         handleCloseDelete();
         getHistory();
       })
       .catch((err) => {
-        console.log(err.response);
+        return err.response;
       });
   };
 

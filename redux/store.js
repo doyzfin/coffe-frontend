@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from "redux";
-import logger from "redux-logger";
 import promiseMiddleware from "redux-promise-middleware";
 import rootReducer from "./reducer";
 import { useMemo } from "react";
@@ -12,7 +11,7 @@ function initStore(preloadedState = {}) {
   return createStore(
     rootReducer,
     preloadedState,
-    composeWithDevTools(applyMiddleware(promiseMiddleware, logger))
+    composeWithDevTools(applyMiddleware(promiseMiddleware))
   );
 }
 
