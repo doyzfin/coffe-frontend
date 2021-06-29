@@ -1,10 +1,10 @@
 <h1 align='center'>Next JS - Coffee Express</h1>
   <p align="center">
-    <a href="#">View Demo</a>
+    <a href="https://coffee-frontend.vercel.app/">View Demo</a>
     ·
-    <a href="https://github.com/doyzfin/coffe-frontend">Report Bug</a>
+    <a href="https://github.com/doyzfin/coffe-frontend/issues">Report Bug</a>
     ·
-    <a href="https://github.com/doyzfin/coffe-frontend">Request Feature</a>
+    <a href="https://github.com/doyzfin/coffe-frontend/pulls">Request Feature</a>
   </p>
 
 ![Image Banner](https://raw.githubusercontent.com/arkbootcamp/week7-web6-intermediateFrontend/main/image_banner.jpg)
