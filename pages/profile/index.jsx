@@ -78,6 +78,22 @@ function Profile(props) {
   };
 
   const handleUpdate = () => {
+    if (
+      userEmail === "" ||
+      userPhone === "" ||
+      userAddress === "" ||
+      userDisplayName === "" ||
+      userFirstName === "" ||
+      userLastName === "" ||
+      userBirthday === ""
+    ) {
+      setShowAlert([true, "Please input field correctly !"]);
+      setTimeout(() => {
+        setShowAlert([false, ""]);
+        refreshUserData();
+      }, 3000);
+      return false;
+    }
     const formData = new FormData();
     formData.append("userEmail", userEmail);
     formData.append("userPhone", userPhone);

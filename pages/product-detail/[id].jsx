@@ -7,7 +7,7 @@ import Footer from "components/module/footer";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
+import Cookies, { set } from "js-cookie";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -41,10 +41,10 @@ export default function ProductDetail(props) {
   const priceR = props.product[0].product_price;
   const priceL = (priceR * 50) / 100 + priceR;
   const priceXL = (priceL * 50) / 100 + priceL;
-  const [productName, setProductName] = useState("");
   const [order, setOrder] = useState({});
   const [checkout, setCheckout] = useState([]);
   const [productType, setProductType] = useState([]);
+  const [orderItem, setOrderItem] = useState([]);
 
   const handleProductCategory = () => {
     if (props.product[0].product_category == "fav") {
@@ -64,14 +64,6 @@ export default function ProductDetail(props) {
     }
   };
 
-  const handleCart = () => {
-    if (count === 0) {
-      alert("Choose a size");
-    } else {
-      alert("Berhasil masuk ke cart");
-    }
-  };
-
   useEffect(() => {
     setCheckout(Object.keys(order).map((key) => order[key]));
   }, [count, size]);
@@ -81,6 +73,10 @@ export default function ProductDetail(props) {
       setProductType(["R", "L", "XL"]);
     } else {
       setProductType(["250gr", "300gr", "500gr"]);
+    }
+
+    if (Cookies.get("item")) {
+      setOrderItem(JSON.parse(Cookies.get("item")));
     }
   }, []);
 
@@ -170,7 +166,6 @@ export default function ProductDetail(props) {
     setQty(1);
     setCount(1);
     setCart(true);
-    setProductName(props.product[0].product_name);
     if (stringSize == "R" || stringSize == "250gr") {
       setSize(stringSize);
       setPrice(priceR);
@@ -223,13 +218,71 @@ export default function ProductDetail(props) {
 
   const handleCheckout = () => {
     event.preventDefault();
-    console.log(checkout);
 
-    Cookies.set("item", checkout);
-    Cookies.set("productId", props.product[0].product_id);
+    if (orderItem.length > 0) {
+      Cookies.set("item", [
+        ...orderItem,
+        [
+          [...checkout],
+          [
+            props.product[0].product_name,
+            props.product[0].product_image,
+            props.product[0].product_id,
+          ],
+        ],
+      ]);
+    } else {
+      Cookies.set("item", [
+        [
+          [...checkout],
+          [
+            props.product[0].product_name,
+            props.product[0].product_image,
+            props.product[0].product_id,
+          ],
+        ],
+      ]);
+    }
 
-    router.push(`/payment?productId=${props.product[0].product_id}`);
+    router.push(`/payment`);
   };
+
+  const handleCart = () => {
+    if (count === 0) {
+      alert("Choose a size");
+    } else {
+      event.preventDefault();
+
+      if (orderItem.length > 0) {
+        Cookies.set("item", [
+          ...orderItem,
+          [
+            [...checkout],
+            [
+              props.product[0].product_name,
+              props.product[0].product_image,
+              props.product[0].product_id,
+            ],
+          ],
+        ]);
+      } else {
+        Cookies.set("item", [
+          [
+            [...checkout],
+            [
+              props.product[0].product_name,
+              props.product[0].product_image,
+              props.product[0].product_id,
+            ],
+          ],
+        ]);
+      }
+
+      alert("Berhasil masuk ke cart");
+      router.push(`/product-cust`);
+    }
+  };
+  console.log(orderItem);
 
   return (
     <Layout title="Product Detail">
