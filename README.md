@@ -7,7 +7,7 @@
     <a href="https://github.com/doyzfin/coffe-frontend">Request Feature</a>
   </p>
 
-![Image Banner](https://raw.githubusercontent.com/arkbootcamp/week7-web6-intermediateFrontend/main/image_banner.jpg)
+![Image Banner](/coffee.png)
 
 ## About The Project
 
