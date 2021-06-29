@@ -16,7 +16,9 @@ when there is a pandemic, this application is here to make it easier for you to 
 ## Built With
 
 [![Next](https://img.shields.io/badge/next-v11.0.0-green)](https://github.com/vercel/next.js/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-v4.5.x-blue)](https://github.com/react-bootstrap/react-bootstrap)
+[![React Bootstrap](https://img.shields.io/badge/React%20Bootstrap-1.6.1-blue)](https://github.com/react-bootstrap/react-bootstrap)
+[![Redux](https://img.shields.io/badge/Redux-4.1.0-yellowgreen)](https://redux.js.org/)
+[![Axios](https://img.shields.io/badge/Axios-0.21.1-orange)](https://axios-http.com/docs/intro)
 
 ## Requirements
 
