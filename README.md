@@ -19,6 +19,7 @@ when there is a pandemic, this application is here to make it easier for you to 
 [![React Bootstrap](https://img.shields.io/badge/React%20Bootstrap-v1.6.1-blue)](https://github.com/react-bootstrap/react-bootstrap)
 [![Redux](https://img.shields.io/badge/Redux-v4.1.0-yellowgreen)](https://redux.js.org/)
 [![Axios](https://img.shields.io/badge/Axios-v0.21.1-orange)](https://axios-http.com/docs/intro)
+[![Rechart](https://img.shields.io/badge/Rechart-v2.0.9-lightgrey)](https://recharts.org/en-US/guide/getting-started)
 
 ## Requirements
 
@@ -45,6 +46,7 @@ NEXT_APP_ENDPOINT = http://localhost:3005/backend5/api/v1
 - [Next](https://nextjs.org/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [Redux](https://redux.js.org/)
+- [Rechart](https://recharts.org/en-US/guide/getting-started)
 
 ## Team
 
