@@ -7,7 +7,7 @@
     <a href="https://github.com/doyzfin/coffe-frontend/pulls">Request Feature</a>
   </p>
 
-![Image Banner](https://raw.githubusercontent.com/doyzfin/coffee-frontend/main/public/coffee.png)
+![Image Banner](https://raw.githubusercontent.com/doyzfin/coffee-frontend/main/public/coffee.jpg)
 
 ## About The Project
 
