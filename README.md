@@ -41,6 +41,8 @@ NEXT_APP_ENDPOINT = http://localhost:3005/backend5/api/v1
 
 - [Axios](https://www.npmjs.com/package/axios)
 - [Next](https://nextjs.org/)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [Redux](https://redux.js.org/)
 
 ## Team
 
