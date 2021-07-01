@@ -291,7 +291,11 @@ function productAdmin(props) {
                   return (
                     <Col key={index}>
                       <Card className={`${styles.cardMenu} mx-auto`}>
-                        <img alt="" src={item.image} />
+                        <img
+                          alt=""
+                          src={item.image}
+                          className="rounded-circle"
+                        />
                         <h1 className={styles.nameMenu}>{item.name}</h1>
                         <p className={styles.price}>{item.price}</p>
                         <span

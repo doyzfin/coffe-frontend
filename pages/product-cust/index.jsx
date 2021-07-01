@@ -298,7 +298,11 @@ function ProductCust(props) {
                             moveToProductDetail(item.productId);
                           }}
                         >
-                          <img alt="" src={item.image} />
+                          <img
+                            alt=""
+                            src={item.image}
+                            className="rounded-circle"
+                          />
                           <h1 className={styles.nameMenu}>{item.name}</h1>
                           <p className={styles.price}>
                             {convertToRupiah(item.price)}
