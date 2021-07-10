@@ -167,7 +167,7 @@ export default function payment(props) {
                         <Col sm={3} className={styles.colCardOrderImg}>
                           <img
                             alt=""
-                            src={`http://localhost:3005/backend5/api/${item[1][1]}`}
+                            src={`https://coffee-exprees.herokuapp.com/backend5/api/${item[1][1]}`}
                             className={styles.imgOrder}
                           />
                         </Col>

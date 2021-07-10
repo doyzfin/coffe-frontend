@@ -213,7 +213,7 @@ function updatepromo(props) {
                       src={
                         isImage
                           ? imagePromo
-                          : `http://localhost:3005/backend5/api/${props.data.promo_image}`
+                          : `https://coffee-exprees.herokuapp.com/backend5/api/${props.data.promo_image}`
                       }
                       className={styles.camera}
                     />

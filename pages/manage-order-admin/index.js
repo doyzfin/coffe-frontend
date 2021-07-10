@@ -144,7 +144,7 @@ function manageOrderAdmin(props) {
                               key={index}
                             >
                               <img
-                                src={`http://localhost:3005/backend5/api/${item.product_image}`}
+                                src={`https://coffee-exprees.herokuapp.com/backend5/api/${item.product_image}`}
                                 className={styles.productImg}
                               ></img>
                               <div className="row px-4">

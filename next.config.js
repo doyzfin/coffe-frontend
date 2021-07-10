@@ -1,7 +1,7 @@
 module.exports = {
   env: {
-    BASE_URL: "http://localhost:3005/backend5/api/v1",
-    IMAGE_URL: "http://localhost:3005/backend5/api",
+    BASE_URL: "https://coffee-exprees.herokuapp.com/backend5/api/v1",
+    IMAGE_URL: "https://coffee-exprees.herokuapp.com/backend5/api",
   },
   async rewrites() {
     return [

@@ -210,7 +210,7 @@ function setProduct(props) {
                 src={
                   isImage
                     ? imageProduct
-                    : `http://localhost:3005/backend5/api/${props.data.product_image}`
+                    : `https://coffee-exprees.herokuapp.com/backend5/api/${props.data.product_image}`
                 }
                 className={styles.camera}
               />

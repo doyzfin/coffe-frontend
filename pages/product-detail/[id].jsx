@@ -298,7 +298,7 @@ export default function ProductDetail(props) {
           <div className={`col-5 ${styles.colLeft}`}>
             {props.product[0].product_image ? (
               <img
-                src={`http://localhost:3005/backend5/api/${props.product[0].product_image}`}
+                src={`https://coffee-exprees.herokuapp.com/backend5/api/${props.product[0].product_image}`}
                 alt=""
               />
             ) : (
@@ -372,7 +372,7 @@ export default function ProductDetail(props) {
               onClick={handleCheckout}
             >
               <img
-                src={`http://localhost:3005/backend5/api/${props.product[0].product_image}`}
+                src={`https://coffee-exprees.herokuapp.com/backend5/api/${props.product[0].product_image}`}
                 alt=""
               />
               <div className={styles.order}>
